@@ -1,0 +1,65 @@
+.il-alert {
+  width: 100%;
+  height: 2rem;
+  padding: 0.25rem 0;
+  position: absolute;
+  transition: $delay;
+  opacity: 0;
+  left: 0;
+  top: 203px;
+  @include ease($delay);
+  //transform: translateY(-50%);
+  & p {
+    line-height: 1.5rem;
+    text-align: center;
+    margin: 0;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  }
+  &--success {
+    background: $backcolor-alert-success;
+    & p {
+      color: #0f2529;
+    }
+  }
+  &--info {
+    background: $backcolor-alert-info;
+    & p {
+      color: #19535e;
+    }
+  }
+  &--danger {
+    background: $backcolor-alert-danger;
+    & p {
+      color: #e3ee4f;
+    }
+  }
+  &--warning {
+    background: $backcolor-alert-warning;
+    & p {
+      color: #e6cde5;
+    }
+  }
+  &--show {
+    @include ease($delay);
+    opacity: 0.9;
+    z-index: 10;
+  }
+  &--posisione {
+    transition: $delay;
+    position: absolute;
+    z-index: 4;
+    display: block;
+    top: $top-show;
+    opacity: $opacity-show;
+  }
+  &--hidden {
+    @include ease($delay);
+    //position: absolute;
+    //z-index: 4;
+    //display: none;
+    top: $top;
+    opacity: 0.6;
+  }
+}

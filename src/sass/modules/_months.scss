@@ -1,0 +1,47 @@
+.il-months {
+  display: flex;
+  margin: 0 0.15rem;
+  justify-content: center;
+  padding: 0.45rem;
+  & .il-month--box {
+    flex: 1;
+    border: 1px solid #72c6f7;
+    margin: 0.15rem;
+    background: transparent;
+    & span {
+      display: block;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      color: white;
+      &:hover {
+        color: #d6fefe;
+      }
+      &.actived {
+        border: none;
+        background: #0c4eb1;
+        & span {
+          color: #96d1f3;
+          &:hover {
+            color: #ecf02c;
+            font-weight: bolder;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+    &.is-active,
+    &.actived {
+      border: none;
+      background: #0c4eb1;
+      & span {
+        color: #96d1f3;
+        &:hover {
+          color: #ecf02c;
+          font-weight: bolder;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}

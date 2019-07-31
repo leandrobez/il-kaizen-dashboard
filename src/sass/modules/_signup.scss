@@ -1,0 +1,30 @@
+.il-signup{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    @media screen and(min-width: 480x) {
+      max-width: 460px;
+    }
+    @media screen and(min-width: 681px ) and(max-width: 767px) {
+      max-width: 660px;
+    }
+    @media screen and(min-width: 768px) and(max-width: 900px) {
+      max-width: 740px;
+    }
+    @media screen and(min-width:901px) {
+      max-width: 100%;
+    }
+    @media screen and(min-width:1024px) {
+      max-width: 1024px;
+      flex-direction: row;
+    }
+    .il-signup--content{
+        flex: 1;
+        margin: 0 .5rem;
+        background: lighten(#8db2eb, 10%);
+        box-shadow: 2px 3px 5px #786990;
+        padding: 0 .35rem;
+        border-radius: 2px;
+    }
+}

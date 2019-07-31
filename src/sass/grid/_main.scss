@@ -1,0 +1,39 @@
+#app.il-container {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr 80px;
+  background-image: linear-gradient(
+    -225deg,
+    #5d9fff 0%,
+    #b8dcff 48%,
+    #6bbbff 100%
+  );
+  overflow: hidden;
+  & .il-container--wrapper {
+    max-width: $max-width;
+    @media screen and (max-width: 360px) {
+      width: 100%;
+      margin: 0;
+    }
+    @media screen and (min-width: 361px) and (max-width: 480px) {
+      width: 96%;
+      margin: 0 auto;
+    }
+    @media screen and (min-width: 481px) and (max-width: 680px) {
+      width: 94%;
+      margin: 0 auto;
+    }
+    @media screen and (min-width: 681px) and (max-width: 800px) {
+      width: 92%;
+      margin: 0 auto;
+    }
+    @media screen and (min-width: 801px) {
+      width: 90%;
+      margin: 0 auto;
+    }
+  }
+  & .il-contents {
+    border: 1px solid #bbb000;
+    padding-bottom: 2rem;
+  }
+}

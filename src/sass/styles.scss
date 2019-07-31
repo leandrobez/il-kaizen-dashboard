@@ -1,0 +1,25 @@
+@import 'base/normalize';
+@include normalize();
+
+@import 'mdi/materialdesignicons';
+
+//config
+@import 'config/variables';
+@import 'config/tipography';
+@import 'config/mixins';
+
+@import '/layout/geral';
+@import '/grid/main';
+
+@import '/theme/colors';
+@import '/theme/backgrounds';
+@import '/theme/form';
+@import '/theme/buttons';
+@import '/theme/alert';
+@import '/theme/table';
+
+@import 'modules/header';
+@import 'modules/navegation';
+@import 'modules/home';
+@import 'modules/months';
+@import 'modules/student';

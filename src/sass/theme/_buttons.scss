@@ -1,0 +1,51 @@
+a.il-btn,
+button.il-btn {
+  font-size: inherit;
+  word-spacing: 2px;
+  font-weight: 700;
+  padding: 0.5rem 1.3rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  transition: all 0.5s;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 4px;
+  visibility: visible;
+  outline: none;
+  transition: 450ms ease-in;
+  &.il-btn--entrance {
+    color: lightgrey;
+    margin-bottom: 1rem;
+    font-size: 14px;
+    background: rgb(42, 49, 88);
+  }
+  &:hover {
+    transition: 450ms ease-in;
+    background: #efefee;
+    color: $dark;
+  }
+  &.il-btn--add {
+    font-size: 1.5rem;
+    background: none;
+    border: 1px solid $border;
+    font-weight: 700;
+    padding: 0;
+    border-radius: 50%;
+    color: $dark;
+    line-height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+    &:hover {
+      background: #434343;
+      color: $positive;
+    }
+    &:active {
+      transform: scale(0.95);
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}

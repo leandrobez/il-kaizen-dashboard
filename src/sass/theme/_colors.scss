@@ -1,0 +1,37 @@
+.il-color--light {
+  color: $light;
+}
+.il-color--medium-light{
+    color: darken($light,15%);
+}
+.il-color--darkblue {
+  color: rgb(12, 54, 68);
+}
+.il-color--green {
+  color: $green;
+}
+.il-color--dark {
+  color: $dark;
+}
+.il-color--red {
+  color: $red;
+}
+
+.il-color--orange {
+  color: $orange;
+}
+/*
+
+
+.il-color--yellow {
+  color: $yellow;
+}
+
+
+.il-color--medium-light {
+  color: $medium-light;
+}
+
+
+
+*/
