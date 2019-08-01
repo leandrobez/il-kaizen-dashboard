@@ -106,12 +106,13 @@ const accessPaymentAPI = {
         return Promise.reject(err.message);
       });
   },
-  updatePayment: id => {
+  updatePayment: (id,data) => {
     let url = setURL('update');
     return axios
-      .put(url + '/' + id, bearerToken())
+      .put(url + '/' + id, data, bearerToken())
       .then(response => {
-        return response;
+        const value = response.data;
+        return value;
       })
       .catch(err => {
         return Promise.reject(err.message);

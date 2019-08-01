@@ -7,7 +7,7 @@ form.il-form {
   input[type='password'],
   input[type='date'],
   input[type='number'],
-  select.il-select  {
+  select.il-select {
     width: 100%;
     height: 40px;
     display: block;
@@ -19,9 +19,9 @@ form.il-form {
     border: 1px solid #4e5f80;
     border-radius: 3px;
   }
-  .il-field--select{
+  .il-field--select {
     display: flex;
-    select.il-select  {
+    select.il-select {
       width: 40%;
     }
   }
@@ -38,22 +38,30 @@ form.il-form {
       font-weight: bolder;
     }
   }
-  .il-field--radio{
+  .il-field--radio, .il-field--check {
     padding: 0.45rem 0;
-      margin-bottom: 1rem;
-      border: 1px solid #4383fa;
-      label {
-        margin: 0 0.25rem;
-      }
+    margin-bottom: 1rem;
+    border: 1px solid #4383fa;
+    label {
+      margin: 0 0.25rem;
+    }
+
+    input[type='radio'],
+    input[type='checkbox']{
+      width: 22px;
+      height: 22px;
+      position: relative;
+      left: 5px;
+      top: 4px;
+    }
   }
   &.il-form--signup,
-  &.il-form--payment select{
-    
+  &.il-form--payment select {
     min-width: 300px;
   }
-  &.il-form--signup .il-signup{
+  &.il-form--signup .il-signup {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: .4rem;
+    grid-column-gap: 0.4rem;
   }
 }

@@ -19,6 +19,13 @@
         </div>
         <label for="valor">Valor</label>
         <input type="number" v-model="dataPayment.valor" step="0.01" class="il-add--description" placeholder="Informe o valor do pagamento" id="valor" />
+        <div class="il-field--check">
+            <input type="checkbox" id="checkMsg" v-model="dataPayment.sendMessage">
+            <label for="checkMsg">Enviar mensagem</label>
+
+            <input type="checkbox" id="checkRc" v-model="dataPayment.sendReceipt">
+            <label for="checkRc">Enviar recibo</label>
+        </div>
         <div class="il-btn--content">
             <button class="il-btn il-btn--add">
                 <i class="mdi mdi-24px mdi-check"></i>
@@ -37,7 +44,8 @@ export default {
         type: String,
         id: String,
         banks: Array,
-        data: String
+        data: String,
+        month: String
     },
     data() {
         return {
@@ -46,6 +54,8 @@ export default {
                 data: '',
                 name: '',
                 valor: '',
+                sendMessage: false,
+                sendReceipt: false,
                 form: {
                     check: {
                         recebido: false,
@@ -89,24 +99,48 @@ export default {
             this.dataPayment.name = student.name
             this.dataPayment.valor = student.valor
         },
-        doPayment() {
-            let data = {
-                month: localStorage.getItem('monthCurrent'),
-                students: [{
-                    studentID: this.id,
-                    studentName: this.dataPayment.name,
-                    datePayment: this.dataPayment.data,
-                    amountPayment: this.dataPayment.valor,
-                    formPayment: this.type,
-                    sendMessage: false,
-                    sendRecibo: false
-                }]
-            }
-            accessPaymentAPI.create(data).then(res => {
-                console.log(res)
+        updatePayment(data) {
+            //console.log(data)
+            accessPaymentAPI.updatePayment(data._id, data).then(res => {
+                if (res.error === null) {
+                    this.$router.push({
+                        name: 'students'
+                    })
+                }
             }).catch(err => {
                 console.log(err)
             })
+        },
+        doPayment() {
+
+            if (this.month !== null && this.month !== undefined) {
+                let data = {
+                    month: this.month,
+                    students: [{
+                        studentID: this.id,
+                        studentName: this.dataPayment.name,
+                        datePayment: this.dataPayment.data,
+                        amountPayment: this.dataPayment.valor,
+                        formPayment: this.type,
+                        sendMessage: this.dataPayment.sendMessage,
+                        sendReceipt: this.dataPayment.sendReceipt
+                    }]
+                }
+                accessPaymentAPI.create(data).then(res => {
+                    if (res.data.error == null) {
+                        alert(res.data.message)
+                    } else {
+
+                        data = res.data.payment
+                        this.updatePayment(data)
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+            } else {
+                alert("O mÊs de pagamento ainda não especificado")
+            }
+
         }
     }
 }

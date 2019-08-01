@@ -2,7 +2,7 @@
 <div class="il-payment">
     <ilAlert :has="message ? true : false" :msg="message" />
     <ilMonths :months="months" @choice="setMonth" />
-    <ilFormPayment :banks="getBanks" :type="getType" :id="getID" @message="setMessage" :data="setToday" />
+    <ilFormPayment :banks="getBanks" :type="getType" :id="getID" @message="setMessage" :data="setToday" :month="getMonth" />
 </div>
 </template>
 
@@ -87,7 +87,9 @@ export default {
             return this.$route.params.id
         },
         getMonth() {
-            return 'jul';
+            let today = new Date();
+            let keyMonth = today.getMonth();
+            return this.months[keyMonth].abr;
         },
         checkAlert() {
             if (this.alert.message) {
