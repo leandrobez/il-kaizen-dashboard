@@ -23,9 +23,9 @@
             <label>Sexo</label>
             <div class="il-field--radio">
                 <label for="masc">Masc</label>
-                <input type="radio" v-model="signup.genre" :checked="signup.genre == 'masc'" value="masc" id="masc" />
+                <input type="radio" v-model="signup.genre" :checked="checkedM" value="masc" id="masc" />
                 <label for="fem">Fem</label>
-                <input type="radio" v-model="signup.genre" :checked="signup.genre == 'fem'" id="fem" value="fem" />
+                <input type="radio" v-model="signup.genre" :checked="checkedF" id="fem" value="fem" />
             </div>
             <label for="cpf">CPF</label>
             <input type="text" v-model="signup.cpf" class="il-input--cpf" placeholder="seu CPF" id="cpf" required />
@@ -37,14 +37,16 @@
             <input type="email" v-model="signup.email" class="il-add--description" placeholder="Email" id="email" />
             <label for="dn">Data Nasc</label>
             <input type="date" v-model="signup.dnasc" class="il-input--dn" placeholder="Data de Nascimento" id="dn" />
-            <label for="vezes">Vezes por Semana</label>
-            <select ref="vezes" v-model="signup.vezes" :change="setValor()" class="il-select" id="vezes">
-                <option v-for="(vez,index) in vezes" :key="index">{{vez}}</option>
-            </select>
-            <label for="valor">Valor</label>
-            <select ref="valor" v-model="signup.valor" class="il-select" id="valor">
-                <option v-for="(valor,index) in valors" :key="index">{{valor}}</option>
-            </select>
+            <div class="il-field--select">
+                <label for="vezes">Vezes por Semana</label>
+                <select ref="vezes" v-model="signup.vezes" :change="setValor()" class="il-select" id="vezes">
+                    <option v-for="(vez,index) in vezes" :key="index">{{vez}}</option>
+                </select>
+                <label for="valor">Valor</label>
+                <select ref="valor" v-model="signup.valor" class="il-select" id="valor">
+                    <option v-for="(valor,index) in valors" :key="index">{{valor}}</option>
+                </select>
+            </div>
         </div>
         <div class="il-signup--content">
             <h5>Endereço</h5>
@@ -120,30 +122,47 @@ export default {
         let vz = this.signup.vezes;
         this.signup.valor = this.valors[vz - 1];
     },
+    computed: {
+        checkedM() {
+            if (this.signup.genre == 'masc' || this.signup.genre == 'MASC') {
+                return 'checked';
+            } else {
+                return '';
+            }
+        },
+        checkedF() {
+            if (this.signup.genre == 'fem' || this.signup.genre == 'FEM') {
+                return 'checked';
+            } else {
+                return '';
+            }
+        }
+    },
     methods: {
         doSignup() {
             let vm = this
             accessStudentAPI
                 .create(this.signup)
                 .then(res => {
-                    if (res.data.error == '') {
+                    if (res.error == null) {
                         vm.$emit('msg', {
                             type: 'success',
                             message: 'Cliente cadastrado com sucesso!'
                         })
                     } else {
-                        const value = res.data.error;
+                        let msg = res.error.message;
                         vm.$emit('msg', {
-                            type: 'warning',
-                            message: value
-                        })
+                            type: msg.type,
+                            message: msg.value
+                        });
                     }
                 })
-                .catch(err => {                    
-                    vm.$emit('msg', {
-                        type: 'warning',
-                        message: err
-                    })
+                .catch(err => {
+                    let msg = err.error;
+                        vm.$emit('msg', {
+                            type: 'danger',
+                            message: err
+                        });
                 });
         },
         showDesc(whoo) {

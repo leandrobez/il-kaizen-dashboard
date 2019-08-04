@@ -9,7 +9,10 @@
                 <router-link :to="{path: '/students'}" title="link" class="il-nav--link" :class="checkActive('alunos')">Alunos</router-link>
             </li>
             <li>
-                <router-link :to="{path: '/admins'}" title="link" class="il-nav--link" :class="checkActive('admins')">Contas</router-link>
+                <router-link :to="{path: '/contas'}" title="link" class="il-nav--link" :class="checkActive('contas')">Contas</router-link>
+            </li>
+            <li>
+                <router-link :to="{path: '/admins'}" title="link" class="il-nav--link" :class="checkActive('admins')">Admins</router-link>
             </li>
         </ul>
     </div>

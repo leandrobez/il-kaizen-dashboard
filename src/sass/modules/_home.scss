@@ -1,179 +1,178 @@
 section.il-section.il-section--home {
   padding: 2rem 0;
-}
 
-.il-home {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  margin: 0 auto;
-  @media screen and(min-width: 680px) {
-    max-width: 640px;
-  }
-  @media screen and(min-width: 768px) {
-    max-width: 720px;
-  }
-  .il-home--content div{
+  .il-home {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    height: 100%;
     width: 100%;
-    span {
-      text-align: center;
-      font-size: 24px;
-      font-weight: bolder;
-      margin-bottom: .5rem;
+    margin: 0 auto;
+    @media screen and(min-width: 680px) {
+      max-width: 640px;
     }
-    ul.il-box--home {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      grid-gap: 0.25rem;
-      align-content: center;
+    @media screen and(min-width: 768px) {
+      max-width: 720px;
+    }
+    .il-home--content div {
+      display: flex;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
+      height: 100%;
       width: 100%;
-      margin: auto;
-      > li {
-        padding: 0 0.15rem;
-        min-height: 100px;
+      span {
         text-align: center;
-        display: flex;
-        flex-direction: column;
+        font-size: 24px;
+        font-weight: bolder;
+        margin-bottom: 0.5rem;
+      }
+      ul.il-box--home {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        grid-gap: 0.25rem;
+        align-content: center;
         justify-content: center;
-        border-radius: 3px;
-        box-shadow: 2px 3px 5px #865650;
-        @include ease(500);
-        a.il-nav--link{
-          color:rgb(233, 219, 194);
-        }
-        &:hover {
-          @include ease(500);
-          background: rgb(117, 187, 245);
-        }
-      }
-    }
-  }
-  .il-home--access {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    .il-access--header {
-      text-align: center;
-      height: 1.5rem;
-      width: 100%;
-      opacity: 0;
-      animation: _hidden 8000ms;
-      & span {
-        color: #0e213a;
-        text-align: center;
-        line-height: 1.5rem;
-      }
-    }
-    .il-access--content {
-      margin: 0 auto;
-      width: 100%;
-      @media screen and(min-width: 680px) {
-        max-width: 640px;
-      }
-      @media screen and(min-width: 768px) {
-        max-width: 720px;
-      }
-      ul.il-aba {
-        display: flex;
         width: 100%;
-
-        & li {
-          flex: 1;
+        margin: auto;
+        > li {
+          padding: 0 0.15rem;
+          min-height: 100px;
           text-align: center;
-          background: #354c77;
-          height: 2rem;
-          @include ease(650);
-          &:nth-child(2) {
-            background: darken(#354c77, 10%);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          border-radius: 3px;
+          box-shadow: 2px 3px 5px #865650;
+          @include ease(500);
+          a.il-nav--link {
+            color: rgb(233, 219, 194);
           }
           &:hover {
-            @include ease(650);
-            background: lighten(#354c77, 5%);
-          }
-          &:hover:nth-child(2) {
-            @include ease(650);
-            background: lighten(#354c77, 10%);
-          }
-          & span {
-            display: block;
-            padding: 0.3rem;
-            width: 100%;
-            height: 100%;
-            text-decoration: none;
-            color: #82d1f5;
-            opacity: 0.3;
-            transition: 450ms ease-in;
-            cursor: pointer;
-            &.il-aba--active {
-              @include ease(500);
-              opacity: 1;
-              color: darken(#82d1f5, 15%);
-              letter-spacing: 3px;
-              font-weight: bolder;
-            }
-          }
-          &:nth-child(1) {
-            border-right: 1px solid #d1dcfa;
+            @include ease(500);
+            background: rgb(117, 187, 245);
           }
         }
       }
-      nav.il-nav--tabs {
+    }
+    .il-home--access {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .il-access--header {
+        text-align: center;
+        height: 1.5rem;
         width: 100%;
-        .il-tab--contents {
-          position: relative;
+        opacity: 0;
+        animation: _hidden 8000ms;
+        & span {
+          color: #0e213a;
+          text-align: center;
+          line-height: 1.5rem;
+        }
+      }
+      .il-access--content {
+        margin: 0 auto;
+        width: 100%;
+        @media screen and(min-width: 680px) {
+          max-width: 640px;
+        }
+        @media screen and(min-width: 768px) {
+          max-width: 720px;
+        }
+        ul.il-aba {
+          display: flex;
           width: 100%;
-          padding: 0 5px;
-          background: #6ca0ee;
-          .il-tab--login,
-          .il-tab--register {
-            position: absolute;
-            box-shadow: 2px 3px 5px #865650;
-            padding: 1rem;
-            width: 100%;
-            @media screen and(min-width: 680px) {
-              max-width: 640px;
+
+          & li {
+            flex: 1;
+            text-align: center;
+            background: #354c77;
+            height: 2rem;
+            @include ease(650);
+            &:nth-child(2) {
+              background: darken(#354c77, 10%);
             }
-            @media screen and(min-width: 768px) {
-              max-width: 720px;
+            &:hover {
+              @include ease(650);
+              background: lighten(#354c77, 5%);
             }
-            left: -150%;
-            transition: 450ms ease-in;
-            border-radius: 3px;
-            background: lighten(#96a7c0, 10%);
-            z-index: -1;
-            opacity: 0;
-            @include ease(450);
-            &.il-tab--active {
-              @include ease(450);
-              z-index: 0;
-              opacity: 1;
-              left: 0;
+            &:hover:nth-child(2) {
+              @include ease(650);
+              background: lighten(#354c77, 10%);
             }
-            & h3 {
-              font-size: 0.85rem;
-              color: #293dee;
-              padding: 0;
-              text-align: center;
-              font-weight: 400;
+            & span {
+              display: block;
+              padding: 0.3rem;
+              width: 100%;
+              height: 100%;
+              text-decoration: none;
+              color: #82d1f5;
+              opacity: 0.3;
+              transition: 450ms ease-in;
+              cursor: pointer;
+              &.il-aba--active {
+                @include ease(500);
+                opacity: 1;
+                color: darken(#82d1f5, 15%);
+                letter-spacing: 3px;
+                font-weight: bolder;
+              }
+            }
+            &:nth-child(1) {
+              border-right: 1px solid #d1dcfa;
             }
           }
-          .il-tab--register {
-            background: darken(#96a7c0, 4%);
+        }
+        nav.il-nav--tabs {
+          width: 100%;
+          .il-tab--contents {
+            position: relative;
+            width: 100%;
+            padding: 0 5px;
+            background: #6ca0ee;
+            .il-tab--login,
+            .il-tab--register {
+              position: absolute;
+              box-shadow: 2px 3px 5px #865650;
+              padding: 1rem;
+              width: 100%;
+              @media screen and(min-width: 680px) {
+                max-width: 640px;
+              }
+              @media screen and(min-width: 768px) {
+                max-width: 720px;
+              }
+              left: -150%;
+              transition: 450ms ease-in;
+              border-radius: 3px;
+              background: lighten(#96a7c0, 10%);
+              z-index: -1;
+              opacity: 0;
+              @include ease(450);
+              &.il-tab--active {
+                @include ease(450);
+                z-index: 0;
+                opacity: 1;
+                left: 0;
+              }
+              & h3 {
+                font-size: 0.85rem;
+                color: #293dee;
+                padding: 0;
+                text-align: center;
+                font-weight: 400;
+              }
+            }
+            .il-tab--register {
+              background: darken(#96a7c0, 4%);
+            }
           }
         }
       }
     }
   }
 }
-
 @keyframes _hidden {
   0% {
     opacity: 0;

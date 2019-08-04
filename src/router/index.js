@@ -20,7 +20,7 @@ const router = new VueRouter({
       path: '/admins/create',
       name: 'admin.create',
       component: () => import('@/components/adminComponents/create.vue')
-    },    
+    },
     {
       path: '/admins/edit/:id',
       name: 'admin.edit',
@@ -46,39 +46,33 @@ const router = new VueRouter({
       name: 'payment',
       component: () => import('@/views/Payments.vue')
     },
-    /*
-  
     {
       path: '/contas',
       component: () => import('@/views/Expenses.vue'),
       children: [
         {
-          path: 'fixed',
-          name: 'expenses.fixed',
-          component: () => import('@/components/expensesComponents/fixed.vue')
+          path: 'fixas',
+          name: 'contas.fixed',
+          component: () => import('@/components/expensesComponents/includes/fixed.vue')
         },
         {
-          path: 'variable',
-          name: 'expenses.variable',
-          component: () =>
-            import('@/components/expensesComponents/variable.vue')
+          path: 'extras',
+          name: 'contas.extras',
+          component: () => import('@/components/expensesComponents/includes/extras.vue')
         },
         {
-          path: 'extra',
-          name: 'expenses.extra',
-          component: () => import('@/components/expensesComponents/extra.vue')
-        },
-        {
-          path: '/',
-          redirect: 'fixed'
+          path: 'variables',
+          name: 'contas.variables',
+          component: () => import('@/components/expensesComponents/includes/variables.vue')
         }
       ]
     },
     {
-      path: '/payments/:id/:type',
-      name: 'payment',
-      component: () => import('@/views/Payments.vue')
+      path: '/contas/show',
+      name: 'contas.show',
+      component: () => import('@/components/expensesComponents/list.vue')
     },
+    /*
     {
       path: '/relatorios',
       name: 'summary',

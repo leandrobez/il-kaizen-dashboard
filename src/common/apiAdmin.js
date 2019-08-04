@@ -63,7 +63,6 @@ const setURL = point => {
   }
   return baseURL + urlAPI + url;
 };
-//http://localhost:3000/kaizen/api/admin/authenticate/login
 const accessAdminAPI = {
   /** @admins */
   login: async data => {

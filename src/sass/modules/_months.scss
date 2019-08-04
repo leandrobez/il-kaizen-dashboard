@@ -1,19 +1,26 @@
 .il-months {
-  display: flex;
-  margin: 0 0.15rem;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 80px));
+  margin: 0;
   justify-content: center;
-  padding: 0.45rem;
-  & .il-month--box {
-    flex: 1;
-    border: 1px solid #72c6f7;
+  & .il-months--box {
+    border: 1px solid #b6e0f8;
     margin: 0.15rem;
-    background: transparent;
+    background: #4311aa;
+    &:hover{
+      background: #4300ee;
+    }
     & span {
       display: block;
       text-align: center;
       font-weight: bold;
       cursor: pointer;
       color: white;
+      padding: 0 0.15rem;
+      cursor: pointer;
+      font-weight: bold;
+      text-transform: uppercase;
       &:hover {
         color: #d6fefe;
       }
@@ -33,11 +40,11 @@
     &.is-active,
     &.actived {
       border: none;
-      background: #0c4eb1;
+      background: #e7b378;
       & span {
-        color: #96d1f3;
+        color: #443532;
         &:hover {
-          color: #ecf02c;
+          color: #ee5108;
           font-weight: bolder;
           text-transform: uppercase;
         }

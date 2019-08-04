@@ -38,13 +38,24 @@ export default {
     },
     methods: {
         getAdmin() {
+            let vm = this
             if (this.id) {
                 accessAdminAPI.searchAdmin(this.id).then(res => {
-                    if (res) {
-                        this.admin = res
+                    if (res.error == null) {
+                        this.admin = res.user
+                    } else {
+                        let msg = res.error.message;
+                        vm.$emit('msg', {
+                            type: msg.type,
+                            message: msg.value
+                        });
                     }
                 }).catch(err => {
-                    console.log(err)
+                    let msg = err.error;
+                    vm.$emit('msg', {
+                        type: 'danger',
+                        message: err
+                    });
                 })
             }
         },

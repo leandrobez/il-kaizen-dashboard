@@ -15,6 +15,12 @@
             </router-link>
         </li>
         <li class="il-background--gradient--grey-sky">
+            <router-link :to="{path: '/contas'}" title="Controle de Contas" class="il-nav--link il-color--darkblue">
+                <i class="mdi mdi-clipboard-account mdi-36px"></i>
+                <h5>Contas</h5>
+            </router-link>
+        </li>
+        <li class="il-background--gradient--grey-sky">
             <a href="#!" title="Encerrar a aplicação" class="il-nav--link il-color--darkblue" @click.prevent="logout">
                 <i class="mdi mdi-logout mdi-36px"></i>
                 <h5>Logout</h5>

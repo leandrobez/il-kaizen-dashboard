@@ -1,5 +1,5 @@
 <template>
-<div class="il-payment">
+<div class="il-payment--content">
     <ilAlert :has="message ? true : false" :msg="message" />
     <ilMonths :months="months" @choice="setMonth" />
     <ilFormPayment :banks="getBanks" :type="getType" :id="getID" @message="setMessage" :data="setToday" :month="getMonth" />

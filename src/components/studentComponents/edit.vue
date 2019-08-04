@@ -7,7 +7,6 @@
 </template>
 
 <script>
-
 import ilStudentFormEdit from './includes/formEdit.vue'
 import ilAlert from '@/components/includes/alerts.vue'
 export default {
@@ -40,9 +39,8 @@ export default {
         this.studentID = this.$route.params.id
     },
     methods: {
-       
         setAlert(obj) {
-             this.message = obj
+            this.message = obj
         }
     }
 }

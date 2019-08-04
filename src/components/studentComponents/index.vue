@@ -149,6 +149,7 @@ export default {
                     label: 'Dezembro'
                 }
             ],
+            monthCurrent: null,
             students: [],
             addressCurrent: null,
             paymentStudents: [],
@@ -163,6 +164,7 @@ export default {
         }),
         hasStudents() {
             if (this.students.length > 0) {
+                this.getPayment();
                 return true;
             }
             return false;
@@ -182,13 +184,15 @@ export default {
         }
     },
     mounted() {
-        this.monthCurrent =
-            localStorage.getItem('monthCurrent') ||
-            new Date().toISOString().substr(0, 10);
+        this.setToday()
         this.setStudents();
-        this.getPayment();
     },
     methods: {
+        setToday() {
+            let today = new Date()
+            let month = today.getMonth()
+            this.monthCurrent = this.months[month].abr
+        },
         populate() {
             let confirm = window.confirm(
                 'Realmente deseja realizar esse procedimento agora?'
@@ -232,13 +236,14 @@ export default {
         },
         getPayment() {
             if (this.students.length == 0) return;
-            let monthCurrent = localStorage.getItem('monthCurrent');
+            let monthCurrent = this.monthCurrent
             if (monthCurrent) {
                 accessPaymentAPI
                     .searchPaymentMonth(monthCurrent)
                     .then(response => {
-                        if (response.data.length > 0) {
-                            this.paymentStudents = response.data[0].students;
+                       console.log(response)
+                        if (response.data.error == null && response.data.payment.length > 0) {
+                            this.paymentStudents = response.data.payment[0].students;
                             this.statusPayment();
                         }
                     })
@@ -254,11 +259,11 @@ export default {
             accessStudentAPI
                 .getStudents()
                 .then(response => {
-                    if (response.length > 0) {
-                        this.students = response;
+                    
+                    if (response.error == null && response.student.length > 0) {
+                        this.students =  response.student;
                         this.students.forEach((student, index) => {
                             student.valor = this.getDesc(index);
-                            //this.statusPayment(index, student.name)
                         });
                     } else {
                         if (response.error) {
@@ -270,6 +275,7 @@ export default {
                     }
                 })
                 .catch(err => {
+                    
                     this.setAlert({
                         type: 'danger',
                         message: 'Você não tem permisssão para acessar essa página! ' +
@@ -377,7 +383,7 @@ export default {
             })
             console.log(student)
             window.localStorage.setItem(
-                'student',student
+                'student', student
             );
             this.$router.push({
                 name: 'payment',

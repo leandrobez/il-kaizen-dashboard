@@ -69,22 +69,29 @@ export default {
     },
     methods: {
         setAlert(obj) {
-           this.message = obj
+            this.message = obj
         },
         setAdmins() {
-            accessAdminAPI.getAdmin().then(response => {
-                if (response.length > 0) this.admins = response
-            }).catch(err => {
-                this.setAlert({
-                    type: 'danger',
-                    message: "Você não tem permisssão para acessar essa página! " + err + " Você será redirecionado para página de login em 4 seg"
+            accessAdminAPI
+                .getAdmin()
+                .then(response => {
+                    if (response.error == null && response.userNoPwd.length > 0) {
+                        this.admins = response.userNoPwd
+                    }
+                }).catch(err => {
+
+                    this.setAlert({
+                        type: 'danger',
+                        message: 'Você não tem permisssão para acessar essa página! ' +
+                            err +
+                            ' Você será redirecionado para página de login em 4 seg'
+                    });
+                    setTimeout(() => {
+                        this.$router.push({
+                            name: 'home'
+                        })
+                    }, 4000)
                 })
-                setTimeout(() => {
-                    this.$router.push({
-                        name: 'home'
-                    })
-                }, 4000)
-            })
         },
         createAdmin() {
             this.$router.push({
