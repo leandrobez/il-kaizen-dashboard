@@ -45,7 +45,7 @@ const accessExpensesFixedAPI = {
   searchFixed: id => {
     let url = setURL('show', 'fixed');
     return axios
-      .post(url + '/' + id, bearerToken())
+      .get(url + '/' + id, bearerToken())
       .then(response => {
         return response;
       })
@@ -63,7 +63,28 @@ const accessExpensesFixedAPI = {
       .catch(err => {
         return Promise.reject(err.message);
       });
-  }
+  },
+  searchFixedMonth: m => {
+    let url = setURL('show/month', 'fixed');
+    return axios
+      .get(url + '/' + m, bearerToken())
+      .then(response => {
+        return response;
+      })
+      .catch(err => {
+        return Promise.reject(err.message);
+      });
+  },
+  updateFixed: (id, data) => {
+    let url = setURL('update','fixed');
+    return axios
+      .put(url + '/' + id, data, bearerToken())
+      .then(response => {
+        const value = response.data;
+        return value;
+      })
+      .catch(err => Promise.reject(err.message));
+  },
 };
 
 const accessExpensesVariableAPI = {
@@ -72,6 +93,17 @@ const accessExpensesVariableAPI = {
     let url = setURL('create', 'variable');
     return axios
       .post(url, data, bearerToken())
+      .then(response => {
+        return response;
+      })
+      .catch(err => {
+        return Promise.reject(err.message);
+      });
+  },
+  searchVariable: id => {
+    let url = setURL('show', 'variable');
+    return axios
+      .get(url + '/' + id, bearerToken())
       .then(response => {
         return response;
       })
@@ -89,7 +121,28 @@ const accessExpensesVariableAPI = {
       .catch(err => {
         return Promise.reject(err.message);
       });
-  }
+  },
+  searchVariableMonth: m => {
+    let url = setURL('show/month', 'variable');
+    return axios
+      .get(url + '/' + m, bearerToken())
+      .then(response => {
+        return response;
+      })
+      .catch(err => {
+        return Promise.reject(err.message);
+      });
+  },
+  updateVariable: (id, data) => {
+    let url = setURL('update','variable');
+    return axios
+      .put(url + '/' + id, data, bearerToken())
+      .then(response => {
+        const value = response.data;
+        return value;
+      })
+      .catch(err => Promise.reject(err.message));
+  },
 };
 
 const accessExpensesExtraAPI = {
@@ -98,6 +151,17 @@ const accessExpensesExtraAPI = {
     let url = setURL('create', 'extra');
     return axios
       .post(url, data, bearerToken())
+      .then(response => {
+        return response;
+      })
+      .catch(err => {
+        return Promise.reject(err.message);
+      });
+  },
+  searchExtra: id => {
+    let url = setURL('show', 'extra');
+    return axios
+      .get(url + '/' + id, bearerToken())
       .then(response => {
         return response;
       })
@@ -115,7 +179,28 @@ const accessExpensesExtraAPI = {
       .catch(err => {
         return Promise.reject(err.message);
       });
-  }
+  },
+  searchExtraMonth: m => {
+    let url = setURL('show/month', 'extra');
+    return axios
+      .get(url + '/' + m, bearerToken())
+      .then(response => {
+        return response;
+      })
+      .catch(err => {
+        return Promise.reject(err.message);
+      });
+  },
+  updateExtra: (id, data) => {
+    let url = setURL('update','extra');
+    return axios
+      .put(url + '/' + id, data, bearerToken())
+      .then(response => {
+        const value = response.data;
+        return value;
+      })
+      .catch(err => Promise.reject(err.message));
+  },
 };
 
 const apiExpense = {

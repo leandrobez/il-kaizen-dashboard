@@ -5,7 +5,7 @@
         <ilNav v-if="checkRouter" />
     </header>
 
-    <main :class="getBackground()">
+    <main :style="getBackground()">
         <div class="il-container--wrapper">
             <RouterView />
         </div>
@@ -47,7 +47,7 @@ export default {
             let back = '';
             switch (path) {
                 case 'home':
-                    back = 'il-background--light';
+                    back = "background-image: url('../images/back-home.jpg')";
                     break;
                 case 'students.list':
                     back = 'il-background--students';

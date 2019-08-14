@@ -1,6 +1,5 @@
 section.il-section.il-section--home {
   padding: 2rem 0;
-
   .il-home {
     display: flex;
     flex-direction: column;
@@ -42,14 +41,14 @@ section.il-section.il-section--home {
           flex-direction: column;
           justify-content: center;
           border-radius: 3px;
-          box-shadow: 2px 3px 5px #865650;
+          box-shadow: 2px 3px 5px #94736f;
           @include ease(500);
           a.il-nav--link {
-            color: rgb(233, 219, 194);
+            color: rgb(238, 232, 223);
           }
           &:hover {
             @include ease(500);
-            background: rgb(117, 187, 245);
+            background: rgb(66, 73, 80);
           }
         }
       }
@@ -83,44 +82,44 @@ section.il-section.il-section--home {
         ul.il-aba {
           display: flex;
           width: 100%;
-
           & li {
             flex: 1;
             text-align: center;
-            background: #354c77;
+            background: #7487a8;
             height: 2rem;
             @include ease(650);
             &:nth-child(2) {
-              background: darken(#354c77, 10%);
+              background: darken(#7487a8, 10%);
             }
             &:hover {
               @include ease(650);
-              background: lighten(#354c77, 5%);
+              background: lighten(#7487a8, 5%);
             }
             &:hover:nth-child(2) {
               @include ease(650);
-              background: lighten(#354c77, 10%);
+              background: darken(#7487a8, 20%);
             }
             & span {
+              text-transform: uppercase;
               display: block;
               padding: 0.3rem;
               width: 100%;
               height: 100%;
               text-decoration: none;
-              color: #82d1f5;
+              color: #d4e1e7;
               opacity: 0.3;
               transition: 450ms ease-in;
               cursor: pointer;
               &.il-aba--active {
                 @include ease(500);
                 opacity: 1;
-                color: darken(#82d1f5, 15%);
+                color: darken(#0d1e27, 15%);
                 letter-spacing: 3px;
                 font-weight: bolder;
               }
             }
             &:nth-child(1) {
-              border-right: 1px solid #d1dcfa;
+              border-right: 1px solid #6d7791;
             }
           }
         }
@@ -130,7 +129,7 @@ section.il-section.il-section--home {
             position: relative;
             width: 100%;
             padding: 0 5px;
-            background: #6ca0ee;
+            //background: #6ca0ee;
             .il-tab--login,
             .il-tab--register {
               position: absolute;
@@ -145,8 +144,8 @@ section.il-section.il-section--home {
               }
               left: -150%;
               transition: 450ms ease-in;
-              border-radius: 3px;
-              background: lighten(#96a7c0, 10%);
+              border-radius: 0 0 3px 3px;
+              background: lighten(#7487a8, 10%);
               z-index: -1;
               opacity: 0;
               @include ease(450);
@@ -158,7 +157,7 @@ section.il-section.il-section--home {
               }
               & h3 {
                 font-size: 0.85rem;
-                color: #293dee;
+                color: #060b31;
                 padding: 0;
                 text-align: center;
                 font-weight: 400;

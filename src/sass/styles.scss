@@ -8,16 +8,18 @@
 @import 'config/tipography';
 @import 'config/mixins';
 
-@import '/layout/geral';
-@import '/grid/main';
+@import 'layout/geral';
+@import 'grid/main';
 
-@import '/theme/colors';
-@import '/theme/backgrounds';
-@import '/theme/form';
-@import '/theme/buttons';
-@import '/theme/alert';
-@import '/theme/table';
-
+/**themes*/
+@import 'theme/colors';
+@import 'theme/backgrounds';
+@import 'theme/form';
+@import 'theme/buttons';
+@import 'theme/alert';
+@import 'theme/table';
+@import 'theme/print';
+/**modules*/
 @import 'modules/header';
 @import 'modules/navegation';
 @import 'modules/home';

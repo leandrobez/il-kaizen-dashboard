@@ -13,9 +13,7 @@
             <label for="valor">Valor</label>
             <input type="number" v-model="extra.valor" class="il-add--description" placeholder="Informe o valor a pagar" id="valor" />
             <div class="il-btn--content">
-                <button class="il-btn il-btn--add">
-                    <i class="mdi mdi-24px mdi-check"></i>
-                </button>
+                <button class="il-btn il-btn--submit" type="submit">Criar conta</button>
                 <button class="il-btn il-btn--entrance" @click="listContas">Listar Contas</button>
             </div>
         </div>
@@ -35,15 +33,42 @@ export default {
                 valor: 0,
                 executed: false
             },
+            extraID: null,
+            oldExtra: [],
             extraExpenses: ['Almoço', 'Bancada', 'Camisetas', 'Tênis']
         }
     },
     mounted() {
         this.setToday()
+        this.checkOldExtra()
     },
     methods: {
         setToday() {
             this.extra.data = new Date().toISOString().substr(0, 10)
+        },
+        checkOldExtra() {
+            let vm = this;
+            apiExpense.accessExpensesFixedAPI.searchExtraMonth(this.$parent.month)
+                .then(res => {
+                    console.log(res)
+                    if (res.data.error !== null) {
+                        const value = res.data.error;
+                        vm.$emit('msg', {
+                            type: 'warning',
+                            message: value
+                        });
+
+                    } else {
+                        this.extraID = res.data.extra[0]._id
+                        this.oldExtra = res.data.extra[0].expenses
+                    }
+                })
+                .catch(err => {
+                    vm.$emit('msg', {
+                        type: 'warning',
+                        message: err
+                    });
+                });
         },
         doPayment() {
             if (this.$parent.month == null) {
@@ -66,7 +91,7 @@ export default {
             } else if (this.extra.valor == 0) {
                 this.$emit('alert', {
                     status: 'warning',
-                    value: 'O valor tem que ser maior que zero.'
+                    value: 'Por favor informe um valor maior que zero.'
                 });
                 return false;
             } else {
@@ -77,26 +102,57 @@ export default {
                     });
                     return false;
                 }
-
-                let data = {
-                    month: this.$parent.month,
-                    expenses: [{
+                //return false
+                if (this.oldExtra.length > 0) {
+                    this.oldExtra.push({
                         date: this.setDate(),
                         name: this.extra.description,
                         valor: +this.extra.valor,
                         executed: this.extra.executed
-                    }]
+                    })
+                    let data = {
+                        month: this.$parent.month,
+                        expenses: this.oldExtra
+                    }
+
+                    //update fixed
+                    apiExpense.accessExpensesExtraAPI.updateExtra(this.extraID, data).then(res => {
+                        this.$emit('alert', {
+                            status: 'success',
+                            value: 'Conta criada com sucesso.'
+                        });
+                        setTimeout(() => {
+                            this.$router.push({
+                                name: 'contas.show'
+                            })
+                        }, 2000);
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                } else {
+                    let data = {
+                        month: this.$parent.month,
+                        expenses: [{
+                            date: this.setDate(),
+                            name: this.extra.description,
+                            valor: +this.extra.valor,
+                            executed: this.extra.executed
+                        }]
+                    }
+
+                    apiExpense.accessExpensesExtraAPI.create(data).then(res => {
+                        this.$router.push({
+                            name: 'contas.show'
+                        })
+                    }).catch(err => {
+                        console.log(err)
+                    })
                 }
 
-                apiExpense.accessExpensesExtraAPI.create(data).then(res => {
-                    console.log(res)
-                }).catch(err => {
-                    console.log(err)
-                })
             }
         },
         setDate() {
-            const dt = this.fixed.data.split("-")
+            const dt = this.extra.data.split("-")
             return new Date(dt[0], dt[1], dt[2]).toISOString().substr(0, 10)
         },
         listContas() {

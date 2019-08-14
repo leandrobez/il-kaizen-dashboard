@@ -20,7 +20,7 @@
         <label for="valor">Valor</label>
         <input type="number" v-model="dataPayment.valor" step="0.01" class="il-add--description" placeholder="Informe o valor do pagamento" id="valor" />
         <div class="il-field--check">
-            <input type="checkbox" id="checkMsg" v-model="dataPayment.sendMessage">
+            <input type="checkbox" id="checkMsg" v-model="dataPayment.sendMessage" >
             <label for="checkMsg">Enviar mensagem</label>
 
             <input type="checkbox" id="checkRc" v-model="dataPayment.sendReceipt">
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import accessPaymentAPI from '../../../common/apiPayment.js';
 export default {
     name: 'formPayment',
@@ -100,7 +101,6 @@ export default {
             this.dataPayment.valor = student.valor
         },
         updatePayment(data) {
-            //console.log(data)
             accessPaymentAPI.updatePayment(data._id, data).then(res => {
                 if (res.error === null) {
                     this.$router.push({
@@ -112,7 +112,6 @@ export default {
             })
         },
         doPayment() {
-
             if (this.month !== null && this.month !== undefined) {
                 let data = {
                     month: this.month,
@@ -141,7 +140,19 @@ export default {
                 alert("O mÊs de pagamento ainda não especificado")
             }
 
-        }
+        },
+        /*sendMessage() {
+            const url = 'https://www.waboxapp.com/api/send/chat'
+            const token = 'c318841cd87f553162d1f91b716390955d4c0c1430f4f'
+            let uid = '55999767179'
+            let to = '55993015930'
+            let custom_uid  = 'msg-kaizen--01'
+            let text = 'Teste de envio de mensagem'
+            let urlTeste = 'https://www.waboxapp.com/api/send/chat?token=c318841cd87f553162d1f91b716390955d4c0c1430f4f&uid=55999767179&to=55993015930&custom_uid=msg0001&text=Hello+dude'
+            axios.get(urlTeste).then(response => {
+                console.log(response)
+            })
+        }*/
     }
 }
 </script>

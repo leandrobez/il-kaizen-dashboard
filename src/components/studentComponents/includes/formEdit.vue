@@ -51,8 +51,10 @@
         <div class="il-signup--content">
             <h5>Endereço</h5>
             <label for="cep">CEP</label>
-            <input type="text" v-model="student.address.cep" class="il-input--cep" placeholder="CEP" id="cep" />
-            <i class="mdi mdi-12px mdi-search-web" @click.prevent="getAddress"></i>
+            <div class="il-field--flex">
+                <input type="text" v-model="student.address.cep" class="il-input--cep" placeholder="CEP" id="cep" />
+                <i class="mdi mdi-24px mdi-search-web" @click.prevent="getAddress" title="Clique para pesquisar o endereço"></i>
+            </div>
             <input type="text" v-model="student.address.rua_av" class="il-add--description" placeholder="Rua/Av">
             <label for="nr">Nr</label>
             <input type="text" v-model="student.address.nr" class="il-input--nr" placeholder="NR" id="nr">

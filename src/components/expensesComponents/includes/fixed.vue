@@ -13,9 +13,7 @@
             <label for="valor">Valor</label>
             <input type="number" v-model="fixed.valor" class="il-add--description" placeholder="Informe o valor a pagar" id="valor" />
             <div class="il-btn--content">
-                <button class="il-btn il-btn--add">
-                    <i class="mdi mdi-24px mdi-check"></i>
-                </button>
+                <button class="il-btn il-btn--submit" type="submit">Criar conta</button>
                 <button class="il-btn il-btn--entrance" @click="listContas">Listar Contas</button>
             </div>
         </div>
@@ -35,16 +33,42 @@ export default {
                 valor: 0,
                 executed: false
             },
+            fixedID: null,
+            oldFixed: [],
             fixedExpenses: ['Net', 'Aluguel', 'PhisioPilates']
         }
     },
     mounted() {
         this.setToday()
+        this.checkOldFixed()
     },
     methods: {
         setToday() {
             this.fixed.data = new Date().toISOString().substr(0, 10)
+        },
+        checkOldFixed() {
+            let vm = this;
+            apiExpense.accessExpensesFixedAPI.searchFixedMonth(this.$parent.month)
+                .then(res => {
+                    console.log(res)
+                    if (res.data.error !== null) {
+                        const value = res.data.error;
+                        vm.$emit('msg', {
+                            type: 'warning',
+                            message: value
+                        });
 
+                    } else {
+                        this.fixedID = res.data.fixed[0]._id
+                        this.oldFixed = res.data.fixed[0].expenses
+                    }
+                })
+                .catch(err => {
+                    vm.$emit('msg', {
+                        type: 'warning',
+                        message: err
+                    });
+                });
         },
         doPayment() {
             if (this.$parent.month == null) {
@@ -67,7 +91,7 @@ export default {
             } else if (this.fixed.valor == 0) {
                 this.$emit('alert', {
                     status: 'warning',
-                    value: 'O valor tem que ser maior que zero.'
+                    value: 'Por favor informe um valor maior que zero.'
                 });
                 return false;
             } else {
@@ -78,22 +102,53 @@ export default {
                     });
                     return false;
                 }
-
-                let data = {
-                    month: this.$parent.month,
-                    expenses: [{
+                //return false
+                if (this.oldFixed.length > 0) {
+                    this.oldFixed.push({
                         date: this.setDate(),
                         name: this.fixed.description,
                         valor: +this.fixed.valor,
                         executed: this.fixed.executed
-                    }]
+                    })
+                    let data = {
+                        month: this.$parent.month,
+                        expenses: this.oldFixed
+                    }
+
+                    //update fixed
+                    apiExpense.accessExpensesFixedAPI.updateFixed(this.fixedID, data).then(res => {
+                        this.$emit('alert', {
+                            status: 'success',
+                            value: 'Conta criada com sucesso.'
+                        });
+                        setTimeout(() => {
+                            this.$router.push({
+                                name: 'contas.show'
+                            })
+                        }, 2000);
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                } else {
+                    let data = {
+                        month: this.$parent.month,
+                        expenses: [{
+                            date: this.setDate(),
+                            name: this.fixed.description,
+                            valor: +this.fixed.valor,
+                            executed: this.fixed.executed
+                        }]
+                    }
+
+                    apiExpense.accessExpensesFixedAPI.create(data).then(res => {
+                        this.$router.push({
+                            name: 'contas.show'
+                        })
+                    }).catch(err => {
+                        console.log(err)
+                    })
                 }
 
-                apiExpense.accessExpensesFixedAPI.create(data).then(res => {
-                    console.log(res)
-                }).catch(err => {
-                    console.log(err)
-                })
             }
         },
         setDate() {

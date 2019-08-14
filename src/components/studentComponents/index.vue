@@ -3,16 +3,18 @@
     <div class="il-student--content">
         <ilAlert :has="message ? true : false" :msg="message" />
         <h3>Controle de Alunos</h3>
+        <a href="#!" class="il-btn il-print il-btn--center" @click.prevent="printDoc">Imprimir</a>
+        <a href="#!" class="il-btn il-btn--submit il-btn--center" @click.prevent="populate">
+            <i class="mdi mdi-12px mdi-account-multiple il-color--orange" title="Popular o banco de dados" ></i>Popular Banco</a>
         <div id="listStudent">
             <table>
                 <thead>
                     <tr>
                         <th>Nr</th>
                         <th>Nome</th>
-                        <th>Vezes</th>
-                        <th>Valor</th>
-                        <th>Obs</th>
-                        <th>Situação</th>
+                        <th>CPF</th>
+                        <th>Plano</th>
+                        <!--<th>Situação</th>-->
                         <th>Pgmto</th>
                         <th>Ação</th>
                     </tr>
@@ -23,14 +25,18 @@
                         <td>
                             <ul>
                                 <li>{{list.name}}</li>
-                                <li>CPF: {{list.cpf}}</li>
                                 <li>email: {{list.email}}</li>
                             </ul>
                         </td>
-                        <td>{{list.vezes}}</td>
-                        <td>{{list.valor}}</td>
-                        <td>{{list.obs}}</td>
-                        <td>{{list.ativo ? 'Ativo' : 'Inativo'}}</td>
+                        <td>{{list.cpf}}</td>
+                        <td>
+                            <ul>
+                                <li>Vezes: {{list.vezes}}</li>
+                                <li>Valor: {{list.valor}}</li>
+                            </ul>
+                        </td>
+
+                        <!--<td>{{list.ativo ? 'Ativo' : 'Inativo'}}</td>-->
                         <td :class="paymentStatus[index].class" v-if="paymentStatus.length > 0"><span><i class="mdi mdi-24px" :class="paymentStatus[index].icons" :title="paymentStatus[index].type"></i></span></td>
                         <td v-else>sem pagamento</td>
                         <td>
@@ -46,7 +52,6 @@
                     <tr>
                         <td colspan="7">
                             <span>Não existem alunos cadastrado até o presente momento!</span>
-
                         </td>
                         <td><i class="mdi mdi-12px mdi-account-multiple il-color--orange" title="Popular o banco de dados" @click.prevent="populate()"></i></td>
                     </tr>
@@ -188,6 +193,9 @@ export default {
         this.setStudents();
     },
     methods: {
+        printDoc() {
+            window.print()
+        },
         setToday() {
             let today = new Date()
             let month = today.getMonth()
@@ -241,7 +249,7 @@ export default {
                 accessPaymentAPI
                     .searchPaymentMonth(monthCurrent)
                     .then(response => {
-                       console.log(response)
+                        console.log(response)
                         if (response.data.error == null && response.data.payment.length > 0) {
                             this.paymentStudents = response.data.payment[0].students;
                             this.statusPayment();
@@ -259,9 +267,9 @@ export default {
             accessStudentAPI
                 .getStudents()
                 .then(response => {
-                    
+
                     if (response.error == null && response.student.length > 0) {
-                        this.students =  response.student;
+                        this.students = response.student;
                         this.students.forEach((student, index) => {
                             student.valor = this.getDesc(index);
                         });
@@ -275,7 +283,7 @@ export default {
                     }
                 })
                 .catch(err => {
-                    
+
                     this.setAlert({
                         type: 'danger',
                         message: 'Você não tem permisssão para acessar essa página! ' +
@@ -404,3 +412,22 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+a.il-print {
+    display: block;
+    width: 40%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    color: indigo;
+    background: lightskyblue;
+    border: 1px solid rgb(89, 89, 207);
+}
+
+a:hover {
+    background: lightgrey;
+}
+</style>

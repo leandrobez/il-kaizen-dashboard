@@ -1,100 +1,99 @@
 table {
-    margin-top: 1rem;
-    width: 100%;
-    border: 2px solid #6f7283;
-    border-collapse: collapse;
-    margin-bottom: 1rem;
-    box-shadow: 2px 3px 7px 0px #2b6181;
-    &.il-table--student {
-      width: 80%;
-      margin: 1rem auto auto;
-    }
-    & thead {
-      background: #4a7dac;
-      background: linear-gradient(
-        to bottom,
-        #665fca 0%,
-        #4e47a8 66%,
-        #3d35b3 100%
-      );
-      //border-bottom: 3px solid #7e0a0a;
-    }
-    & th,
-    & td {
-      border: 1px solid #273e69;
-      padding: 5px 4px;
-      padding: 0.25rem 0;
-      &.il-list--title {
-        text-transform: uppercase;
-        font-size: 1.15rem;
-        font-weight: 400;
-        & span {
-          font-size: 0.88rem;
-        }
-      }
-    }
-    & td {
-      border: 1px solid #fcd3d3;
-    }
-    & th {
-      font-size: 15px;
-      font-weight: bold;
-      color: #fcd6d6;
-      text-align: center;
+  margin-top: 1rem;
+  width: 100%;
+  border: 2px solid #6f7283;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  box-shadow: 2px 3px 7px 0px #2b6181;
+  &.il-table--student {
+    width: 80%;
+    margin: 1rem auto auto;
+  }
+  & thead {
+    background: #7e8285;
+    background: linear-gradient(
+      to bottom,
+      #434250 0%,
+      #3f3f47 66%,
+      #434344 100%
+    );
+    //border-bottom: 3px solid #7e0a0a;
+  }
+  & th,
+  & td {
+    border: 1px solid #273e69;
+    padding: 5px 4px;
+    padding: 0.25rem 0;
+    &.il-list--title {
       text-transform: uppercase;
-    }
-    & tbody tr > td {
-      text-align: center;
-      padding: 0 0.25rem;
-      &.il-td--success {
-        background: #20ac43 !important;
-      }
-      &.il-td--warning {
-        background: #c03a11 !important;
-      }
-      &.il-td--payment {
-        background: #046b9b !important;
-      }
-      &.il-td--month {
-        background: #d4e9fa !important;
-        & span {
-          color: $dark;
-          text-transform: uppercase;
-          font-weight: bold;
-        }
-      }
-      i {
-        cursor: pointer;
-      }
-    }
-    & tbody tr:nth-child(even) td {
-      background: #6c8eec; // lighten($negative, 55%);
-    }
-    & tbody tr:nth-child(odd) td {
-      background: lighten($negative, 75%);
-    }
-    & tbody tr.il-inactive td {
-      background: rgb(245, 47, 47);
-      color: white;
-    }
-    & tbody tr.il-soma td {
-      background: lighten($positive, 5%);
+      font-size: 1.15rem;
       font-weight: 400;
-      &:first-child {
-        padding-right: 0.45rem;
-      }
-      &.il-label--total {
-        text-align: right;
-        text-transform: uppercase;
+      & span {
+        font-size: 0.88rem;
       }
     }
   }
-  
-  p.il-sum {
-    font-weight: bolder;
-    text-align: right;
-    padding: 0;
-    margin: 0;
+  & td {
+    border: 1px solid #fcd3d3;
+  }
+  & th {
+    font-size: 15px;
+    font-weight: bold;
+    color: #fcd6d6;
+    text-align: center;
     text-transform: uppercase;
   }
-  
+  & tbody tr > td {
+    text-align: center;
+    padding: 0 0.25rem;
+    &.il-td--success {
+      background: #20ac43 !important;
+    }
+    &.il-td--warning {
+      background: #c03a11 !important;
+    }
+    &.il-td--payment {
+      background: #046b9b !important;
+    }
+    &.il-td--month {
+      background: #d4e9fa !important;
+      & span {
+        color: $dark;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+    i {
+      cursor: pointer;
+    }
+  }
+  & tbody tr:nth-child(even) td {
+    background: #a3a6af; // lighten($negative, 55%);
+  }
+  & tbody tr:nth-child(odd) td {
+    background: lighten($negative, 75%);
+  }
+  & tbody tr.il-inactive td {
+    background: rgb(214, 73, 73);
+    color: white;
+  }
+  & tbody tr.il-soma td {
+    background: lighten($positive, 5%);
+    font-weight: 400;
+    &:first-child {
+      padding-right: 0.45rem;
+    }
+    &.il-label--total {
+      text-align: right;
+      text-transform: uppercase;
+    }
+  }
+}
+
+p.il-sum {
+  font-weight: bolder;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+  text-transform: uppercase;
+}

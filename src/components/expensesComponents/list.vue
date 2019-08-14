@@ -13,9 +13,25 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(item,index) in getExpenses" :key="index">
+            <tr v-for="(item,index) in getFixedExpenses" :key="index">
                 <td>{{item.date}}</td>
                 <td>Fixas</td>
+                <td>{{item.name}}</td>
+                <td>{{item.valor}}</td>
+                <td>{{item.executed ? 'paga' : 'a pagar'}}</td>
+                <td><a href="#" @click.prevent="doAction(index)" :title="item.executed ? 'Conta paga' : 'Confirmar pgmto'">{{item.executed ? 'Conta paga' : 'Confirmar pgmto'}}</a></td>
+            </tr>
+            <tr v-for="(item,index) in getExtraExpenses" :key="index">
+                <td>{{item.date}}</td>
+                <td>Extras</td>
+                <td>{{item.name}}</td>
+                <td>{{item.valor}}</td>
+                <td>{{item.executed ? 'paga' : 'a pagar'}}</td>
+                <td><a href="#" @click.prevent="doAction(index)" :title="item.executed ? 'Conta paga' : 'Confirmar pgmto'">{{item.executed ? 'Conta paga' : 'Confirmar pgmto'}}</a></td>
+            </tr>
+            <tr v-for="(item,index) in getVariableExpenses" :key="index">
+                <td>{{item.date}}</td>
+                <td>Variaveis</td>
                 <td>{{item.name}}</td>
                 <td>{{item.valor}}</td>
                 <td>{{item.executed ? 'paga' : 'a pagar'}}</td>
@@ -33,7 +49,7 @@ export default {
     data() {
         return {
             expenses: [{
-                    fixed: []
+                    fixed: {}
                 },
                 {
                     extra: []
@@ -53,6 +69,15 @@ export default {
     computed: {
         getExpenses() {
             return this.expenses
+        },
+        getFixedExpenses() {
+            return this.expenses[0].fixed
+        },
+        getExtraExpenses() {
+            return this.expenses[0].extra
+        },
+        getVariableExpenses() {
+            return this.expenses[0].variable
         }
     },
     methods: {
@@ -61,10 +86,11 @@ export default {
             apiExpense.accessExpensesFixedAPI
                 .getFixed()
                 .then(res => {
+                    
                     if (res.status == 200 && res.statusText == 'OK') {
-
-                        if (res.data.length > 0) {
-                            this.expenses[0].fixed = res.data[0].expenses
+                        if (res.data.fixed.length > 0) {
+                            //console.log('fixed',res.data.fixed[0])
+                            this.expenses[0].fixed = res.data.fixed[0].expenses
                         }
                     }
                 })
@@ -74,9 +100,10 @@ export default {
             apiExpense.accessExpensesExtraAPI
                 .getExtra()
                 .then(res => {
+                    
                     if (res.status == 200 && res.statusText == 'OK') {
-                        if (res.data.length > 0) {
-                            this.expenses[0].extra = res.data[0].expenses
+                        if (res.data.extra.length > 0) {
+                            this.expenses[0].extra = res.data.extra[0].expenses
                         }
                     }
                 }).catch(err => {
@@ -86,8 +113,8 @@ export default {
                 .getVariable()
                 .then(res => {
                     if (res.status == 200 && res.statusText == 'OK') {
-                        if (res.data.length > 0) {
-                            this.expenses[0].variable = res.data[0].expenses
+                        if (res.data.variable.length > 0) {
+                            this.expenses[0].variable = res.data.variable[0].expenses
                         }
                     }
                 }).catch(err => {

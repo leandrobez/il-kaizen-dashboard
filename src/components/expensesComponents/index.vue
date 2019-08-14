@@ -23,6 +23,12 @@
                     <h5>Extras</h5>
                 </router-link>
             </li>
+            <li class="il-background--gradient--grey-sky">
+                <router-link :to="{name: 'contas.show'}" title="Listar Contas" class="il-nav--link il-color--darkblue">
+                    <i class="mdi mdi-clipboard-account mdi-36px"></i>
+                    <h5>Listar</h5>
+                </router-link>
+            </li>
         </ul>
 
         <RouterView @alert="setAlert" />

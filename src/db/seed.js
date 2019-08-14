@@ -807,7 +807,7 @@ const students = [
     DATA: '',
     EMAIL: 'renato@renato.odo.br',
     DNASC: '',
-    ATIVO: true,
+    ATIVO: false,
     OBS: '',
     ORIGEM: '',
     DESC: {

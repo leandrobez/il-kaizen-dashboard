@@ -71,141 +71,148 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import {
+    mapActions,
+    mapGetters
+} from 'vuex';
 import accessAdminAPI from '../../common/apiAdmin.js';
 export default {
-  name: 'access',
-  data() {
-    return {
-      abas: {
-        login: true,
-        register: false
-      },
-      login: {
-        email: '',
-        password: ''
-      },
-      register: {
-        name: '',
-        email: '',
-        password: '',
-        confirmpwd: ''
-      },
-      user: null
-    };
-  },
-  mounted() {
-    this.checkHasUser();
-  },
-  computed: {
-    hasUser() {
-      if (this.user) {
-        return true;
-      }
-      return false;
+    name: 'access',
+    data() {
+        return {
+            abas: {
+                login: true,
+                register: false
+            },
+            login: {
+                email: '',
+                password: ''
+            },
+            register: {
+                name: '',
+                email: '',
+                password: '',
+                confirmpwd: ''
+            },
+            user: null
+        };
+    },
+    mounted() {
+        this.checkHasUser();
+    },
+    computed: {
+        hasUser() {
+            if (this.user) {
+                return true;
+            }
+            return false;
+        }
+    },
+    methods: {
+        ...mapActions('admin', {
+            setUser: 'setUser',
+            setToken: 'setToken'
+        }),
+        ...mapGetters('admin', {
+            getUser: 'getUser'
+        }),
+        showAba(aba) {
+            if (aba == 'login') {
+                this.abas.login = true;
+                this.abas.register = false;
+            } else {
+                this.abas.login = false;
+                this.abas.register = true;
+            }
+        },
+        checkHasUser() {
+            let user = this.getUser();
+            if (user) {
+                this.user = user;
+            }
+            return false;
+        },
+        doLogin() {
+            let vm = this;
+            accessAdminAPI
+                .login(this.login)
+                .then(res => {
+                    if (res.status == 200 && res.statusText == 'OK') {
+                        if (res.data.error == null) {
+                            const token = res.data.user.token;
+                            this.user = res.data.user.name;
+                            window.localStorage.setItem('_token', token);
+                            window.localStorage.setItem('admin', this.user);
+                            this.setUser(res.data.user.name);
+                            this.setToken(res.data.user.token);
+                            vm.$emit('msg', {
+                                type: 'success',
+                                message: `Parabens ${this.user} seu token foi recebido com sucesso`
+                            });
+                        } else {
+                            let msg = res.data.message;
+                            vm.$emit('msg', {
+                                type: msg.type,
+                                message: msg.value
+                            });
+                        }
+                    } else {
+                        vm.$emit('msg', {
+                            type: 'danger',
+                            message: 'Não foi possível acessar o servidor!'
+                        });
+                    }
+                })
+                .catch(err => {
+                    let msg = err.error;
+                    vm.$emit('msg', {
+                        type: 'danger',
+                        message: msg
+                    });
+                });
+        },
+        doRegister() {
+            let vm = this;
+            if (
+                this.register.password !== this.register.confirmpwd ||
+                this.register.confirmpwd == ''
+            ) {
+                vm.$emit('msg', {
+                    type: 'danger',
+                    message: 'Senha não confirmada'
+                });
+                return false;
+            }
+            let register = {
+                name: this.register.name,
+                email: this.register.email,
+                password: this.register.password
+            };
+            accessAdminAPI
+                .register(register)
+                .then(res => {
+                    if (res.data.error == null) {
+                        this.user = res.user;
+                        vm.$emit('msg', {
+                            type: 'success',
+                            message: 'Admin cadastrado com sucesso!'
+                        });
+                    } else {
+                        const msg = res.data.error.message;
+                        vm.$emit('msg', {
+                            type: msg.type,
+                            message: msg.value
+                        });
+                    }
+                })
+                .catch(err => {
+                    const msg = err.error.message;
+                    vm.$emit('msg', {
+                        type: msg.tytpe,
+                        message: msg.value
+                    });
+                });
+        }
     }
-  },
-  methods: {
-    ...mapActions('admin', {
-      setUser: 'setUser',
-      setToken: 'setToken'
-    }),
-    ...mapGetters('admin', {
-      getUser: 'getUser'
-    }),
-    showAba(aba) {
-      if (aba == 'login') {
-        this.abas.login = true;
-        this.abas.register = false;
-      } else {
-        this.abas.login = false;
-        this.abas.register = true;
-      }
-    },
-    checkHasUser() {
-      let user = this.getUser();
-      if (user) {
-        this.user = user;
-      }
-      return false;
-    },
-    doLogin() {
-      let vm = this;
-      accessAdminAPI
-        .login(this.login)
-        .then(res => {
-          if (res.data.error == null) {
-            
-            const token = res.data.user.token;
-            this.user = res.data.user.name;
-            window.localStorage.setItem('_token', token);
-            window.localStorage.setItem('admin', this.user);
-            this.setUser(res.data.user.name);
-            this.setToken(res.data.user.token);
-            vm.$emit('msg', {
-              type: 'success',
-              message: `Parabens ${
-                this.user
-              } seu token foi recebido com sucesso`
-            });
-          } else {
-            let msg = res.data.message;
-            vm.$emit('msg', {
-              type: msg.type,
-              message: msg.value
-            });
-          }
-        })
-        .catch(err => {
-          let msg = err.error;
-          vm.$emit('msg', {
-            type: 'danger',
-            message: err
-          });
-        });
-    },
-    doRegister() {
-      let vm = this;
-      if (
-        this.register.password !== this.register.confirmpwd ||
-        this.register.confirmpwd == ''
-      ) {
-        vm.$emit('msg', {
-          type: 'danger',
-          message: 'Senha não confirmada'
-        });
-        return false;
-      }
-      let register = {
-        name: this.register.name,
-        email: this.register.email,
-        password: this.register.password
-      };
-      accessAdminAPI
-        .register(register)
-        .then(res => {
-          if (res.data.error == null) {
-            this.user = res.user;
-            vm.$emit('msg', {
-              type: 'success',
-              message: 'Admin cadastrado com sucesso!'
-            });
-          } else {
-            const msg = res.data.error.message;
-            vm.$emit('msg', {
-              type: msg.type,
-              message: msg.value
-            });
-          }
-        })
-        .catch(err => {
-          const msg = err.error.message;
-          vm.$emit('msg', {
-            type: msg.tytpe,
-            message: msg.value
-          });
-        });
-    }
-  }
 };
 </script>

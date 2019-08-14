@@ -17,9 +17,22 @@ export default {
             keyActive: 0
         }
     },
-
+    mounted() {
+        this.setCurrentMonth()
+    },
     methods: {
-
+        setCurrentMonth() {
+            let today = new Date()
+            this.keyActive = today.getMonth()
+            let monthActived = document.querySelectorAll('.il-months--box')
+            monthActived.forEach((element, index) => {
+                element.classList.remove('actived')
+                if (index == this.keyActive) {
+                    element.classList.add('actived')
+                }
+            });
+            this.$emit('choice', this.keyActive);
+        },
         choiceMonth(key) {
             this.keyActive = key
             let monthActived = document.querySelectorAll('.il-months--box')
