@@ -3,64 +3,61 @@
     <div class="il-student--content">
         <ilAlert :has="message ? true : false" :msg="message" />
         <h3>Controle de Alunos</h3>
-        <a href="#!" class="il-btn il-print il-btn--center" @click.prevent="printDoc">Imprimir</a>
-        <a href="#!" class="il-btn il-btn--submit il-btn--center" @click.prevent="populate">
-            <i class="mdi mdi-12px mdi-account-multiple il-color--orange" title="Popular o banco de dados" ></i>Popular Banco</a>
-        <div id="listStudent">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nr</th>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>Plano</th>
-                        <!--<th>Situação</th>-->
-                        <th>Pgmto</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody v-if="hasStudents">
-                    <tr v-for="(list,index) in students" :key="index" :class="list.ativo ? 'il-active' : 'il-inactive'">
-                        <td>{{index+1}}</td>
-                        <td>
-                            <ul>
-                                <li>{{list.name}}</li>
-                                <li>email: {{list.email}}</li>
-                            </ul>
-                        </td>
-                        <td>{{list.cpf}}</td>
-                        <td>
-                            <ul>
-                                <li>Vezes: {{list.vezes}}</li>
-                                <li>Valor: {{list.valor}}</li>
-                            </ul>
-                        </td>
-
-                        <!--<td>{{list.ativo ? 'Ativo' : 'Inativo'}}</td>-->
-                        <td :class="paymentStatus[index].class" v-if="paymentStatus.length > 0"><span><i class="mdi mdi-24px" :class="paymentStatus[index].icons" :title="paymentStatus[index].type"></i></span></td>
-                        <td v-else>sem pagamento</td>
-                        <td>
-                            <i class="mdi mdi-12px mdi-delete il-color--red" title="Eliminar cliente" @click="deleteStudent(list._id)"></i> |
-                            <i class="mdi mdi-12px mdi-account-edit il-color--orange" title="Editar conta" @click="editStudent(list._id)"></i> |
-                            <i class="mdi mdi-12px mdi-script il-color--yellow" title="Receber pagamento do cliente com cheque" @click.prevent="makePayment(index,list._id,'check')"></i> |
-                            <i class="mdi mdi-12px mdi-square-inc-cash il-color--dark" title="Receber pagamento do cliente com dinheiro" @click.prevent="makePayment(index,list._id,'money')"></i> |
-                            <i class="mdi mdi-12px mdi-account-location il-color--green" title="Ver o Endereço do cliente" @click.prevent="address(index)"></i>
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody v-else>
-                    <tr>
-                        <td colspan="7">
-                            <span>Não existem alunos cadastrado até o presente momento!</span>
-                        </td>
-                        <td><i class="mdi mdi-12px mdi-account-multiple il-color--orange" title="Popular o banco de dados" @click.prevent="populate()"></i></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="il-sub--menu">
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="createStudent"><i class="mdi mdi-12px mdi-account-multiple il-color--darkblue" title="Popular o banco de dados"></i>Novo Aluno</a>
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="printDoc" v-if="showBtnImp"><i class="mdi mdi-12px mdi-printer il-color--darkblue" title="Popular o banco de dados"></i>Imprimir lista</a>
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="populate" v-if="showBtnPop"><i class="mdi mdi-12px mdi-cloud-upload il-color--darkblue" title="Popular o banco de dados"></i>Popular Banco</a>
         </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nr</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Plano</th>
+                    <!--<th>Situação</th>-->
+                    <th>Pgmto</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody v-if="hasStudents">
+                <tr v-for="(list,index) in students" :key="index" :class="list.ativo ? 'il-active' : 'il-inactive'">
+                    <td>{{index+1}}</td>
+                    <td>
+                        <ul>
+                            <li class="name">{{list.name}}</li>
+                            <li class="nasc">Dt Nas: {{formatDate(index)}}</li>
+                            <li class="email">email: {{list.email}}</li>
+                        </ul>
+                    </td>
+                    <td>{{list.cpf}}</td>
+                    <td>
+                        <ul>
+                            <li>Vezes: {{list.vezes}}</li>
+                            <li>Valor: {{list.valor}}</li>
+                        </ul>
+                    </td>
+                    <td :class="paymentStatus[index].class" v-if="paymentStatus.length > 0"><span><i class="mdi mdi-24px" :class="paymentStatus[index].icons" :title="paymentStatus[index].type"></i></span></td>
+                    <td v-else>sem pagamento</td>
+                    <td>
+                        <i class="mdi mdi-12px mdi-delete il-color--red" title="Eliminar cliente" @click="deleteStudent(list._id,index)"></i> |
+                        <i class="mdi mdi-12px mdi-account-edit il-color--orange" title="Editar conta" @click="editStudent(list._id)"></i> |
+                        <i class="mdi mdi-12px mdi-script il-color--yellow" title="Receber pagamento do cliente com cheque" @click.prevent="makePayment(index,list._id,'check')"></i> |
+                        <i class="mdi mdi-12px mdi-square-inc-cash il-color--dark" title="Receber pagamento do cliente com dinheiro" @click.prevent="makePayment(index,list._id,'money')"></i> |
+                        <i class="mdi mdi-12px mdi-account-location il-color--green" title="Ver o Endereço do cliente" @click.prevent="address(index)"></i>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody v-else>
+                <tr>
+                    <td colspan="7">
+                        <span>Não existem alunos cadastrado até o presente momento!</span>
+                    </td>
+                    <td><i class="mdi mdi-12px mdi-account-multiple il-color--orange" title="Popular o banco de dados" @click.prevent="populate()"></i></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <button class="il-btn il-btn--entrance" @click="createStudent">Novo Aluno</button>
-    <!--<button class="il-btn il-btn--entrance" @click="populate">Complementar Carregamento de Alunos</button>-->
     <div class="il-student--address" v-if="hasAddress">
         <a href="#!" class="il-close il-close--address" @click.prevent="close"><i class="mdi mdi-close medi-12px"></i></a>
         <table>
@@ -93,8 +90,7 @@
 import accessStudentAPI from '../../common/apiStudent.js';
 import accessPaymentAPI from '../../common/apiPayment.js';
 import ilAlert from '@/components/includes/alerts.vue';
-
-const populate = require('../../db/seed');
+const populateDB = require('../../db/seed');
 import {
     mapGetters
 } from 'vuex';
@@ -167,6 +163,18 @@ export default {
         ...mapGetters('admin', {
             getToken: 'getToken'
         }),
+        showBtnPop() {
+            if (this.students.length == 0) {
+                return true;
+            }
+            return false;
+        },
+        showBtnImp() {
+            if (this.students.length > 0) {
+                return true;
+            }
+            return false;
+        },
         hasStudents() {
             if (this.students.length > 0) {
                 this.getPayment();
@@ -189,31 +197,73 @@ export default {
         }
     },
     mounted() {
-        this.setToday()
+        this.setToday();
         this.setStudents();
     },
     methods: {
+        formatDate(index) {
+            let data = this.students[index].dnasc.split('T')
+            let dn = data[0].split('-')
+            return `${dn[2]}/${dn[1]}/${dn[0]}`
+        },
         printDoc() {
-            window.print()
+            window.print();
         },
         setToday() {
-            let today = new Date()
-            let month = today.getMonth()
-            this.monthCurrent = this.months[month].abr
+            let today = new Date();
+            let month = today.getMonth();
+            this.monthCurrent = this.months[month].abr;
+        },
+        setStudents() {
+            accessStudentAPI
+                .getStudents()
+                .then(response => {
+                    if (response.error === null && response.student.length > 0) {
+                        this.students = response.student;
+                        this.students.forEach((student, index) => {
+                            student.valor = this.getDesc(index);
+                        });
+                    } else {
+                        if (response.error) {
+                            this.setAlert({
+                                type: 'warning',
+                                message: response.message.value
+                            });
+                        }
+                    }
+                })
+                .catch(err => {
+                    this.setAlert({
+                        type: 'danger',
+                        message: 'Você não tem permisssão para acessar essa página! ' +
+                            err +
+                            ' Você será redirecionado para página de login em 4 seg'
+                    });
+                    setTimeout(() => {
+                        this.$router.push({
+                            name: 'home'
+                        });
+                    }, 3000);
+                });
         },
         populate() {
             let confirm = window.confirm(
                 'Realmente deseja realizar esse procedimento agora?'
             );
             if (!confirm) return;
-            let newStudent = populate.populateStudent();
+            let newStudent = populateDB.populateStudent();
+            /*if (!newStudent.error) {
+                      let data = newStudent.data;
+                      console.log(data)
+                  }*/
             //!Call API to make seed
             if (!newStudent.error) {
                 let data = newStudent.data;
                 let vm = this;
+                //accessStudentAPI.createMultiple(data)
                 data.forEach(s => {
                     accessStudentAPI
-                        .create(s)
+                        .createMultiple(s)
                         .then(res => {
                             if (res.data.error == '') {
                                 vm.setAlert({
@@ -244,13 +294,16 @@ export default {
         },
         getPayment() {
             if (this.students.length == 0) return;
-            let monthCurrent = this.monthCurrent
+            let monthCurrent = this.monthCurrent;
             if (monthCurrent) {
                 accessPaymentAPI
                     .searchPaymentMonth(monthCurrent)
                     .then(response => {
-                        console.log(response)
-                        if (response.data.error == null && response.data.payment.length > 0) {
+                        console.log(response);
+                        if (
+                            response.data.error == null &&
+                            response.data.payment.length > 0
+                        ) {
                             this.paymentStudents = response.data.payment[0].students;
                             this.statusPayment();
                         }
@@ -262,40 +315,6 @@ export default {
         },
         setAlert(obj) {
             this.message = obj;
-        },
-        setStudents() {
-            accessStudentAPI
-                .getStudents()
-                .then(response => {
-
-                    if (response.error == null && response.student.length > 0) {
-                        this.students = response.student;
-                        this.students.forEach((student, index) => {
-                            student.valor = this.getDesc(index);
-                        });
-                    } else {
-                        if (response.error) {
-                            this.setAlert({
-                                type: 'warning',
-                                message: response.error
-                            });
-                        }
-                    }
-                })
-                .catch(err => {
-
-                    this.setAlert({
-                        type: 'danger',
-                        message: 'Você não tem permisssão para acessar essa página! ' +
-                            err +
-                            ' Você será redirecionado para página de login em 4 seg'
-                    });
-                    setTimeout(() => {
-                        this.$router.push({
-                            name: 'home'
-                        });
-                    }, 3000);
-                });
         },
         getDesc(id) {
             let valor = this.students[id].valor;
@@ -357,17 +376,21 @@ export default {
                 }
             });
         },
-        deleteStudent(id) {
-            let confirm = window.confirm('Realmente deseja eleiminar esse aluno?');
+        deleteStudent(id, index) {
+            let confirm = window.confirm('Realmente deseja eliminar ' + this.students[index].name + ' ?');
             if (confirm) {
                 accessStudentAPI
                     .removeStudent(id)
                     .then(response => {
-                        this.students = response;
-                        this.setAlert({
-                            type: 'success',
-                            message: 'Aluno removido com sucesso da base de dados.'
-                        });
+                        //this.students = response;
+                        if (!response.error) {
+                            this.students.splice(index)
+                            this.setAlert({
+                                type: response.message.type,
+                                message: response.message.value
+                            });
+                        }
+
                     })
                     .catch(err => {
                         this.setAlert({
@@ -388,11 +411,9 @@ export default {
             let student = JSON.stringify({
                 name: this.students[key].name,
                 valor: this.students[key].valor
-            })
-            console.log(student)
-            window.localStorage.setItem(
-                'student', student
-            );
+            });
+            console.log(student);
+            window.localStorage.setItem('student', student);
             this.$router.push({
                 name: 'payment',
                 params: {

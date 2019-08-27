@@ -5,11 +5,10 @@
   margin: 0;
   justify-content: center;
   & .il-months--box {
-    border: 1px solid #b6e0f8;
     margin: 0.15rem;
-    background: #4311aa;
-    &:hover{
-      background: #4300ee;
+
+    &:hover {
+      background: #0d0d0f;
     }
     & span {
       display: block;
@@ -26,7 +25,8 @@
       }
       &.actived {
         border: none;
-        background: #0c4eb1;
+        background: #0c4eb1 !important;
+        border: 1px solid #b6e0f8;
         & span {
           color: #96d1f3;
           &:hover {
@@ -40,11 +40,11 @@
     &.is-active,
     &.actived {
       border: none;
-      background: #e7b378;
+      background: #c0c0e4 !important;
       & span {
-        color: #443532;
+        color: #f06e57;
         &:hover {
-          color: #ee5108;
+          color: #ee1008;
           font-weight: bolder;
           text-transform: uppercase;
         }

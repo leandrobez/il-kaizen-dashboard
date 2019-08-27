@@ -12,6 +12,7 @@
 @import 'grid/main';
 
 /**themes*/
+@import 'theme/boxes';
 @import 'theme/colors';
 @import 'theme/backgrounds';
 @import 'theme/form';
@@ -26,4 +27,5 @@
 @import 'modules/expenses';
 @import 'modules/payment';
 @import 'modules/months';
+@import 'modules/admin';
 @import 'modules/student';

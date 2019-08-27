@@ -66,9 +66,18 @@ table {
     i {
       cursor: pointer;
     }
+    ul li {
+      text-align: left;
+      &.name {
+        font-weight: 600;
+      }
+      &.nasc {
+        color: rgb(167, 15, 15);
+      }
+    }
   }
   & tbody tr:nth-child(even) td {
-    background: #a3a6af; // lighten($negative, 55%);
+    background: #999da8; // lighten($negative, 55%);
   }
   & tbody tr:nth-child(odd) td {
     background: lighten($negative, 75%);

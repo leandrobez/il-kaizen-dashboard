@@ -23,17 +23,17 @@ button.il-btn {
     &.il-btn--center {
       margin: 0 auto;
     }
+    &:hover {
+      transition: 450ms ease-in;
+      background: #434343;
+      color: $negative;
+    }
   }
   &.il-btn--entrance {
     color: lightgrey;
     margin-bottom: 1rem;
     font-size: 14px;
     background: rgb(42, 49, 88);
-  }
-  &:hover {
-    transition: 450ms ease-in;
-    background: #efefee;
-    color: $dark;
   }
   &.il-btn--add {
     font-size: 1.5rem;
@@ -56,5 +56,10 @@ button.il-btn {
     &:focus {
       outline: none;
     }
+  }
+  &:hover {
+    transition: 450ms ease-in;
+    background: #efefee;
+    color: $dark;
   }
 }

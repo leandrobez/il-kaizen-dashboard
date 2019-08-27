@@ -2,4 +2,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  .il-sub--menu {
+    display: flex;
+    justify-content: space-between;
+  }
 }

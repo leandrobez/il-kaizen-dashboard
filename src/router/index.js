@@ -48,30 +48,35 @@ const router = new VueRouter({
     },
     {
       path: '/contas',
+      name: 'expenses',
       component: () => import('@/views/Expenses.vue'),
       children: [
         {
           path: 'fixas',
           name: 'contas.fixed',
-          component: () => import('@/components/expensesComponents/includes/fixed.vue')
+          component: () =>
+            import('@/components/expensesComponents/includes/fixed.vue')
         },
         {
           path: 'extras',
           name: 'contas.extras',
-          component: () => import('@/components/expensesComponents/includes/extras.vue')
+          component: () =>
+            import('@/components/expensesComponents/includes/extras.vue')
         },
         {
           path: 'variables',
           name: 'contas.variables',
-          component: () => import('@/components/expensesComponents/includes/variables.vue')
+          component: () =>
+            import('@/components/expensesComponents/includes/variables.vue')
+        },
+        {
+          path: 'show',
+          name: 'contas.show',
+          component: () => import('@/components/expensesComponents/list.vue')
         }
       ]
     },
-    {
-      path: '/contas/show',
-      name: 'contas.show',
-      component: () => import('@/components/expensesComponents/list.vue')
-    },
+
     /*
     {
       path: '/relatorios',

@@ -4,14 +4,18 @@ import axios from 'axios';
 const dotenv = require('dotenv');
 
 dotenv.config();
-let base_url = ''
+let base_url = '';
 if (process.env.NODE_ENV !== 'production') {
-  base_url = 'http://localhost:3000'
-} 
+  base_url = 'http://localhost:3000';
+}
 const endPoints = {
   urlAPI: '/kaizen/api/student',
   baseURL: base_url,
   points: [
+    {
+      name: 'multiple',
+      path: '/create/multiple'
+    },
     {
       name: 'create',
       path: '/create'
@@ -57,8 +61,18 @@ const setURL = point => {
 };
 
 const accessStudentAPI = {
-
   /** @students  */
+  createMultiple: async data => {
+    let url = setURL('multiple');
+    return axios
+      .post(url, data, bearerToken())
+      .then(response => {
+        return response;
+      })
+      .catch(err => {
+        return Promise.reject(err.message);
+      });
+  },
   create: data => {
     let url = setURL('create');
     return axios
@@ -105,11 +119,12 @@ const accessStudentAPI = {
     return axios
       .delete(url + '/' + id, bearerToken())
       .then(response => {
-        const value = response.data;
-        return value;
+        console.log(response);
+        //const value = response.data;
+        return response;
       })
       .catch(err => Promise.reject(err.message));
-  },
+  }
 };
 
 export default accessStudentAPI;

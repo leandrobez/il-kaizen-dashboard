@@ -3,6 +3,9 @@
     <div class="il-admin--content">
         <ilAlert :has="message ? true : false" :msg="message" />
         <h3>Controle de Administradores</h3>
+        <div class="il-sub--menu">
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="createAdmin"><i class="mdi mdi-12px mdi-account-multiple il-color--darkblue" title="Popular o banco de dados"></i>Novo Administrador</a>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -31,7 +34,6 @@
             </tbody>
         </table>
     </div>
-    <button class="il-btn il-btn--entrance" @click="createAdmin">Novo Admin</button>
 </div>
 </template>
 

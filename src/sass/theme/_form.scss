@@ -25,13 +25,13 @@ form.il-form {
       width: 40%;
     }
   }
-  .il-field--flex{
+  .il-field--flex {
     display: flex;
-    i.mdi{
-      cursor:pointer;
+    i.mdi {
+      cursor: pointer;
       margin-left: 5px;
-      &:hover{
-        transform: scale(.9);
+      &:hover {
+        transform: scale(0.9);
       }
     }
   }
@@ -46,9 +46,13 @@ form.il-form {
       right: 0;
       font-size: 0.79rem;
       font-weight: bolder;
+      &.il-label--expenses {
+        color: white;
+      }
     }
   }
-  .il-field--radio, .il-field--check {
+  .il-field--radio,
+  .il-field--check {
     padding: 0.2rem 0;
     margin-bottom: 1rem;
     border: 1px solid #67686b;
@@ -56,9 +60,8 @@ form.il-form {
     label {
       margin: 0 0.25rem;
     }
-
     input[type='radio'],
-    input[type='checkbox']{
+    input[type='checkbox'] {
       width: 22px;
       height: 22px;
       position: relative;

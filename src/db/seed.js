@@ -8,7 +8,7 @@ const students = [
     VALOR: 245,
     DATA: '',
     EMAIL: 'adibem@terra.com.br',
-    DNASC: '20/01/1960',
+    DNASC: '26/07/1960',
     ATIVO: true,
     OBS: '',
     ORIGEM: '',
@@ -200,7 +200,7 @@ const students = [
     VALOR: 460,
     DATA: '',
     EMAIL: '',
-    DNASC: '',
+    DNASC: '15/07/1977',
     ATIVO: true,
     OBS: '',
     ORIGEM: '',
@@ -328,7 +328,7 @@ const students = [
     VALOR: 460,
     DATA: '',
     EMAIL: 'ildafuentes@brturbo.com.br',
-    DNASC: '',
+    DNASC: '04/03/1960',
     ATIVO: true,
     OBS: '',
     ORIGEM: '',
@@ -353,7 +353,7 @@ const students = [
   },
   {
     NR: 12,
-    NOME: 'JANE CRUZE OLIVEIRA',
+    NOME: 'JANE KRUZE de CASTRO OLIVEIRA',
     SEXO: 'FEM',
     CPF: '21035490072',
     VEZES: 2,
@@ -425,7 +425,7 @@ const students = [
     DATA: '',
     EMAIL: '',
     DNASC: '',
-    ATIVO: false,
+    ATIVO: true,
     OBS: '',
     ORIGEM: '',
     DESC: {
@@ -705,7 +705,7 @@ const students = [
   },
   {
     NR: 23,
-    NOME: 'MOYSES PEREZ',
+    NOME: 'MOYSES BENTO CRESPO PEREZ NETO',
     SEXO: 'MASC',
     CPF: '',
     VEZES: 2,
@@ -713,6 +713,7 @@ const students = [
     DATA: '',
     EMAIL: '',
     DNASC: '',
+    ATIVO: false,
     OBS: 'inativo',
     DESC: {
       perc: 0,
@@ -799,7 +800,7 @@ const students = [
   },
   {
     NR: 26,
-    NOME: 'RENATO OLIVEIRA ROSA',
+    NOME: 'RENATO de OLIVEIRA ROSA',
     SEXO: 'MASC',
     CPF: '001570310-04',
     VEZES: 1,
@@ -807,7 +808,7 @@ const students = [
     DATA: '',
     EMAIL: 'renato@renato.odo.br',
     DNASC: '',
-    ATIVO: false,
+    ATIVO: true,
     OBS: '',
     ORIGEM: '',
     DESC: {
@@ -831,14 +832,14 @@ const students = [
   },
   {
     NR: 27,
-    NOME: 'RODRIGO',
+    NOME: 'RODRIGO de LORETO CURTO',
     SEXO: 'MASC',
     CPF: '',
     VEZES: 2,
     VALOR: 460,
     DATA: '',
     EMAIL: '',
-    DNASC: '',
+    DNASC: '27/10/1960',
     ATIVO: true,
     OBS: '',
     ORIGEM: '',
@@ -871,7 +872,7 @@ const students = [
     DATA: '',
     EMAIL: '',
     DNASC: '',
-    ATIVO: false,
+    ATIVO: true,
     OBS: '',
     ORIGEM: '',
     DESC: {
@@ -1092,7 +1093,7 @@ const students = [
     VALOR: 565,
     DATA: '',
     EMAIL: '',
-    DNASC: '',
+    DNASC: '25/11/1967',
     ATIVO: true,
     OBS: '',
     ORIGEM: '',
@@ -1149,44 +1150,44 @@ const students = [
   },
   {
     NR: 37,
-    NOME: 'LUCIANA WERNER',
-    SEXO: 'FEM',
-    CPF: '97132594087',
-    VEZES: 2,
-    VALOR: 460,
-    DATA: '',
-    EMAIL: '',
-    DNASC: '',
-    ATIVO: true,
-    OBS: '',
-    ORIGEM: '',
-    DESC: {
-      perc: 0,
-      abs: 0
-    },
-    'PAGO COM': '',
-    ADDRESS: [
-      {
-        FONE: '',
-        CEL: '982906517',
-        CEP: '',
-        LOGRADOURO: '',
-        NR: '',
-        BAIRRO: '',
-        COMPL: '',
-        CIDADE: '',
-        UF: ''
-      }
-    ]
-  },
-  {
-    NR: 38,
     NOME: 'SILVANE LORENZONI SESTI',
     SEXO: 'FEM',
     CPF: '62749080053',
     VEZES: 2,
     VALOR: 460,
     DATA: '',
+    EMAIL: 'silvanels@terra.com.br',
+    DNASC: '',
+    ATIVO: true,
+    OBS: '',
+    ORIGEM: '',
+    DESC: {
+      perc: 0,
+      abs: 100
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '',
+        CEL: '984866666',
+        CEP: '90470140',
+        LOGRADOURO: '',
+        NR: '',
+        BAIRRO: '',
+        COMPL: '',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 38,
+    NOME: 'MAGDA',
+    SEXO: 'FEM',
+    CPF: '',
+    VEZES: 1,
+    VALOR: 245,
+    DATA: '',
     EMAIL: '',
     DNASC: '',
     ATIVO: true,
@@ -1194,20 +1195,148 @@ const students = [
     ORIGEM: '',
     DESC: {
       perc: 0,
-      abs: 0
+      abs: 25
     },
     'PAGO COM': '',
     ADDRESS: [
       {
         FONE: '',
-        CEL: '982906517',
-        CEP: '',
+        CEL: '984866666',
+        CEP: '90470140',
         LOGRADOURO: '',
         NR: '',
         BAIRRO: '',
         COMPL: '',
-        CIDADE: '',
-        UF: ''
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 39,
+    NOME: 'BARBARA P',
+    SEXO: 'FEM',
+    CPF: '',
+    VEZES: 1,
+    VALOR: 245,
+    DATA: '',
+    EMAIL: '',
+    DNASC: '',
+    ATIVO: true,
+    OBS: '',
+    ORIGEM: '',
+    DESC: {
+      perc: 0,
+      abs: 25
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '',
+        CEL: '984866666',
+        CEP: '90470140',
+        LOGRADOURO: '',
+        NR: '',
+        BAIRRO: '',
+        COMPL: '',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 40,
+    NOME: 'ANNA RITA de MORAES BETHGE',
+    SEXO: 'FEM',
+    CPF: '',
+    VEZES: 1,
+    VALOR: 360,
+    DATA: '',
+    EMAIL: '',
+    DNASC: '30/09/1967',
+    ATIVO: true,
+    OBS: '',
+    ORIGEM: '',
+    DESC: {
+      perc: 0,
+      abs: 100
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '',
+        CEL: '984866666',
+        CEP: '90470140',
+        LOGRADOURO: '',
+        NR: '',
+        BAIRRO: '',
+        COMPL: '',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 41,
+    NOME: 'MARIA HORTO',
+    SEXO: 'FEM',
+    CPF: '',
+    VEZES: 3,
+    VALOR: 495,
+    DATA: '',
+    EMAIL: '',
+    DNASC: '',
+    ATIVO: true,
+    OBS: '',
+    ORIGEM: '',
+    DESC: {
+      perc: 0,
+      abs: 25
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '',
+        CEL: '984866666',
+        CEP: '90470140',
+        LOGRADOURO: '',
+        NR: '',
+        BAIRRO: '',
+        COMPL: '',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 42,
+    NOME: 'MARIA HORTO',
+    SEXO: 'FEM',
+    CPF: '',
+    VEZES: 3,
+    VALOR: 495,
+    DATA: '',
+    EMAIL: '',
+    DNASC: '',
+    ATIVO: true,
+    OBS: '',
+    ORIGEM: '',
+    DESC: {
+      perc: 0,
+      abs: 35
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '',
+        CEL: '984866666',
+        CEP: '90470140',
+        LOGRADOURO: '',
+        NR: '',
+        BAIRRO: '',
+        COMPL: '',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
       }
     ]
   }
@@ -1215,7 +1344,7 @@ const students = [
 
 const isValidCPF = cpf => {
   if (!cpf) return true;
-  
+
   let Soma, Resto;
   Soma = 0;
   if (cpf == '00000000000') return false;
@@ -1237,6 +1366,25 @@ const isValidCPF = cpf => {
   return true;
 };
 
+const setDNasc = string => {
+  const getZeros = number => {
+    if (number <= 9) {
+      return `0${number}`;
+    }
+    return number;
+  };
+  if (string == '') {
+    let today = new Date();
+    let month = today.getMonth();
+    let day = today.getDay();
+    let year = today.getFullYear();
+    return `${getZeros(month++)}/${getZeros(day)}/${year}`;
+  }
+  let split = string.split('/');
+  let novadata = split[1] + '/' + split[0] + '/' + split[2];
+  return new Date(novadata);
+};
+
 const populateStudent = () => {
   let allStudents = [];
   students.forEach((student, index) => {
@@ -1253,10 +1401,10 @@ const populateStudent = () => {
     }
     if (student.CPF == '') student.CPF = '00000000000';
     if (student.OBS == '') student.OBS = 'Sem observação';
-    if (student.ORIGEM == '') student.ORIGEM = 'Não identificadp';
+    if (student.ORIGEM == '') student.ORIGEM = 'Não identificado';
     if (student.EMAIL == '') student.EMAIL = `email${index}@email.com`;
     if (student.ADDRESS[0].CEP == '') student.ADDRESS[0].CEP = '90810170';
-    student.DNASC = Date.now();
+    student.DNASC = setDNasc(student.DNASC);
     if (student.ADDRESS[0].LOGRADOURO == '')
       student.ADDRESS[0].LOGRADOURO = 'Rua que Sobe e Desce e O Nr não Aparece';
     if (student.ADDRESS[0].NR == '') student.ADDRESS[0].NR = '10000';
@@ -1265,10 +1413,10 @@ const populateStudent = () => {
     if (student.ADDRESS[0].BAIRRO == '')
       student.ADDRESS[0].BAIRRO = 'Sem bairro';
     if (student.ADDRESS[0].CIDADE == '')
-      student.ADDRESS[0].CIDADE = 'Sem cidade';
-    if (student.ADDRESS[0].UF == '') student.ADDRESS[0].UF = 'TT';
-    if (student.ADDRESS[0].FONE == '') student.ADDRESS[0].FONE = 'Sem estado';
-    if (student.ADDRESS[0].CEL == '') student.ADDRESS[0].CEL = 'Sem estado';
+      student.ADDRESS[0].CIDADE = 'Porto Alegre';
+    if (student.ADDRESS[0].UF == '') student.ADDRESS[0].UF = 'RS';
+    if (student.ADDRESS[0].FONE == '') student.ADDRESS[0].FONE = '51 3030-4004';
+    if (student.ADDRESS[0].CEL == '') student.ADDRESS[0].CEL = '51 99999-0000';
 
     let newStudent = {
       name: student.NOME,
@@ -1297,7 +1445,6 @@ const populateStudent = () => {
         clr: student.ADDRESS[0].CEL
       }
     };
-
     allStudents.push(newStudent);
   });
 

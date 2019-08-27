@@ -4,6 +4,10 @@
   flex-direction: column;
   .il-student--content {
     position: relative;
+    .il-sub--menu {
+      display: flex;
+      justify-content: space-between;
+    }
   }
   .il-student--address {
     position: absolute;

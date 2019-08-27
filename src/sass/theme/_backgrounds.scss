@@ -1,20 +1,29 @@
 .il-background--gradient-grey {
-  background-image: linear-gradient(to right, #84918b 0%, #5d4157 100%);
+  background-image: linear-gradient(to left, #84918b 10%, #5d4157 100%);
 }
 .il-background--gradient--grey-sky {
   background-image: linear-gradient(
-    to top,
-    #70747a 0%,
-    #9ea6b6 100%,
+    to right,
+    #e0e4eb 10%,
+    #b8bdc9 100%,
     #43454b 100%,
-    #8f9094 100%
+    #b3b4b8 100%
   );
 }
-
+.il-backround--gradient-boxes {
+  background-image: linear-gradient(to top, #1a2d4e 0%, #576b8b 100%);
+}
 .il-background--gradient-great-whale {
   background-image: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
 }
+.il-background--dark {
+  background: #454343;
+}
 
-.il-background--dark{
-    background: #454343
+.il-big--image {
+  position: absolute;
+  top: 300px;
+  width: 100%;
+  height: calc(100% - 301px);
+  background: rgb(240, 202, 202);
 }

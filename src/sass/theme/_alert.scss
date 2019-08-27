@@ -9,7 +9,6 @@
   top: 50%;
   transform: translateY(-50%);
   @include ease($delay);
-  //transform: translateY(-50%);
   & p {
     line-height: 2rem;
     text-align: center;

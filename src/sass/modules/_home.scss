@@ -25,33 +25,6 @@ section.il-section.il-section--home {
         font-weight: bolder;
         margin-bottom: 0.5rem;
       }
-      ul.il-box--home {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-        grid-gap: 0.25rem;
-        align-content: center;
-        justify-content: center;
-        width: 100%;
-        margin: auto;
-        > li {
-          padding: 0 0.15rem;
-          min-height: 100px;
-          text-align: center;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          border-radius: 3px;
-          box-shadow: 2px 3px 5px #94736f;
-          @include ease(500);
-          a.il-nav--link {
-            color: rgb(238, 232, 223);
-          }
-          &:hover {
-            @include ease(500);
-            background: rgb(66, 73, 80);
-          }
-        }
-      }
     }
     .il-home--access {
       margin-top: 1rem;
