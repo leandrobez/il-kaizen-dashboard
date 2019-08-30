@@ -2,7 +2,7 @@
 <div class="il-student">
     <div class="il-student--content">
         <ilAlert :has="message ? true : false" :msg="message" />
-        <h3>Controle de Alunos</h3>
+        <h3 class="il-color--darkblue">Controle de Alunos</h3>
         <div class="il-sub--menu">
             <a href="#!" class="il-btn il-btn--submit" @click.prevent="createStudent"><i class="mdi mdi-12px mdi-account-multiple il-color--darkblue" title="Popular o banco de dados"></i>Novo Aluno</a>
             <a href="#!" class="il-btn il-btn--submit" @click.prevent="printDoc" v-if="showBtnImp"><i class="mdi mdi-12px mdi-printer il-color--darkblue" title="Popular o banco de dados"></i>Imprimir lista</a>

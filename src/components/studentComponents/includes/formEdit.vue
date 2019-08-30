@@ -2,7 +2,7 @@
 <form class="il-form il-form--signup" @submit.prevent="doUpdate">
     <div class="il-signup">
         <div class="il-signup--content">
-            <h5>Dados Pessoais</h5>
+            <h5 class="il-color--darkblue">Dados Pessoais</h5>
             <label>Conceder desconto?</label>
             <div class="il-field--radio">
                 <label for="noDesc">Sem Desc</label>
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="il-signup--content">
-            <h5>Endereço</h5>
+            <h5 class="il-color--darkblue">Endereço</h5>
             <label for="cep">CEP</label>
             <div class="il-field--flex">
                 <input type="text" v-model="student.address.cep" class="il-input--cep" placeholder="CEP" id="cep" />

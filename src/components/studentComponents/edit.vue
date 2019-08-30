@@ -1,7 +1,7 @@
 <template>
 <div class="il-student il-student--content">
     <ilAlert :has="checkAlert" :msg="message" />
-    <h3>Editar conta do aluno</h3>
+    <h3 class="il-color--darkblue">Editar conta </h3>
     <ilStudentFormEdit @msg="setAlert" :id="getID" v-if="studentID" />
 </div>
 </template>

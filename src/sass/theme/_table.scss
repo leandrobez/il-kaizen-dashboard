@@ -10,18 +10,18 @@ table {
     margin: 1rem auto auto;
   }
   & thead {
-    background: #7e8285;
+    background: #736ccc;
     background: linear-gradient(
       to bottom,
-      #434250 0%,
-      #3f3f47 66%,
-      #434344 100%
+      #736ccc 0%,
+      #6060c4 66%,
+      #a7a7c4 100%
     );
     //border-bottom: 3px solid #7e0a0a;
   }
   & th,
   & td {
-    border: 1px solid #273e69;
+    border: 1px solid #062b70;
     padding: 5px 4px;
     padding: 0.25rem 0;
     &.il-list--title {
@@ -39,7 +39,7 @@ table {
   & th {
     font-size: 15px;
     font-weight: bold;
-    color: #fcd6d6;
+    color: #d6eefc;
     text-align: center;
     text-transform: uppercase;
   }
@@ -76,11 +76,11 @@ table {
       }
     }
   }
-  & tbody tr:nth-child(even) td {
-    background: #999da8; // lighten($negative, 55%);
-  }
+  /*& tbody tr:nth-child(even) td {
+    //background: #999da8; // lighten($negative, 55%);
+  }*/
   & tbody tr:nth-child(odd) td {
-    background: lighten($negative, 75%);
+    background: #fefeee;
   }
   & tbody tr.il-inactive td {
     background: rgb(214, 73, 73);

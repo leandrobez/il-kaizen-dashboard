@@ -19,75 +19,80 @@
 </template>
 
 <script>
-import accessAdminAPI from '../../../common/apiAdmin.js'
+import accessAdminAPI from '../../../common/apiAdmin.js';
 export default {
-    name: 'formAdminEdit',
-    props: {
-        id: String
-    },
-    data() {
-        return {
-            admin: {
-                name: '',
-                email: ''
-            },
-        }
-    },
-    mounted() {
-        this.getAdmin()
-    },
-    methods: {
-        getAdmin() {
-            let vm = this
-            if (this.id) {
-                accessAdminAPI.searchAdmin(this.id).then(res => {
-                    if (res.error == null) {
-                        this.admin = res.user
-                    } else {
-                        let msg = res.error.message;
-                        vm.$emit('msg', {
-                            type: msg.type,
-                            message: msg.value
-                        });
-                    }
-                }).catch(err => {
-                    let msg = err.error;
-                    vm.$emit('msg', {
-                        type: 'danger',
-                        message: err
-                    });
-                })
+  name: 'formAdminEdit',
+  props: {
+    adminID: String
+  },
+  data() {
+    return {
+      admin: {
+        name: '',
+        email: ''
+      }
+    };
+  },
+  mounted() {
+    this.getAdmin();
+  },
+  methods: {
+    getAdmin() {
+      let vm = this;
+      if (this.adminID) {
+        accessAdminAPI
+          .searchAdmin(this.adminID)
+          .then(res => {
+            if (res.error == null) {
+              this.admin.name = res.user.name;
+              this.admin.email = res.user.email;
+            } else {
+              let msg = res.error.message;
+              vm.$emit('msg', {
+                type: msg.type,
+                message: msg.value
+              });
             }
-        },
-        doUpdate() {
-            let vm = this
-            accessAdminAPI.updateAdmin(this.id, this.admin)
-                .then(res => {
-                    if (res.data.error == '') {
-                        vm.$emit('msg', {
-                            type: 'success',
-                            message: 'O present Admin teve sua conta atualizada com sucesso!'
-                        })
-                        setTimeout(() => {
-                            vm.$router.push({
-                                name: 'admins'
-                            })
-                        }, 2500)
-                    } else {
-                        const value = res.data.error;
-                        vm.$emit('msg', {
-                            type: 'warning',
-                            message: value
-                        })
-                    }
-                })
-                .catch(err => {
-                    vm.$emit('msg', {
-                        type: 'warning',
-                        message: err
-                    })
-                });
-        }
+          })
+          .catch(err => {
+            let msg = err.error;
+            vm.$emit('msg', {
+              type: 'danger',
+              message: err
+            });
+          });
+      }
+    },
+    doUpdate() {
+      let vm = this;
+      accessAdminAPI
+        .updateAdmin(this.id, this.admin)
+        .then(res => {
+          if (res.data.error == '') {
+            vm.$emit('msg', {
+              type: 'success',
+              message: 'O present Admin teve sua conta atualizada com sucesso!'
+            });
+            setTimeout(() => {
+              vm.$router.push({
+                name: 'admins'
+              });
+            }, 2500);
+          } else {
+            const value = res.data.error;
+            vm.$emit('msg', {
+              type: 'warning',
+              message: value
+            });
+          }
+        })
+        .catch(err => {
+          vm.$emit('msg', {
+            type: 'warning',
+            message: err
+          });
+        });
     }
-}
+  }
+};
 </script>

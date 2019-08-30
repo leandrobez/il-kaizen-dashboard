@@ -1,8 +1,8 @@
 <template>
 <div class="il-admin il-admin--content">
     <ilAlert :has="checkAlert" :msg="message" />
-    <h3>Editar conta do Administrador</h3>
-    <ilAdminFormEdit @msg="setAlert" :id="getID" />
+    <h3 class="il-color--darkblue">Editar conta</h3>
+    <ilAdminFormEdit @msg="setAlert" :adminID="getID" />
 </div>
 </template>
 
@@ -38,7 +38,6 @@ export default {
     },
     mounted() {
         this.adminID = this.$route.params.id
-
     },
     methods: {
         setAlert(obj) {

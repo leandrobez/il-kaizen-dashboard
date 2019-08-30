@@ -16,10 +16,20 @@ button.il-btn {
   outline: none;
   transition: 450ms ease-in;
   &.il-btn--submit {
-    color: rgb(214, 50, 50);
+    color: rgb(128, 19, 19);
     margin-bottom: 1rem;
     font-size: 14px;
-    background: rgb(227, 230, 241);
+    background: rgb(181, 192, 230);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i {
+      margin-right: 0.25rem;
+    }
+    span {
+      line-height: 14px;
+      display: block;
+    }
     &.il-btn--center {
       margin: 0 auto;
     }

@@ -20,64 +20,68 @@
     <div class="il-input--info il-center">
         <button class="il-btn il-btn--entrance">
             <i class="mdi mdi-24px mdi-check"></i>
-            <span>Logar</span>
+            <span>Salvar</span>
         </button>
     </div>
 </form>
 </template>
 
 <script>
-import accessAdminAPI from '../../../common/apiAdmin.js'
+import accessAdminAPI from '../../../common/apiAdmin.js';
 export default {
-    name: 'formAdminCreate',
-    data() {
-        return {
-            register: {
-                name: '',
-                email: '',
-                password: '',
-                confirmpwd: ''
-            },
-        }
-    },
-    methods: {
-        doRegister() {
-            let vm = this
-            if (this.register.password !== this.register.confirmpwd || this.register.confirmpwd == '') {
-                vm.$emit('msg', {
-                    type: 'danger',
-                    message: 'Senha não confirmada'
-                })
-                return false
-            }
-            let register = {
-                name: this.register.name,
-                email: this.register.email,
-                password: this.register.password
-            }
-            accessAdminAPI.register(register)
-                .then(res => {
-                    if (res.data.error == '') {
-                        this.user = res.user;
-                        vm.$emit('msg', {
-                            type: 'success',
-                            message: 'Admin cadastrado com sucesso!'
-                        })
-                    } else {
-                        const value = res.data.error;
-                        vm.$emit('msg', {
-                            type: 'warning',
-                            message: value
-                        })
-                    }
-                })
-                .catch(err => {
-                    vm.$emit('msg', {
-                        type: 'warning',
-                        message: err
-                    })
-                });
-        }
+  name: 'formAdminCreate',
+  data() {
+    return {
+      register: {
+        name: '',
+        email: '',
+        password: '',
+        confirmpwd: ''
+      }
+    };
+  },
+  methods: {
+    doRegister() {
+      let vm = this;
+      if (
+        this.register.password !== this.register.confirmpwd ||
+        this.register.confirmpwd == ''
+      ) {
+        vm.$emit('msg', {
+          type: 'danger',
+          message: 'Senha não confirmada'
+        });
+        return false;
+      }
+      let register = {
+        name: this.register.name,
+        email: this.register.email,
+        password: this.register.password
+      };
+      accessAdminAPI
+        .register(register)
+        .then(res => {
+          if (res.data.error == '') {
+            this.user = res.user;
+            vm.$emit('msg', {
+              type: 'success',
+              message: 'Admin cadastrado com sucesso!'
+            });
+          } else {
+            const value = res.data.error;
+            vm.$emit('msg', {
+              type: 'warning',
+              message: value
+            });
+          }
+        })
+        .catch(err => {
+          vm.$emit('msg', {
+            type: 'warning',
+            message: err
+          });
+        });
     }
-}
+  }
+};
 </script>
