@@ -30,7 +30,7 @@ export default {
         },
         getID() {
             if (this.studentID) {
-                return this.studentID
+                return this.$route.params.id
             }
             return null
         }

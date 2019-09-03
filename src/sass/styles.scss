@@ -11,15 +11,6 @@
 @import 'layout/geral';
 @import 'grid/main';
 
-/**themes*/
-@import 'theme/boxes';
-@import 'theme/colors';
-@import 'theme/backgrounds';
-@import 'theme/form';
-@import 'theme/buttons';
-@import 'theme/alert';
-@import 'theme/table';
-@import 'theme/print';
 /**modules*/
 @import 'modules/header';
 @import 'modules/navegation';
@@ -29,3 +20,14 @@
 @import 'modules/months';
 @import 'modules/admin';
 @import 'modules/student';
+@import 'modules/teacher';
+
+/**themes*/
+@import 'theme/boxes';
+@import 'theme/colors';
+@import 'theme/backgrounds';
+@import 'theme/form';
+@import 'theme/buttons';
+@import 'theme/alert';
+@import 'theme/table';
+@import 'theme/print';

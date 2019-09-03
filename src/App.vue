@@ -1,8 +1,6 @@
 <template>
 <div id="app" class="il-container">
     <header>
-        <!--
-        <ilNav v-if="checkRouter" />-->
         <div class="il-brand">
             <img src="images/theme/logo.png" alt="logo">
         </div>
@@ -16,7 +14,6 @@
                 <span></span>
             </div>
         </div>
-        <!--<ilNav />-->
     </header>
 
     <main>

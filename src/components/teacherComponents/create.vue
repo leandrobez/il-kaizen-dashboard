@@ -1,21 +1,21 @@
 <template>
-<div class="il-student">
-    <div class="il-student--content">
+<div class="il-teacher">
+    <div class="il-teacher--content">
         <ilAlert :has="checkAlert" :msg="message" />
         <h3 class="il-color--darkblue">Novo Aluno</h3>
-        <ilStudentFormCreate @msg="setAlert" />
+        <ilTeacherFormCreate @msg="setAlert" />
     </div>
 </div>
 </template>
 
 <script>
 import ilAlert from '@/components/includes/alerts.vue';
-import ilStudentFormCreate from './includes/formCreate.vue';
+import ilTeacherFormCreate from './includes/formCreate.vue';
 export default {
-    name: 'createStudent',
+    name: 'createTeacher',
     components: {
         ilAlert,
-        ilStudentFormCreate
+        ilTeacherFormCreate
     },
     data() {
         return {

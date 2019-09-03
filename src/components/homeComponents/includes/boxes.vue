@@ -21,6 +21,12 @@
             </router-link>
         </li>
         <li class="">
+            <router-link :to="{path: '/teachers'}" title="Controle de Professores" class="il-nav--link">
+                <i class="mdi mdi-clipboard-account mdi-36px"></i>
+                <h5>Professores</h5>
+            </router-link>
+        </li>
+        <li class="">
             <a href="#!" title="Encerrar a aplicação" class="il-nav--link" @click.prevent="logout">
                 <i class="mdi mdi-logout mdi-36px"></i>
                 <h5>Logout</h5>
@@ -31,7 +37,7 @@
 </template>
 
 <script>
-import accessAdminAPI from '../../../common/apiAdmin.js';
+//import accessAdminAPI from '../../../common/apiAdmin.js';
 export default {
   name: 'boxes',
   data() {
@@ -52,12 +58,12 @@ export default {
   },
   methods: {
     logout() {
-      accessAdminAPI.logout().then(res => {
-        //destroy token localStorage
-        window.localStorage.removeItem('_token');
-        window.localStorage.removeItem('admin');
-        location.reload();
-      });
+      // accessAdminAPI.logout().then(res => {
+      //destroy token localStorage
+      window.localStorage.removeItem('_token');
+      window.localStorage.removeItem('admin');
+      location.reload();
+      // });
     }
   }
 };

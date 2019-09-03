@@ -23,9 +23,9 @@
             <label>Sexo</label>
             <div class="il-field--radio">
                 <label for="masc">Masc</label>
-                <input type="radio" v-model="student.genre" :checked="checkedM" id="masc" />
+                <input type="radio" v-model="student.genre" value="MASC" id="masc" />
                 <label for="fem">Fem</label>
-                <input type="radio" v-model="student.genre" :checked="checkedF" id="fem" />
+                <input type="radio" v-model="student.genre" value="FEM" id="fem" />
             </div>
             <label for="cpf">CPF</label>
             <input type="text" v-model="student.cpf" class="il-input--cpf" placeholder="seu CPF" id="cpf" required />
@@ -83,188 +83,190 @@
 <script>
 import accessStudentAPI from '../../../common/apiStudent.js';
 export default {
-    name: 'formStudentEdit',
-    props: {
-        id: String
-    },
-    data() {
-        return {
-            vezes: [1, 2, 3],
-            valors: [245, 460, 595],
-            desc: 0,
-            showPerc: false,
-            showAbs: false,
-            student: {
-                name: '',
-                genre: 'fem',
-                cpf: '',
-                vezes: 1,
-                valor: '',
-                obs: 'Sem observação',
-                origem: 'Orginário da Motriz',
-                ativo: true,
-                email: '',
-                dnasc: '',
-                desc: {
-                    perc: 0,
-                    abs: 0
-                },
-                address: {
-                    cep: '',
-                    rua_av: '',
-                    nr: '',
-                    complemento: 'Sem complemento',
-                    suburb: '',
-                    city: '',
-                    UF: '',
-                    fone: '',
-                    clr: ''
-                }
-            }
-        };
-    },
-    mounted() {
-        this.getStudent();
-    },
-    computed: {
-        checkedM() {
-            if (this.student.genre == 'masc' || this.student.genre == 'MASC') {
-                return 'checked';
-            } else {
-                return '';
-            }
+  name: 'formStudentEdit',
+  props: {
+    id: String
+  },
+  data() {
+    return {
+      vezes: [1, 2, 3],
+      valors: [245, 460, 595],
+      desc: 0,
+      showPerc: false,
+      showAbs: false,
+      student: {
+        name: '',
+        genre: 'fem',
+        cpf: '',
+        vezes: 1,
+        valor: '',
+        obs: 'Sem observação',
+        origem: 'Orginário da Motriz',
+        ativo: true,
+        email: '',
+        dnasc: '',
+        desc: {
+          perc: 0,
+          abs: 0
         },
-        checkedF() {
-            if (this.student.genre == 'fem' || this.student.genre == 'FEM') {
-                return 'checked';
-            } else {
-                return '';
-            }
+        address: {
+          cep: '',
+          rua_av: '',
+          nr: '',
+          complemento: 'Sem complemento',
+          suburb: '',
+          city: '',
+          UF: '',
+          fone: '',
+          clr: ''
         }
+      }
+    };
+  },
+  mounted() {
+    this.getStudent();
+  },
+  computed: {
+    checkedM() {
+      if (this.student.genre == 'masc' || this.student.genre == 'MASC') {
+        return 'masc';
+      } else {
+        return '';
+      }
     },
-    methods: {
-        getStudent() {
-            let vm = this
-            if (this.id) {
-                accessStudentAPI
-                    .searchStudent(this.id)
-                    .then(res => {
-                        if (res.error == null) {
-                            let dnasc = res.student.dnasc; //2019-07-09T00:00:00.000Z
-                            const [dt, schema] = dnasc.split('T');
-                            const [y, m, d] = dt.split('-');
-                            res.dnasc = `${y}-${m}-${d}`;
-                            this.student.name = res.student.name;
-                            this.student.obs = res.student.obs;
-                            this.student.cpf = res.student.cpf;
-                            this.student.email = res.student.email;
-                            this.student.genre = res.student.genre;
-                            this.student.valor = res.student.valor;
-                            this.student.vezes = res.student.vezes;
-                            this.student.origem = res.student.origem;
-                            this.student.desc.ativo = res.student.desc.ativo;
-                            this.student.desc.abs = res.student.desc.abs;
-                            this.student.desc.perc = res.student.desc.perc;
-                            this.student.address.cep = res.student.address.cep;
-                            this.student.address.city = res.student.address.city;
-                            this.student.address.clr = res.student.address.clr;
-                            this.student.address.fone = res.student.address.fone;
-                            this.student.address.complemento = res.student.address.complemento;
-                            this.student.address.cep = res.student.address.cep;
-                            this.student.address.nr = res.student.address.nr;
-                            this.student.address.rua_av = res.student.address.rua_av;
-                            this.student.address.suburb = res.student.address.suburb;
-                            this.student.address.UF = res.student.address.UF;
-
-                        } else {
-                            let msg = res.error.message;
-                            vm.$emit('msg', {
-                                type: msg.type,
-                                message: msg.value
-                            });
-                        }
-                    })
-                    .catch(err => {
-                        let msg = err.error;
-                        vm.$emit('msg', {
-                            type: 'danger',
-                            message: err
-                        });
-                    });
-            }
-        },
-        doUpdate() {
-            let vm = this;
-            accessStudentAPI
-                .updateStudent(this.id, this.student)
-                .then(res => {
-                    if (res.data.error == '') {
-                        vm.$emit('msg', {
-                            type: 'success',
-                            message: 'O presente aluno/s teve sua conta modificada com sucesso!'
-                        });
-                        setTimeout(() => {
-                            vm.$router.push({
-                                name: 'students'
-                            });
-                        }, 2500);
-                    } else {
-                        const value = res.data.error;
-                        vm.$emit('msg', {
-                            type: 'warning',
-                            message: value
-                        });
-                    }
-                })
-                .catch(err => {
-                    vm.$emit('msg', {
-                        type: 'warning',
-                        message: err
-                    });
-                });
-        },
-        showDesc(whoo) {
-            if (whoo == 'perc') {
-                this.showAbs = false;
-                this.showPerc = true;
-            } else {
-                if (whoo == 'abs') {
-                    this.showAbs = true;
-                    this.showPerc = false;
-                } else {
-                    this.showAbs = false;
-                    this.showPerc = false;
-                }
-            }
-        },
-        setValor() {
-            let vz = this.student.vezes;
-            let valor = this.valors[vz - 1];
-            this.student.valor = valor;
-            if (this.student.desc.abs) {
-                this.student.valor = valor - this.student.desc.abs;
-            } else {
-                if (this.student.desc.perc) {
-                    let desc = this.student.desc.perc / 100 * valor;
-                    this.student.valor = valor - desc;
-                }
-            }
-            this.valors[vz - 1] = this.student.valor;
-        },
-        getAddress() {
-            const urlCorreio = 'https://viacep.com.br/ws/';
-            let cep = this.student.address.cep;
-            fetch(`${urlCorreio}${cep}/json/`).then(result => {
-                if (result.status == 200 && result.statusText == 'OK') {
-                    result.json().then(r => {
-                        this.student.address.suburb = r.bairro;
-                        this.student.address.rua_av = r.logradouro;
-                        this.student.address.city = r.localidade;
-                        this.student.address.UF = r.uf;
-                    });
-                }
-            });
-        }
+    checkedF() {
+      if (this.student.genre == 'fem' || this.student.genre == 'FEM') {
+        return 'fem';
+      } else {
+        return '';
+      }
     }
+  },
+  methods: {
+    getStudent() {
+      let vm = this;
+      if (this.id) {
+        accessStudentAPI
+          .searchStudent(this.id)
+          .then(res => {
+            console.log(res);
+            if (res.error == null) {
+              let dnasc = res.student.dnasc; //2019-07-09T00:00:00.000Z
+              const [dt, schema] = dnasc.split('T');
+              const [y, m, d] = dt.split('-');
+              res.dnasc = `${y}-${m}-${d}`;
+              this.student.name = res.student.name;
+              this.student.obs = res.student.obs;
+              this.student.cpf = res.student.cpf;
+              this.student.email = res.student.email;
+              this.student.genre = res.student.genre;
+              this.student.valor = res.student.valor;
+              this.student.vezes = res.student.vezes;
+              this.student.origem = res.student.origem;
+              this.student.desc.ativo = res.student.desc.ativo;
+              this.student.desc.abs = res.student.desc.abs;
+              this.student.desc.perc = res.student.desc.perc;
+              this.student.address.cep = res.student.address.cep;
+              this.student.address.city = res.student.address.city;
+              this.student.address.clr = res.student.address.clr;
+              this.student.address.fone = res.student.address.fone;
+              this.student.address.complemento =
+                res.student.address.complemento;
+              this.student.address.cep = res.student.address.cep;
+              this.student.address.nr = res.student.address.nr;
+              this.student.address.rua_av = res.student.address.rua_av;
+              this.student.address.suburb = res.student.address.suburb;
+              this.student.address.UF = res.student.address.UF;
+            } else {
+              let msg = res.error.message;
+              vm.$emit('msg', {
+                type: msg.type,
+                message: msg.value
+              });
+            }
+          })
+          .catch(err => {
+            let msg = err.error;
+            vm.$emit('msg', {
+              type: 'danger',
+              message: err
+            });
+          });
+      }
+    },
+    doUpdate() {
+      let vm = this;
+      accessStudentAPI
+        .updateStudent(this.id, this.student)
+        .then(res => {
+          if (res.data.error == '') {
+            vm.$emit('msg', {
+              type: 'success',
+              message:
+                'O presente aluno/s teve sua conta modificada com sucesso!'
+            });
+            setTimeout(() => {
+              vm.$router.push({
+                name: 'students'
+              });
+            }, 2500);
+          } else {
+            const value = res.data.error;
+            vm.$emit('msg', {
+              type: 'warning',
+              message: value
+            });
+          }
+        })
+        .catch(err => {
+          vm.$emit('msg', {
+            type: 'warning',
+            message: err
+          });
+        });
+    },
+    showDesc(whoo) {
+      if (whoo == 'perc') {
+        this.showAbs = false;
+        this.showPerc = true;
+      } else {
+        if (whoo == 'abs') {
+          this.showAbs = true;
+          this.showPerc = false;
+        } else {
+          this.showAbs = false;
+          this.showPerc = false;
+        }
+      }
+    },
+    setValor() {
+      let vz = this.student.vezes;
+      let valor = this.valors[vz - 1];
+      this.student.valor = valor;
+      if (this.student.desc.abs) {
+        this.student.valor = valor - this.student.desc.abs;
+      } else {
+        if (this.student.desc.perc) {
+          let desc = this.student.desc.perc / 100 * valor;
+          this.student.valor = valor - desc;
+        }
+      }
+      this.valors[vz - 1] = this.student.valor;
+    },
+    getAddress() {
+      const urlCorreio = 'https://viacep.com.br/ws/';
+      let cep = this.student.address.cep;
+      fetch(`${urlCorreio}${cep}/json/`).then(result => {
+        if (result.status == 200 && result.statusText == 'OK') {
+          result.json().then(r => {
+            this.student.address.suburb = r.bairro;
+            this.student.address.rua_av = r.logradouro;
+            this.student.address.city = r.localidade;
+            this.student.address.UF = r.uf;
+          });
+        }
+      });
+    }
+  }
 };
 </script>

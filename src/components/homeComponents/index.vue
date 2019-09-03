@@ -2,7 +2,6 @@
 <div class="il-home">
     <ilAlert :has="checkAlert" :msg="message" />
     <div class="il-home--content" v-if="checkAssigned">
-        
         <h3>Bem vindo ao controle financeiro da Kaizen</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et aut commodi error maxime pariatur nulla nisi eveniet! Officiis itaque nihil est aliquam, sunt, temporibus suscipit iure eum ullam facere, excepturi provident voluptates modi quo non explicabo illo nobis dolores. Ipsa quibusdam a illo eligendi quae?</p>
         <ilBoxes />

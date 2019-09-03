@@ -1,7 +1,7 @@
 ul.il-box--expenses,
 ul.il-box--home {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 150px));
+  grid-template-columns: repeat(auto-fit, minmax(80px, 110px));
   grid-gap: 0.25rem;
   align-content: center;
   justify-content: space-between;
@@ -22,6 +22,10 @@ ul.il-box--home {
         @include ease(500);
         color: rgb(10, 24, 36);
         text-shadow: 2px 3px 5px #865650;
+      }
+      h5 {
+        font-size: 0.89rem;
+        color: white;
       }
     }
   }

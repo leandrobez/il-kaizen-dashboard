@@ -27,6 +27,16 @@ const router = new VueRouter({
       component: () => import('@/components/adminComponents/edit.vue')
     },
     {
+      path: '/teachers',
+      name: 'teachers',
+      component: () => import('@/views/Teacher.vue')
+    },
+    {
+      path: '/teachers/create',
+      name: 'teacher.create',
+      component: () => import('@/components/teacherComponents/create.vue')
+    },
+    {
       path: '/students',
       name: 'students',
       component: () => import('@/views/Students.vue')

@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
   base_url = 'http://localhost:3000';
 }
 const endPoints = {
-  urlAPI: '/kaizen/api/student',
+  urlAPI: '/kaizen/api/teacher',
   baseURL: base_url,
   points: [
     {
@@ -60,8 +60,8 @@ const setURL = point => {
   return baseURL + urlAPI + url;
 };
 
-const accessStudentAPI = {
-  /** @students  */
+const accessTeacherAPI = {
+  /** @Teachers  */
   createMultiple: async data => {
     let url = setURL('multiple');
     return axios
@@ -78,13 +78,13 @@ const accessStudentAPI = {
     return axios
       .post(url, data, bearerToken())
       .then(response => {
-        return response;
+        return response
       })
       .catch(err => {
         return Promise.reject(err.message);
       });
   },
-  searchStudent: id => {
+  searchTeacher: id => {
     let url = setURL('show');
     return axios
       .get(url + '/' + id, bearerToken())
@@ -94,7 +94,7 @@ const accessStudentAPI = {
       })
       .catch(err => Promise.reject(err.message));
   },
-  getStudents: () => {
+  getTeachers: () => {
     let url = setURL('alls');
     return axios
       .get(url, bearerToken())
@@ -104,7 +104,7 @@ const accessStudentAPI = {
       })
       .catch(err => Promise.reject(err.message));
   },
-  updateStudent: (id, data) => {
+  updateTeacher: (id, data) => {
     let url = setURL('update');
     return axios
       .put(url + '/' + id, data, bearerToken())
@@ -114,7 +114,7 @@ const accessStudentAPI = {
       })
       .catch(err => Promise.reject(err.message));
   },
-  removeStudent: id => {
+  removeTeacher: id => {
     let url = setURL('remove');
     return axios
       .delete(url + '/' + id, bearerToken())
@@ -127,4 +127,4 @@ const accessStudentAPI = {
   }
 };
 
-export default accessStudentAPI;
+export default accessTeacherAPI;

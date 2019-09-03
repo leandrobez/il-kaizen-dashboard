@@ -1,6 +1,6 @@
-.il-student {
+.il-teacher {
   position: relative;
-  .il-student--content {
+  .il-teacher--content {
     position: relative;
     h3 {
       margin: 0;
@@ -11,7 +11,7 @@
     }
     @import 'create';
   }
-  .il-student--address {
+  .il-teacher--address {
     position: absolute;
     top: 15%;
     width: 80%;
