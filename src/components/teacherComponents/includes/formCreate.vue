@@ -49,75 +49,73 @@
 import accessTeacherAPI from '../../../common/apiTeacher.js';
 import ilSnapPhoto from './snapShot';
 export default {
-  name: 'formTeacherCreate',
-  components: {
-    ilSnapPhoto
-  },
-  data() {
-    return {
-      signup: {
-        name: '',
-        cpf: '',
-        ativo: true,
-        email: '',
-        dnasc: '',
-        address: {
-          cep: '',
-          rua_av: '',
-          nr: '',
-          complemento: 'Sem complemento',
-          suburb: '',
-          city: '',
-          UF: '',
-          fone: '',
-          clr: ''
-        }
-      }
-    };
-  },
-  mounted() {},
-  computed: {},
-  methods: {
-    doSignup() {
-      let vm = this;
-      accessTeacherAPI
-        .create(this.signup)
-        .then(res => {
-          if (res.error == null) {
-            vm.$emit('msg', {
-              type: 'success',
-              message: 'Professor cadastrado com sucesso!'
-            });
-          } else {
-            let msg = res.error.message;
-            vm.$emit('msg', {
-              type: msg.type,
-              message: msg.value
-            });
-          }
-        })
-        .catch(err => {
-          let msg = err.error;
-          vm.$emit('msg', {
-            type: 'danger',
-            message: err
-          });
-        });
+    name: 'formTeacherCreate',
+    components: {
+        ilSnapPhoto
     },
-    getAddress() {
-      const urlCorreio = 'https://viacep.com.br/ws/';
-      let cep = this.signup.address.cep;
-      fetch(`${urlCorreio}${cep}/json/`).then(result => {
-        if (result.status == 200 && result.statusText == 'OK') {
-          result.json().then(r => {
-            this.signup.address.suburb = r.bairro;
-            this.signup.address.rua_av = r.logradouro;
-            this.signup.address.city = r.localidade;
-            this.signup.address.UF = r.uf;
-          });
+    data() {
+        return {
+            signup: {
+                name: '',
+                cpf: '',
+                ativo: true,
+                email: '',
+                dnasc: '',
+                address: {
+                    cep: '',
+                    rua_av: '',
+                    nr: '',
+                    complemento: 'Sem complemento',
+                    suburb: '',
+                    city: '',
+                    UF: '',
+                    fone: '',
+                    clr: ''
+                }
+            }
+        };
+    },
+    methods: {
+        doSignup() {
+            let vm = this;
+            accessTeacherAPI
+                .create(this.signup)
+                .then(res => {
+                    if (res.error == null) {
+                        vm.$emit('msg', {
+                            type: 'success',
+                            message: 'Professor cadastrado com sucesso!'
+                        });
+                    } else {
+                        let msg = res.error.message;
+                        vm.$emit('msg', {
+                            type: msg.type,
+                            message: msg.value
+                        });
+                    }
+                })
+                .catch(err => {
+                    let msg = err.error;
+                    vm.$emit('msg', {
+                        type: 'danger',
+                        message: err
+                    });
+                });
+        },
+        getAddress() {
+            const urlCorreio = 'https://viacep.com.br/ws/';
+            let cep = this.signup.address.cep;
+            fetch(`${urlCorreio}${cep}/json/`).then(result => {
+                if (result.status == 200 && result.statusText == 'OK') {
+                    result.json().then(r => {
+                        this.signup.address.suburb = r.bairro;
+                        this.signup.address.rua_av = r.logradouro;
+                        this.signup.address.city = r.localidade;
+                        this.signup.address.UF = r.uf;
+                    });
+                }
+            });
         }
-      });
     }
-  }
 };
 </script>

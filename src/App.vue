@@ -1,18 +1,55 @@
 <template>
 <div id="app" class="il-container">
     <header>
-        <div class="il-brand">
-            <img src="images/theme/logo.png" alt="logo">
+        <div class="il-header--content">
+          <div class="il-brand">
+            <img :src="getLogo()" alt="logo">
         </div>
         <div class="il-title">
-            <h1 class="il-center il-color--dark">{{title}} - {{subTitle}}</h1>
+            <h1 class="il-center il-color--light-blue">{{title}} - {{subTitle}}</h1>
         </div>
         <div class="il-menu">
-            <div class="il-menu--icon">
+            <div class="il-menu--icon" @click="openMenu">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
+        </div>
+        <div class="il-painel--menu">
+            <ul class="il-menu--list">
+              <li>
+                    <router-link :to="{path: 'home'}" title="Home" class="il-nav--link">
+                        <i class="mdi mdi-account-home mdi-12px"></i>
+                        <span @click="closePainel">Home</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{path: 'admins'}" title="Controle dos Admins" class="il-nav--link">
+                        <i class="mdi mdi-account-star mdi-12px"></i>
+                        <span @click="closePainel">Admins</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{path: 'students'}" title="Controle de Alunos" class="il-nav--link">
+                        <i class="mdi mdi-comment-account-outline mdi-12px"></i>
+                        <span @click="closePainel">Alunos</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{path: 'contas'}" title="Controle de Contas" class="il-nav--link">
+                        <i class="mdi mdi-barcode mdi-12px"></i>
+                        <span @click="closePainel">Contas</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{path: 'teachers'}" title="Controle de Professores" class="il-nav--link">
+                        <i class="mdi mdi-human-male-female mdi-12px"></i>
+                        <span @click="closePainel">Professores</span>
+                    </router-link>
+                </li>
+
+            </ul>
+        </div>
         </div>
     </header>
 
@@ -39,7 +76,7 @@ export default {
   data() {
     return {
       title: 'KAIZEN',
-      subTitle: 'CONTROLE FINANCEIRO',
+      subTitle: 'ADMINISTRAÇÃO GERAL',
       by: 'InternetLojas.com'
     };
   },
@@ -55,9 +92,11 @@ export default {
     }
   },
   methods: {
+    getLogo() {
+      return '/images/theme/logo.png';
+    },
     getBackground() {
       let path = this.$route.name;
-      console.log(path);
       let back = '';
       switch (path) {
         case 'home':
@@ -98,6 +137,14 @@ export default {
           break;
       }
       return back;
+    },
+    openMenu() {
+      const painel = document.querySelector('.il-painel--menu');
+      painel.classList.add('il-open');
+    },
+    closePainel() {
+      const painel = document.querySelector('.il-painel--menu');
+      painel.classList.remove('il-open');
     }
   }
 };

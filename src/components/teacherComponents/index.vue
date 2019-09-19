@@ -1,10 +1,14 @@
 <template>
-<div class="il-teacher--content">
-    <ilAlert :has="message ? true : false" :msg="message" />
-    <h3 class="il-color--darkblue">Controle de Professores</h3>
-    <div class="il-sub--menu">
-        <a href="#!" class="il-btn il-btn--submit" @click.prevent="createTeacher"><i class="mdi mdi-24px mdi-account-multiple" title="Novo Admin"></i><span>Novo Professor</span></a> |
-        <a href="#!" class="il-btn il-btn--submit" @click.prevent="controlPayment"><i class="mdi mdi-24px mdi-account-multiple" title="Novo Admin"></i><span>Controlar Pagamento</span></a>
+<div class="il-teacher">
+    <div class="il-teacher--content">
+        <ilAlert :has="message ? true : false" :msg="message" />
+        <h3 class="il-color--darkblue">Controle de Professores</h3>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, provident ab quis error quidem ducimus distinctio saepe dolorum deserunt delectus? Culpa nihil voluptatem ratione earum.</p>
+        <div class="il-sub--menu">
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="createTeacher"><i class="mdi mdi-24px mdi-basecamp" title="Novo Professor"></i><span>Novo Professor</span></a> |
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="createSchedule"><i class="mdi mdi-24px mdi-calendar-clock" title="Controlar agenda do professor"></i><span>Controlar Agenda</span></a>
+        </div>
+        <ilListTeachers :teachers="teachers" v-if="hasTeachers" />
     </div>
 </div>
 </template>
@@ -12,10 +16,12 @@
 <script>
 import ilAlert from '@/components/includes/alerts.vue';
 import accessTeacherAPI from '../../common/apiTeacher.js';
+import ilListTeachers from './includes/list';
 export default {
   name: 'indexTeacher',
   components: {
-    ilAlert
+    ilAlert,
+    ilListTeachers
   },
   data() {
     return {
@@ -85,10 +91,14 @@ export default {
           }, 3000);
         });
     },
-
     createTeacher() {
       this.$router.push({
         path: 'teachers/create'
+      });
+    },
+    createSchedule() {
+      this.$router.push({
+        path: 'teachers/schedule'
       });
     }
   }

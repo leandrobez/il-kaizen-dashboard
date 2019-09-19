@@ -1,5 +1,5 @@
 <template>
-<form class="il-form il-form--payment" @submit.prevent="doPayment()">
+<form class="il-form il-form--payment" @submit.prevent="setFormPost()">
     <div class="il-payment">
         <h5>Pagamento de Alunos</h5>
         <div class="il-form--field">
@@ -49,18 +49,21 @@
 <script>
 import axios from 'axios';
 import accessPaymentAPI from '../../../common/apiPayment.js';
+import accessStudentAPI from '../../../common/apiStudent.js';
 export default {
   name: 'formPayment',
   props: {
-    type: String,
-    id: String,
     banks: Array,
     data: String,
-    month: String
+    month: String,
+    pay: Array
   },
   data() {
     return {
+      type: '',
+      id: '',
       currentMonth: null,
+      dataPaymentID: null,
       dataPayment: {
         data: '',
         name: '',
@@ -78,7 +81,9 @@ export default {
             type: ''
           }
         }
-      }
+      },
+      dataOldPayment: [],
+      formPost: 'create'
     };
   },
   computed: {
@@ -90,16 +95,23 @@ export default {
     }
   },
   mounted() {
-    this.currentMonth = +window.localStorage.getItem('monthCurrent');
+    this.type = this.$route.params.type;
+    this.id = this.$route.params.id;
+    this.currentMonth = window.localStorage.getItem('monthCurrent');
     this.setData();
     this.getStudent();
+    this.verifyCreteOrUpdate();
   },
   methods: {
     setData() {
-      const dt = this.data.split('-');
-      this.dataPayment.data = new Date(dt[0], dt[1], dt[2])
-        .toISOString()
-        .substr(0, 10);
+      this.dataPayment.data = this.data;
+    },
+    setFormPost() {
+      if (this.formPost == 'update') {
+        this.updatePayment();
+      } else {
+        this.createPayment();
+      }
     },
     getStudent() {
       if (this.type == 'check') {
@@ -108,69 +120,84 @@ export default {
         this.dataPayment.form.check.bank = this.banks[0].name;
       }
       let student = JSON.parse(window.localStorage.getItem('student'));
-
       this.dataPayment.name = student.name;
       this.dataPayment.valor = student.valor;
     },
-    updatePayment(data) {
+    verifyCreteOrUpdate() {
+      accessPaymentAPI.searchPaymentMonth(this.month).then(res => {
+        if (res.data.error == null && res.data.payment.length > 0) {
+          this.dataPaymentID = res.data.payment[0]._id;
+
+          this.dataOldPayment = res.data.payment[0].students;
+          this.formPost = 'update';
+        } else if (res.data.payment.length == 0) {
+          this.dataPaymentID = res.data.payment._id;
+        }
+      });
+    },
+    getFormData() {
+      return {
+        month: this.month,
+        students: [
+          {
+            studentID: this.id,
+            studentName: this.dataPayment.name,
+            datePayment: this.dataPayment.data,
+            amountPayment: this.dataPayment.valor,
+            formPayment: this.type,
+            sendMessage: this.dataPayment.sendMessage,
+            sendReceipt: this.dataPayment.sendReceipt
+          }
+        ]
+      };
+    },
+    updatePayment() {
+      let data = this.getFormData();
+      this.dataOldPayment.push(data.students[0]);
       accessPaymentAPI
-        .updatePayment(data._id, data)
+        .updateMultiplePayment(this.dataPaymentID, this.dataOldPayment)
         .then(res => {
-          if (res.error === null) {
-            this.$router.push({
-              name: 'students'
-            });
+          if (res.error === false) {
+            this.$emit('message', res.message);
+            setTimeout(() => {
+              this.$router.push({
+                name: 'students'
+              });
+            }, 4000);
           }
         })
         .catch(err => {
           console.log(err);
         });
     },
-    doPayment() {
-      if (this.month !== null && this.month !== undefined) {
-        let data = {
-          month: this.month,
-          students: [
-            {
-              studentID: this.id,
-              studentName: this.dataPayment.name,
-              datePayment: this.dataPayment.data,
-              amountPayment: this.dataPayment.valor,
-              formPayment: this.type,
-              sendMessage: this.dataPayment.sendMessage,
-              sendReceipt: this.dataPayment.sendReceipt
-            }
-          ]
-        };
-        accessPaymentAPI
-          .create(data)
-          .then(res => {
-            if (res.data.error == null) {
-              alert(res.data.message);
-            } else {
-              data = res.data.payment;
-              this.updatePayment(data);
-            }
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      } else {
-        alert('O mÊs de pagamento ainda não especificado');
-      }
+    createPayment() {
+      let data = this.getFormData();
+      accessPaymentAPI
+        .create(data)
+        .then(res => {
+          if (res.data.error == null) {
+            alert(res.data.message);
+          } else {
+            data = res.data.payment;
+            this.updatePayment(data);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
     /*sendMessage() {
-            const url = 'https://www.waboxapp.com/api/send/chat'
-            const token = 'c318841cd87f553162d1f91b716390955d4c0c1430f4f'
-            let uid = '55999767179'
-            let to = '55993015930'
-            let custom_uid  = 'msg-kaizen--01'
-            let text = 'Teste de envio de mensagem'
-            let urlTeste = 'https://www.waboxapp.com/api/send/chat?token=c318841cd87f553162d1f91b716390955d4c0c1430f4f&uid=55999767179&to=55993015930&custom_uid=msg0001&text=Hello+dude'
-            axios.get(urlTeste).then(response => {
-                console.log(response)
-            })
-        }*/
+                    const url = 'https://www.waboxapp.com/api/send/chat'
+                    const token = 'c318841cd87f553162d1f91b716390955d4c0c1430f4f'
+                    let uid = '55999767179'
+                    let to = '55993015930'
+                    let custom_uid  = 'msg-kaizen--01'
+                    let text = 'Teste de envio de mensagem'
+                    let urlTeste = 'https://www.waboxapp.com/api/send/chat?token=c318841cd87f553162d1f91b716390955d4c0c1430f4f&uid=55999767179&to=55993015930&custom_uid=msg0001&text=Hello+dude'
+                    axios.get(urlTeste).then(response => {
+                        console.log(response)
+                    })
+                }*/
   }
 };
 </script>

@@ -4,10 +4,10 @@ import axios from 'axios';
 const dotenv = require('dotenv');
 
 dotenv.config();
-let base_url = ''
+let base_url = '';
 if (process.env.NODE_ENV !== 'production') {
-  base_url = 'http://localhost:3000'
-} 
+  base_url = 'http://localhost:3000';
+}
 const endPoints = {
   urlAPI: '/kaizen/api/admin',
   baseURL: base_url,
@@ -70,7 +70,6 @@ const accessAdminAPI = {
     return axios
       .post(url, data)
       .then(response => {
-        //console.log(response)
         return response;
       })
       .catch(err => {
@@ -98,7 +97,7 @@ const accessAdminAPI = {
       .catch(err => {
         return Promise.reject(err.message);
       });
-  },  
+  },
   searchAdmin: id => {
     let url = setURL('show');
     return axios
@@ -122,7 +121,7 @@ const accessAdminAPI = {
   updateAdmin: (id, data) => {
     let url = setURL('update');
     return axios
-      .put(url + '/' + id, data,  bearerToken())
+      .put(url + '/' + id, data, bearerToken())
       .then(response => {
         const value = response.data;
         return value;

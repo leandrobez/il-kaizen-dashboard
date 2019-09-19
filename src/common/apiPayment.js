@@ -4,10 +4,10 @@ import axios from 'axios';
 const dotenv = require('dotenv');
 
 dotenv.config();
-let base_url = ''
+let base_url = '';
 if (process.env.NODE_ENV !== 'production') {
-  base_url = 'http://localhost:3000'
-} 
+  base_url = 'http://localhost:3000';
+}
 const endPoints = {
   urlAPI: '/kaizen/api/payment',
   baseURL: base_url,
@@ -31,6 +31,10 @@ const endPoints = {
     {
       name: 'update',
       path: '/update'
+    },
+    {
+      name: 'updateMultiple',
+      path: '/update/pay'
     },
     {
       name: 'remove',
@@ -106,8 +110,20 @@ const accessPaymentAPI = {
         return Promise.reject(err.message);
       });
   },
-  updatePayment: (id,data) => {
+  updatePayment: (id, data) => {
     let url = setURL('update');
+    return axios
+      .put(url + '/' + id, data, bearerToken())
+      .then(response => {
+        const value = response.data;
+        return value;
+      })
+      .catch(err => {
+        return Promise.reject(err.message);
+      });
+  },
+  updateMultiplePayment: (id, data) => {
+    let url = setURL('updateMultiple');
     return axios
       .put(url + '/' + id, data, bearerToken())
       .then(response => {
@@ -127,7 +143,7 @@ const accessPaymentAPI = {
         return value;
       })
       .catch(err => Promise.reject(err.message));
-  },
+  }
 };
 
 export default accessPaymentAPI;

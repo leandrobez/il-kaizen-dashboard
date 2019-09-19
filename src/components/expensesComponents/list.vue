@@ -40,144 +40,140 @@
             </tr>
         </tbody>
     </table>
-    <p v-else>Não hás conas registradas</p>
+    <p v-else>Não hás contas registradas</p>
 </div>
 </template>
 
 <script>
 import apiExpense from '../../common/apiExpense.js';
-
 import ilAlert from '@/components/includes/alerts.vue';
 export default {
-  name: 'listFixed',
-  components: {
-    ilAlert
-  },
-  data() {
-    return {
-      expenses: [
-        {
-          fixed: []
+    name: 'listFixed',
+    components: {
+        ilAlert
+    },
+    data() {
+        return {
+            expenses: [{
+                    fixed: []
+                },
+                {
+                    extra: []
+                },
+                {
+                    variable: []
+                }
+            ],
+            list: {
+                do: false
+            },
+            message: null
+        };
+    },
+    mounted() {
+        this.setExpenses();
+    },
+    computed: {
+        checkAlert() {
+            if (this.message) {
+                return true;
+            }
+            return false;
         },
-        {
-          extra: []
+        checkExpences() {
+            if (
+                (this.expenses[0].fixed && this.expenses[0].fixed.length > 0) ||
+                (this.expenses[0].extra && this.expenses[0].extra.length > 0) ||
+                (this.expenses[0].variable && this.expenses[0].variable.length > 0)
+            ) {
+                return true;
+            }
+            return false;
         },
-        {
-          variable: []
+        getExpenses() {
+            return this.expenses;
+        },
+        getFixedExpenses() {
+            return this.expenses[0].fixed;
+        },
+        getExtraExpenses() {
+            return this.expenses[0].extra;
+        },
+        getVariableExpenses() {
+            return this.expenses[0].variable;
         }
-      ],
-      list: {
-        do: false
-      },
-      message: null
-    };
-  },
-  mounted() {
-    this.setExpenses();
-  },
-  computed: {
-    checkAlert() {
-      if (this.message) {
-        return true;
-      }
-      return false;
     },
-    checkExpences() {
-      if (
-        (this.expenses[0].fixed && this.expenses[0].fixed.length > 0) ||
-        (this.expenses[0].extra && this.expenses[0].extra.length > 0) ||
-        (this.expenses[0].variable && this.expenses[0].variable.length > 0)
-      ) {
-        return true;
-      }
-      return false;
-    },
-    getExpenses() {
-      return this.expenses;
-    },
-    getFixedExpenses() {
-      return this.expenses[0].fixed;
-    },
-    getExtraExpenses() {
-      return this.expenses[0].extra;
-    },
-    getVariableExpenses() {
-      return this.expenses[0].variable;
+    methods: {
+        setAlert(obj) {
+            this.message = {
+                type: obj.status,
+                message: obj.value
+            };
+        },
+        setExpenses() {
+            apiExpense.accessExpensesFixedAPI
+                .getFixed()
+                .then(res => {
+                    console.log(res);
+                    if (res.status == 200 && res.statusText == 'OK') {
+                        if (res.data.error) {
+                            this.setAlert({
+                                status: 'warning',
+                                value: res.data.message.value
+                            });
+                        } else {
+                            if (res.data.fixed.length > 0) {
+                                this.expenses[0].fixed = res.data.fixed[0].expenses;
+                            }
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            apiExpense.accessExpensesExtraAPI
+                .getExtra()
+                .then(res => {
+                    if (res.status == 200 && res.statusText == 'OK') {
+                        if (res.data.error) {
+                            this.setAlert({
+                                status: 'warning',
+                                value: res.data.message.value
+                            });
+                        } else {
+                            if (res.data.extra.length > 0) {
+                                this.expenses[0].extra = res.data.extra[0].expenses;
+                            }
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            apiExpense.accessExpensesVariableAPI
+                .getVariable()
+                .then(res => {
+                    if (res.status == 200 && res.statusText == 'OK') {
+                        if (res.data.error) {
+                            this.setAlert({
+                                status: 'warning',
+                                value: res.data.message.value
+                            });
+                        } else {
+                            if (res.data.variable.length > 0) {
+                                this.expenses[0].variable = res.data.variable[0].expenses;
+                            }
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
+        doAction(ID) {
+            return;
+        }
     }
-  },
-  methods: {
-    setAlert(obj) {
-      this.message = {
-        type: obj.status,
-        message: obj.value
-      };
-    },
-    setExpenses() {
-      //this.fixedID = this.$router.params.id;
-      apiExpense.accessExpensesFixedAPI
-        .getFixed()
-        .then(res => {
-          console.log(res);
-          if (res.status == 200 && res.statusText == 'OK') {
-            if (res.data.error) {
-              this.setAlert({
-                status: 'warning',
-                value: res.data.message.value
-              });
-            } else {
-              if (res.data.fixed.length > 0) {
-                //console.log('fixed',res.data.fixed[0])
-                this.expenses[0].fixed = res.data.fixed[0].expenses;
-              }
-            }
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      apiExpense.accessExpensesExtraAPI
-        .getExtra()
-        .then(res => {
-          if (res.status == 200 && res.statusText == 'OK') {
-            if (res.data.error) {
-              this.setAlert({
-                status: 'warning',
-                value: res.data.message.value
-              });
-            } else {
-              if (res.data.extra.length > 0) {
-                this.expenses[0].extra = res.data.extra[0].expenses;
-              }
-            }
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      apiExpense.accessExpensesVariableAPI
-        .getVariable()
-        .then(res => {
-          if (res.status == 200 && res.statusText == 'OK') {
-            if (res.data.error) {
-              this.setAlert({
-                status: 'warning',
-                value: res.data.message.value
-              });
-            } else {
-              if (res.data.variable.length > 0) {
-                this.expenses[0].variable = res.data.variable[0].expenses;
-              }
-            }
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    doAction(ID) {
-      return;
-    }
-  }
 };
 </script>
 

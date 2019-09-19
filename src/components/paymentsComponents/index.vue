@@ -1,15 +1,18 @@
 <template>
 <div class="il-payment--content">
-    <ilAlert :has="message ? true : false" :msg="message" />
+    <!--<ilAlert :has="message ? true : false" :msg="message" />-->
     <ilMonths :months="months" @choice="setMonth" />
-    <ilFormPayment :banks="getBanks" :type="getType" :id="getID" @message="setMessage" :data="setToday" :month="getMonth" />
+    <ilFormPayment :banks="getBanks" @message="setAlert" :data="setToday" :month="getMonth" :pay="payments" />
 </div>
 </template>
 
 <script>
+import {
+    mapGetters
+} from 'vuex';
 import ilMonths from '@/components/includes/months.vue';
 import ilFormPayment from './includes/formPayment.vue';
-import ilAlert from '@/components/includes/alerts.vue'
+import ilAlert from '@/components/includes/alerts.vue';
 import {
     Banks
 } from '../../common/banks.js';
@@ -18,94 +21,50 @@ export default {
     components: {
         ilAlert,
         ilMonths,
-        ilFormPayment,
+        ilFormPayment
     },
     data() {
         return {
-            months: [{
-                    abr: 'Jan',
-                    label: 'Janeiro'
-                },
-                {
-                    abr: 'Fev',
-                    label: 'Feveiro'
-                },
-                {
-                    abr: 'Mar',
-                    label: 'Março'
-                },
-                {
-                    abr: 'Abr',
-                    label: 'Abril'
-                },
-                {
-                    abr: 'Mai',
-                    label: 'Maio'
-                },
-                {
-                    abr: 'Jun',
-                    label: 'Junho'
-                },
-                {
-                    abr: 'Jul',
-                    label: 'Julho'
-                },
-                {
-                    abr: 'Ago',
-                    label: 'Agosto'
-                },
-                {
-                    abr: 'Set',
-                    label: 'Setembro'
-                },
-                {
-                    abr: 'Out',
-                    label: 'Outubro'
-                },
-                {
-                    abr: 'Nov',
-                    label: 'Novembro'
-                }, {
-                    abr: 'Dez',
-                    label: 'Dezembro'
-                }
-            ],
+            payments: [],
+            month: null,
             message: null
-        }
+        };
     },
     computed: {
         setToday() {
             return new Date().toISOString().substr(0, 10);
         },
         getBanks() {
-            return Banks()
+            return Banks();
         },
-        getType() {
-            return this.$route.params.type
-        },
-        getID() {
-            return this.$route.params.id
+        checkAlert() {
+            if (this.message) {
+                return true;
+            }
+            return false;
         },
         getMonth() {
             let today = new Date();
             let keyMonth = today.getMonth();
             return this.months[keyMonth].abr;
         },
-        checkAlert() {
-            if (this.alert.message) {
-                this.clearAlert();
-                return true;
-            }
-            return false;
-        }
+    },
+    mounted() {
+        this.payments = this.getPayments();
     },
     methods: {
+        ...mapGetters('payment', {
+            getPayments: 'getPayments'
+        }),
         setMonth(index) {
             localStorage.setItem('monthCurrent', this.months[index].abr);
         },
-        setMessage(obj) {
-            this.message = obj
+        setAlert(obj) {
+            this.message = {
+                type: obj.status,
+                message: obj.value
+            };
         }
     }
-}
+};
 </script>

@@ -7,7 +7,6 @@
 </template>
 
 <script>
-
 import ilAdminFormEdit from './includes/formEdit.vue'
 import ilAlert from '@/components/includes/alerts.vue'
 export default {

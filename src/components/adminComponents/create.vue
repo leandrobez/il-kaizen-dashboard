@@ -7,41 +7,44 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import {
+    mapState,
+    mapActions
+} from 'vuex';
 import ilAlert from '@/components/includes/alerts.vue';
 import ilAdminFormCreate from './includes/formCreate.vue';
 export default {
-  name: 'createAdmin',
-  components: {
-    ilAlert,
-    ilAdminFormCreate
-  },
-  data() {
-    return {
-      message: null
-    };
-  },
-  computed: {
-    ...mapState({
-      alert: state => state.alert
-    }),
-    checkAlert() {
+    name: 'createAdmin',
+    components: {
+        ilAlert,
+        ilAdminFormCreate
+    },
+    data() {
+        return {
+            message: null
+        };
+    },
+    computed: {
+        ...mapState({
+            alert: state => state.alert
+        }),
+        checkAlert() {
             if (this.message) {
                 return true;
             }
             return false;
         },
-  },
-  methods: {
-    ...mapActions('alert', {
-      success: 'success',
-      warning: 'warning',
-      danger: 'danger',
-      clearAlert: 'clear'
-    }),
-    setAlert(obj) {
-      this.message = obj;
+    },
+    methods: {
+        ...mapActions('alert', {
+            success: 'success',
+            warning: 'warning',
+            danger: 'danger',
+            clearAlert: 'clear'
+        }),
+        setAlert(obj) {
+            this.message = obj;
+        }
     }
-  }
 };
 </script>

@@ -85,135 +85,135 @@
 import accessStudentAPI from '../../../common/apiStudent.js';
 import ilSnapPhoto from './snapShot';
 export default {
-  name: 'formStudentCreate',
-  components: {
-    ilSnapPhoto
-  },
-  data() {
-    return {
-      vezes: [1, 2, 3],
-      valors: [245, 460, 595],
-      desc: 0,
-      showPerc: false,
-      showAbs: false,
-      signup: {
-        name: '',
-        genre: 'fem',
-        cpf: '',
-        vezes: 1,
-        valor: '',
-        obs: 'Sem observação',
-        origem: 'Orginário da Motriz',
-        ativo: true,
-        email: '',
-        dnasc: '',
-        desc: {
-          perc: 0,
-          abs: 0
+    name: 'formStudentCreate',
+    components: {
+        ilSnapPhoto
+    },
+    data() {
+        return {
+            vezes: [1, 2, 3],
+            valors: [245, 460, 595],
+            desc: 0,
+            showPerc: false,
+            showAbs: false,
+            signup: {
+                name: '',
+                genre: 'fem',
+                cpf: '',
+                vezes: 1,
+                valor: '',
+                obs: 'Sem observação',
+                origem: 'Orginário da Motriz',
+                ativo: true,
+                email: '',
+                dnasc: '',
+                desc: {
+                    perc: 0,
+                    abs: 0
+                },
+                address: {
+                    cep: '',
+                    rua_av: '',
+                    nr: '',
+                    complemento: 'Sem complemento',
+                    suburb: '',
+                    city: '',
+                    UF: '',
+                    fone: '',
+                    clr: ''
+                }
+            }
+        };
+    },
+    mounted() {
+        let vz = this.signup.vezes;
+        this.signup.valor = this.valors[vz - 1];
+    },
+    computed: {
+        checkedM() {
+            if (this.signup.genre == 'masc' || this.signup.genre == 'MASC') {
+                return 'checked';
+            } else {
+                return '';
+            }
         },
-        address: {
-          cep: '',
-          rua_av: '',
-          nr: '',
-          complemento: 'Sem complemento',
-          suburb: '',
-          city: '',
-          UF: '',
-          fone: '',
-          clr: ''
+        checkedF() {
+            if (this.signup.genre == 'fem' || this.signup.genre == 'FEM') {
+                return 'checked';
+            } else {
+                return '';
+            }
         }
-      }
-    };
-  },
-  mounted() {
-    let vz = this.signup.vezes;
-    this.signup.valor = this.valors[vz - 1];
-  },
-  computed: {
-    checkedM() {
-      if (this.signup.genre == 'masc' || this.signup.genre == 'MASC') {
-        return 'checked';
-      } else {
-        return '';
-      }
     },
-    checkedF() {
-      if (this.signup.genre == 'fem' || this.signup.genre == 'FEM') {
-        return 'checked';
-      } else {
-        return '';
-      }
-    }
-  },
-  methods: {
-    doSignup() {
-      let vm = this;
-      accessStudentAPI
-        .create(this.signup)
-        .then(res => {
-          if (res.error == null) {
-            vm.$emit('msg', {
-              type: 'success',
-              message: 'Cliente cadastrado com sucesso!'
+    methods: {
+        doSignup() {
+            let vm = this;
+            accessStudentAPI
+                .create(this.signup)
+                .then(res => {
+                    if (res.error == null) {
+                        vm.$emit('msg', {
+                            type: 'success',
+                            message: 'Cliente cadastrado com sucesso!'
+                        });
+                    } else {
+                        let msg = res.error.message;
+                        vm.$emit('msg', {
+                            type: msg.type,
+                            message: msg.value
+                        });
+                    }
+                })
+                .catch(err => {
+                    let msg = err.error;
+                    vm.$emit('msg', {
+                        type: 'danger',
+                        message: err
+                    });
+                });
+        },
+        showDesc(whoo) {
+            if (whoo == 'perc') {
+                this.showAbs = false;
+                this.showPerc = true;
+            } else {
+                if (whoo == 'abs') {
+                    this.showAbs = true;
+                    this.showPerc = false;
+                } else {
+                    this.showAbs = false;
+                    this.showPerc = false;
+                }
+            }
+        },
+        setValor() {
+            let vz = this.signup.vezes;
+            let valor = this.valors[vz - 1];
+            this.signup.valor = valor;
+            if (this.signup.desc.abs) {
+                this.signup.valor = valor - this.signup.desc.abs;
+            } else {
+                if (this.signup.desc.perc) {
+                    let desc = this.signup.desc.perc / 100 * valor;
+                    this.signup.valor = valor - desc;
+                }
+            }
+            this.valors[vz - 1] = this.signup.valor;
+        },
+        getAddress() {
+            const urlCorreio = 'https://viacep.com.br/ws/';
+            let cep = this.signup.address.cep;
+            fetch(`${urlCorreio}${cep}/json/`).then(result => {
+                if (result.status == 200 && result.statusText == 'OK') {
+                    result.json().then(r => {
+                        this.signup.address.suburb = r.bairro;
+                        this.signup.address.rua_av = r.logradouro;
+                        this.signup.address.city = r.localidade;
+                        this.signup.address.UF = r.uf;
+                    });
+                }
             });
-          } else {
-            let msg = res.error.message;
-            vm.$emit('msg', {
-              type: msg.type,
-              message: msg.value
-            });
-          }
-        })
-        .catch(err => {
-          let msg = err.error;
-          vm.$emit('msg', {
-            type: 'danger',
-            message: err
-          });
-        });
-    },
-    showDesc(whoo) {
-      if (whoo == 'perc') {
-        this.showAbs = false;
-        this.showPerc = true;
-      } else {
-        if (whoo == 'abs') {
-          this.showAbs = true;
-          this.showPerc = false;
-        } else {
-          this.showAbs = false;
-          this.showPerc = false;
         }
-      }
-    },
-    setValor() {
-      let vz = this.signup.vezes;
-      let valor = this.valors[vz - 1];
-      this.signup.valor = valor;
-      if (this.signup.desc.abs) {
-        this.signup.valor = valor - this.signup.desc.abs;
-      } else {
-        if (this.signup.desc.perc) {
-          let desc = this.signup.desc.perc / 100 * valor;
-          this.signup.valor = valor - desc;
-        }
-      }
-      this.valors[vz - 1] = this.signup.valor;
-    },
-    getAddress() {
-      const urlCorreio = 'https://viacep.com.br/ws/';
-      let cep = this.signup.address.cep;
-      fetch(`${urlCorreio}${cep}/json/`).then(result => {
-        if (result.status == 200 && result.statusText == 'OK') {
-          result.json().then(r => {
-            this.signup.address.suburb = r.bairro;
-            this.signup.address.rua_av = r.logradouro;
-            this.signup.address.city = r.localidade;
-            this.signup.address.UF = r.uf;
-          });
-        }
-      });
     }
-  }
 };
 </script>

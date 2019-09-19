@@ -1,0 +1,75 @@
+.il-menu {
+  width: 80px;
+  height: 80px;
+  & .il-menu--icon {
+    margin-top: 25px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 2px;
+    transition: 650ms ease;
+    span {
+      display: block;
+      height: 2px;
+      background: rgb(61, 47, 47);
+      transition: 650ms ease-in;
+      &:nth-child(1) {
+        width: 60%;
+      }
+      &:nth-child(2) {
+        width: 80%;
+      }
+      &:nth-child(3) {
+        width: 100%;
+      }
+    }
+    &:hover {
+      border: 1px solid rgb(29, 14, 14);
+      transition: 650ms ease-in;
+      padding: 3px;
+    }
+    &:hover span:nth-child(1) {
+      transition: 650ms ease;
+      width: 100%;
+    }
+    &:hover span:nth-child(3) {
+      transition: 650ms ease;
+      width: 60%;
+    }
+  }
+}
+.il-painel--menu {
+  position: absolute;
+  left: -150%;
+  top: 83px;
+  width: 250px;
+  z-index: 30;
+  background: rgb(184, 212, 231);
+  &.il-open {
+    left: 0;
+  }
+  ul.il-menu--list {
+    height: calc(100vh - 83px);
+    li {
+      padding-left: 0.3rem;
+      text-align: left;
+      height: 1.7rem;
+      border-bottom: 1px solid #456aaa;
+      a {
+        text-transform: uppercase;
+        line-height: 1.7rem;
+        color: black;
+        font-weight: bolder;
+        &:hover {
+          color: #445bde;
+        }
+        span {
+          margin-left: 0.25rem;
+        }
+      }
+    }
+  }
+}

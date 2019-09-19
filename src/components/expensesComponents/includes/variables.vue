@@ -6,14 +6,14 @@
             <label class="il-label--expenses" for="dt">Data de pgmto</label>
             <input type="date" v-model="variable.data" class="il-input--dn" placeholder="Data de Pagamento" id="dn" />
         </div>
-         <div class="il-form--field">
+        <div class="il-form--field">
             <label class="il-label--expenses" for="desc">Conta</label>
             <select ref="description" v-model="variable.description" class="il-select" id="desc">
                 <option selected>Escolha uma conta</option>
                 <option v-for="(desc,index) in variableExpenses" :key="index">{{desc}}</option>
             </select>
-         </div>
-          <div class="il-form--field">
+        </div>
+        <div class="il-form--field">
             <label class="il-label--expenses" for="valor">Valor</label>
             <input type="number" v-model="variable.valor" class="il-add--description" placeholder="Informe o valor a pagar" id="valor" />
             <div class="il-btn--content">

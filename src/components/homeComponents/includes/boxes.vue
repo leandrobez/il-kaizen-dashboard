@@ -10,24 +10,24 @@
         </li>
         <li class="">
             <router-link :to="{path: '/students'}" title="Controle de Alunos" class="il-nav--link">
-                <i class="mdi mdi-clipboard-account mdi-36px"></i>
+                <i class="mdi mdi-comment-account-outline mdi-36px"></i>
                 <h5>Alunos</h5>
             </router-link>
         </li>
         <li class="">
             <router-link :to="{path: '/contas'}" title="Controle de Contas" class="il-nav--link">
-                <i class="mdi mdi-clipboard-account mdi-36px"></i>
+                <i class="mdi mdi-barcode mdi-36px"></i>
                 <h5>Contas</h5>
             </router-link>
         </li>
         <li class="">
             <router-link :to="{path: '/teachers'}" title="Controle de Professores" class="il-nav--link">
-                <i class="mdi mdi-clipboard-account mdi-36px"></i>
+                <i class="mdi mdi-human-male-female mdi-36px"></i>
                 <h5>Professores</h5>
             </router-link>
         </li>
         <li class="">
-            <a href="#!" title="Encerrar a aplicação" class="il-nav--link" @click.prevent="logout">
+            <a href="#!" title="Encerrar a aplicação com segurança" class="il-nav--link" @click.prevent="logout">
                 <i class="mdi mdi-logout mdi-36px"></i>
                 <h5>Logout</h5>
             </a>
@@ -37,7 +37,6 @@
 </template>
 
 <script>
-//import accessAdminAPI from '../../../common/apiAdmin.js';
 export default {
   name: 'boxes',
   data() {
@@ -58,12 +57,10 @@ export default {
   },
   methods: {
     logout() {
-      // accessAdminAPI.logout().then(res => {
       //destroy token localStorage
       window.localStorage.removeItem('_token');
       window.localStorage.removeItem('admin');
       location.reload();
-      // });
     }
   }
 };

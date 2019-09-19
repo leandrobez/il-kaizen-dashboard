@@ -1,0 +1,272 @@
+@function eventw($w) {
+  $width: calc(100% - #{$w}px);
+  @return $width;
+}
+.il-calendar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  margin: 0 5%;
+  .il-calendar--teachers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 0.3rem;
+    .il-teachers--choices {
+      border: 1px solid #43aaab;
+      border-bottom: none;
+      padding: 0.25rem;
+      transition: 450ms ease-in;
+      &:hover {
+        transition: 450ms ease-in;
+        background: rgb(177, 161, 133);
+      }
+      img {
+        border-radius: 50%;
+        width: 50%;
+        margin: auto;
+      }
+      .il-teacher--name {
+        margin-top: 10px;
+        text-align: center;
+        label {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  .il-week--day {
+    padding: 0.5rem 0;
+    background: burlywood;
+    display: flex;
+    span {
+      color: white;
+      flex: 1;
+      text-align: center;
+      font-weight: bolder;
+    }
+  }
+  .il-week--row {
+    background: rgb(182, 150, 109);
+    padding: 0.7rem 0;
+    display: flex;
+    span {
+      color: white;
+      flex: 1;
+      text-align: center;
+      span {
+        display: block;
+        width: 1.6rem;
+        height: 1.6rem;
+        padding: 0.15rem;
+        border-radius: 50%;
+        margin: auto;
+        cursor: pointer;
+        &.with-border {
+          border: 1px solid rgb(238, 172, 87);
+          &:hover {
+            color: black;
+            font-weight: bolder;
+            background: white;
+            border: 1px solid rgb(236, 233, 228);
+          }
+          &.il-daycurrent {
+            background: #ff6c00;
+            &:hover {
+              font-weight: bolder;
+              background: rgb(243, 174, 83);
+            }
+          }
+          &.il-dayActive {
+            background: #1a0d04;
+            color: white;
+          }
+        }
+        &.no-border {
+          border: none;
+        }
+      }
+    }
+  }
+  .il-calendar--header {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    padding: 0.35rem 0.45 0.3rem 0.45rem;
+    .il-calendar--teacher,
+    .il-header--details {
+      width: 100%;
+      background: burlywood; //rgb(177, 161, 133);
+      padding: 0.8rem;
+      p {
+        margin: 0;
+        text-align: center;
+        font-size: 0.75rem;
+        color: #68613c;
+
+        @media (min-width: 600px) {
+          font-size: 0.8rem;
+        }
+        @media (min-width: 800px) {
+          font-size: 1rem;
+        }
+        @media (min-width: 1024px) {
+          font-size: 1.1rem;
+        }
+      }
+    }
+    .il-calendar--teacher p {
+      text-transform: uppercase;
+      @media (min-width: 1024px) {
+        text-transform: uppercase;
+      }
+    }
+  }
+  .il-calendar--cronogram {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    .il-cronogram--body {
+      background: rgb(59, 38, 9);
+      .il-list--hours {
+        position: relative;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        min-height: 160px;
+        .il-hours {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-bottom: 1px dashed rgb(190, 176, 127);
+          span {
+            text-align: center;
+            padding: 0.25rem;
+            color: #9c9673;
+          }
+        }
+        .il-cronogram--events {
+          width: eventw(180);
+          right: -150%;
+          height: calc(100% - 1px);
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: rgb(63, 47, 25);
+          ul {
+            padding-left: 1rem;
+            color: white;
+            li span {
+              color: white;
+              text-transform: uppercase;
+            }
+          }
+          &.il-show {
+            right: 0;
+            z-index: 2;
+          }
+        }
+        .il-events {
+          position: absolute;
+          width: eventw(180);
+          right: 0;
+          height: 100%;
+          padding: 0.5rem 0.35rem 0 0.35rem;
+          text-align: center;
+          background: #8b846f;
+          border-bottom: 1px dashed rgb(194, 181, 134);
+          display: grid;
+          grid-template-rows: auto;
+          justify-content: center;
+          align-items: center;
+          @media (min-width: 600px) {
+            display: flex;
+            align-items: flex-start;
+          }
+          .il-events--students {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            .il-form--fields {
+              display: flex;
+              .il-checks {
+                width: 45%;
+                label {
+                  margin: 0 3px;
+                }
+              }
+            }
+            &.il-hidden {
+              position: absolute;
+              opacity: 0;
+            }
+            input[type='text'] {
+              padding: 0 10px;
+              height: 40px;
+              width: 100%;
+              border: #3f3e38;
+              background: #969385;
+              //border: none;
+            }
+            .il-list--student {
+              width: 100%;
+              margin-top: 10px;
+              .il-list--check {
+                display: flex;
+                justify-content: flex-start;
+                span {
+                  margin-right: 10px;
+                  font-size: 12px;
+                  cursor: pointer;
+                  &:hover {
+                    color: white;
+                  }
+                }
+                button {
+                  cursor: pointer;
+                  background: transparent;
+                  width: 12px;
+                  height: 12px;
+                  outline: none;
+                  i {
+                    line-height: 12px;
+                    color: white;
+                  }
+                  &:hover {
+                    transform: scale(1.1);
+                    color: #3f3e38;
+                  }
+                }
+              }
+            }
+            .il-listed--students {
+              font-size: 0.95rem;
+              text-align: left;
+              color: white;
+              h5 {
+                margin: 5px 0 0 0;
+                font-size: 14px;
+              }
+              ul.il-listed li {
+                padding: 0;
+                height: 16px;
+                span {
+                  font-size: 12px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .il-cronogram--footer {
+      padding: 10px 0;
+      height: 60px;
+      background: white;
+      display: flex;
+      margin-bottom: 10px;
+    }
+  }
+}

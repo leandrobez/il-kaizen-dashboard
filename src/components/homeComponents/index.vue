@@ -16,37 +16,37 @@ import ilAcess from '@/components/includes/access.vue';
 import ilBoxes from '@/components/homeComponents/includes/boxes.vue';
 import ilAlert from '@/components/includes/alerts.vue';
 export default {
-  name: 'homeIndex',
-  components: {
-    ilAlert,
-    ilBoxes,
-    ilAcess
-  },
-  data() {
-    return {
-      message: null,
-      assigned: false
-    };
-  },
-  computed: {
-    checkAlert() {
-      if (this.message) {
-        return true;
-      }
-      return false;
+    name: 'homeIndex',
+    components: {
+        ilAlert,
+        ilBoxes,
+        ilAcess
     },
-    checkAssigned() {
-      if (this.assigned || window.localStorage.getItem('_token')) {
-        return true;
-      }
-      return false;
+    data() {
+        return {
+            message: null,
+            assigned: false
+        };
+    },
+    computed: {
+        checkAlert() {
+            if (this.message) {
+                return true;
+            }
+            return false;
+        },
+        checkAssigned() {
+            if (this.assigned || window.localStorage.getItem('_token')) {
+                return true;
+            }
+            return false;
+        }
+    },
+    methods: {
+        setAlert(obj) {
+            if (obj.type == 'success') this.assigned = true;
+            this.message = obj;
+        }
     }
-  },
-  methods: {
-    setAlert(obj) {
-      if (obj.type == 'success') this.assigned = true;
-      this.message = obj;
-    }
-  }
 };
 </script>

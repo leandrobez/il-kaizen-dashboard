@@ -1,5 +1,5 @@
 .il-color--light {
-  color: $light;
+  color: $light !important;
 }
 .il-color--medium-light {
   color: darken($light, 15%);
@@ -9,6 +9,9 @@
 }
 .il-color--light-green {
   color: rgb(140, 245, 79);
+}
+.il-color--light-blue {
+  color: rgb(113, 154, 207);
 }
 .il-color--green {
   color: $green;

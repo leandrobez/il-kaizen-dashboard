@@ -2,54 +2,7 @@
 .il-teacher--create {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  .il-snapshot {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
-    justify-content: center;
-    .il-card--snapshot {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      &.player {
-        text-align: center;
-        .il-card--content {
-          flex: 1;
-          video.il-video,
-          canvas.il-canvas {
-            width: 250px;
-            height: 250px;
-            margin: auto;
-            border: 2px solid #431233;
-          }
-          &:nth-child(1) {
-            margin-right: 0.5rem;
-          }
-          &:nth-child(2) {
-            margin-left: 0.5rem;
-          }
-        }
-      }
-      &.photo {
-        display: none;
-        text-align: center;
-        flex-direction: column;
-        &.show {
-          display: flex;
-          img {
-            border: 2px solid #2e4ae7;
-          }
-        }
-        img {
-          width: 200px;
-
-          height: calc((200 * 56.25) / 100 * 1px);
-
-          margin: auto;
-        }
-      }
-    }
-  }
+  justify-content: center;
+  align-content: center;
+  width: 100%;
 }

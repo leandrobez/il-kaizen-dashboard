@@ -8,6 +8,9 @@
     .il-sub--menu {
       display: flex;
       justify-content: space-between;
+      a {
+        flex: 1;
+      }
     }
     @import 'create';
   }
@@ -45,4 +48,5 @@
       box-shadow: none;
     }
   }
+  @import './calendar';
 }

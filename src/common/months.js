@@ -49,4 +49,4 @@ const months = [
   }
 ];
 
-export default months
+export default months;

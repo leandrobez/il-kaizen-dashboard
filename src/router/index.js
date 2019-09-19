@@ -37,6 +37,11 @@ const router = new VueRouter({
       component: () => import('@/components/teacherComponents/create.vue')
     },
     {
+      path: '/teachers/schedule',
+      name: 'teacher.schedule',
+      component: () => import('@/components/teacherComponents/schedule.vue')
+    },
+    {
       path: '/students',
       name: 'students',
       component: () => import('@/views/Students.vue')
@@ -62,25 +67,25 @@ const router = new VueRouter({
       component: () => import('@/views/Expenses.vue'),
       children: [
         {
-          path: 'fixas',
+          path: '/fixas',
           name: 'contas.fixed',
           component: () =>
             import('@/components/expensesComponents/includes/fixed.vue')
         },
         {
-          path: 'extras',
+          path: '/extras',
           name: 'contas.extras',
           component: () =>
             import('@/components/expensesComponents/includes/extras.vue')
         },
         {
-          path: 'variables',
+          path: '/variables',
           name: 'contas.variables',
           component: () =>
             import('@/components/expensesComponents/includes/variables.vue')
         },
         {
-          path: 'show',
+          path: '/show',
           name: 'contas.show',
           component: () => import('@/components/expensesComponents/list.vue')
         }

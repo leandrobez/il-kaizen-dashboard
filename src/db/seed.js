@@ -1287,7 +1287,7 @@ const students = [
     EMAIL: 'dacila.cabrera@gmail.com',
     DNASC: '16/11/1936',
     ATIVO: true,
-    OBS: 'cardiologista Mario',
+    OBS: 'cardiologista Mario - FILHOS FÁBIO(991078552) MÁRCIO(981961606)',
     ORIGEM: 'flyer',
     DESC: {
       perc: 0,
@@ -1367,6 +1367,102 @@ const students = [
         NR: '632',
         BAIRRO: 'Petrópolis',
         COMPL: '',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 44,
+    NOME: 'MARIA CHRISTINA DA SILVA ESCOTO',
+    SEXO: 'FEM',
+    CPF: '33953155091',
+    VEZES: 2,
+    VALOR: 460,
+    DATA: '',
+    EMAIL: '',
+    DNASC: '23/01/1954',
+    ATIVO: true,
+    OBS: '',
+    ORIGEM: '',
+    DESC: {
+      perc: 0,
+      abs: 0
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '32192011',
+        CEL: '995401856',
+        CEP: '',
+        LOGRADOURO: 'Baraõ do Guaíba',
+        NR: '1042',
+        BAIRRO: 'Menino Deus',
+        COMPL: 'Apto 203',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 45,
+    NOME: 'PEDRO AFONSO ESCOTO NUNES',
+    SEXO: 'MAS',
+    CPF: '02379159017',
+    VEZES: 1,
+    VALOR: 245,
+    DATA: '',
+    EMAIL: 'pedroae@gmail.com',
+    DNASC: '24/04/1991',
+    ATIVO: true,
+    OBS: '',
+    ORIGEM: '',
+    DESC: {
+      perc: 0,
+      abs: 0
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '32351802',
+        CEL: '915440110',
+        CEP: '',
+        LOGRADOURO: 'ppipipip',
+        NR: '',
+        BAIRRO: 'JARDIM EUROPA',
+        COMPL: '',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 46,
+    NOME: 'ROSANE SCHOENARDIE',
+    SEXO: 'FEM',
+    CPF: '02379159017',
+    VEZES: 1,
+    VALOR: 245,
+    DATA: '',
+    EMAIL: 'rosaneschoenardie@gmail.com',
+    DNASC: '08/11/1965',
+    ATIVO: true,
+    OBS: '',
+    ORIGEM: '',
+    DESC: {
+      perc: 0,
+      abs: 0
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '33333333',
+        CEL: '995111702',
+        CEP: '913402230',
+        LOGRADOURO: 'RUA LIBERO BADAROT',
+        NR: '343',
+        BAIRRO: '',
+        COMPL: 'AP 1201 B',
         CIDADE: 'Porto Alegre',
         UF: 'RS'
       }

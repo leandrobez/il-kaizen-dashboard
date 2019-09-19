@@ -15,6 +15,22 @@ button.il-btn {
   visibility: visible;
   outline: none;
   transition: 450ms ease-in;
+  &.il-btn--schedule {
+    padding: 0.15rem 0.25rem;
+    font-size: 12px;
+    width: 100px;
+    height: 40px;
+    background: rgb(102, 87, 79);
+    color: white;
+    width: 100%;
+    @media (min-width: 600px) {
+      padding: 0.3rem 0.5rem;
+
+      width: auto;
+    }
+
+    margin: 0 auto;
+  }
   &.il-btn--submit {
     color: rgb(128, 19, 19);
     margin-bottom: 1rem;
@@ -30,14 +46,14 @@ button.il-btn {
       line-height: 14px;
       display: block;
     }
-    &.il-btn--center {
-      margin: 0 auto;
-    }
     &:hover {
       transition: 450ms ease-in;
       background: #434343;
       color: $negative;
     }
+  }
+  &.il-btn--center {
+    margin: 0 auto;
   }
   &.il-btn--entrance {
     color: lightgrey;

@@ -37,10 +37,16 @@ const pictures = {
       const stream = await navigator.mediaDevices.getUserMedia(constraint);
       return stream;
     }
+  },
+  endMedia: async () => {
+    const media = await navigator.mediaDevices.enumerateDevices(media => {
+      return media;
+    });
+    console.log(media);
+  },
+  handleStream: async () => {
+    navigator.mediaDevices.getUserMedia({ video: false });
   }
-  /*handleStream: async (stream) => {
-
-  }*/
 };
 
 export default pictures;
