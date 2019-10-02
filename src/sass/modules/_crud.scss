@@ -1,5 +1,7 @@
+.il-student,
 .il-teacher {
   position: relative;
+  .il-student--content,
   .il-teacher--content {
     position: relative;
     h3 {
@@ -8,12 +10,17 @@
     .il-sub--menu {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       a {
-        flex: 1;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        span {
+          padding: 0 0.35rem;
+        }
       }
     }
-    @import 'create';
+    @import '../theme/crud-form';
   }
+  .il-student--address,
   .il-teacher--address {
     position: absolute;
     top: 15%;

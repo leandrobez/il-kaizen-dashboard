@@ -74,8 +74,35 @@ form.il-form {
     min-width: 300px;
   }
   &.il-form--signup .il-signup {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 0.4rem;
+    display: block;
+    //max-width: 380px;
+    margin: 0;
+    @media (min-width: 900px) {
+      max-width: 100%;
+      display: grid;
+      justify-content: center;
+      justify-items: center;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      .il-signup--content {
+        width: 100%;
+        &:nth-child(2) {
+          margin-left: 0.7rem;
+          .il-field--cep {
+            display: flex;
+            justify-items: center;
+            justify-content: center;
+            i {
+              margin-left: 0.3rem;
+              cursor: pointer;
+              &:hover {
+                margin-top: 4px;
+                transform: scale(1.25);
+                color: blue;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

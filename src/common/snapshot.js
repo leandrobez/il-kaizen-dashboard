@@ -1,9 +1,5 @@
 'use strict';
 
-/*;
-
-*/
-
 const pictures = {
   media: async () => {
     if (

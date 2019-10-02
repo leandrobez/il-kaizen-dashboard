@@ -42,6 +42,11 @@ const router = new VueRouter({
       component: () => import('@/components/teacherComponents/schedule.vue')
     },
     {
+      path: '/teachers/edit/:id',
+      name: 'teacher.edit',
+      component: () => import('@/components/teacherComponents/edit.vue')
+    },
+    {
       path: '/students',
       name: 'students',
       component: () => import('@/views/Students.vue')

@@ -1,14 +1,16 @@
 <template>
-<div class="il-teacher--create">
-    <ilSnapPhoto />
+<div class="il-teacher--edit">
+    <ilSnapPhoto @avatar="setPicture" />    
     <form class="il-form il-form--signup" @submit.prevent="doSignup">
         <div class="il-signup">
             <div class="il-signup--content">
                 <h5>Dados Pessoais</h5>
                 <label for="name">Nome</label>
-                <input type="text" v-model="signup.name" class="il-add--description" placeholder="nome completo" id="name" required />
+                <input type="text" v-model="signup.name" class="il-add--description" placeholder="nome completo" required />
                 <label for="cpf">CPF</label>
                 <input type="text" v-model="signup.cpf" class="il-input--cpf" placeholder="seu CPF" id="cpf" required />
+                <label for="cr">CR</label>
+                <input type="text" v-model="signup.cr" class="il-input--cpf" placeholder="seu CR" id="cr" required />
                 <label for="email">Email</label>
                 <input type="email" v-model="signup.email" class="il-add--description" placeholder="Email" id="email" />
                 <label for="dn">Data Nasc</label>
@@ -47,75 +49,80 @@
 
 <script>
 import accessTeacherAPI from '../../../common/apiTeacher.js';
-import ilSnapPhoto from './snapShot';
+import ilSnapPhoto from '@/components/includes/snapShot.vue';
 export default {
-    name: 'formTeacherCreate',
-    components: {
-        ilSnapPhoto
-    },
-    data() {
-        return {
-            signup: {
-                name: '',
-                cpf: '',
-                ativo: true,
-                email: '',
-                dnasc: '',
-                address: {
-                    cep: '',
-                    rua_av: '',
-                    nr: '',
-                    complemento: 'Sem complemento',
-                    suburb: '',
-                    city: '',
-                    UF: '',
-                    fone: '',
-                    clr: ''
-                }
-            }
-        };
-    },
-    methods: {
-        doSignup() {
-            let vm = this;
-            accessTeacherAPI
-                .create(this.signup)
-                .then(res => {
-                    if (res.error == null) {
-                        vm.$emit('msg', {
-                            type: 'success',
-                            message: 'Professor cadastrado com sucesso!'
-                        });
-                    } else {
-                        let msg = res.error.message;
-                        vm.$emit('msg', {
-                            type: msg.type,
-                            message: msg.value
-                        });
-                    }
-                })
-                .catch(err => {
-                    let msg = err.error;
-                    vm.$emit('msg', {
-                        type: 'danger',
-                        message: err
-                    });
-                });
-        },
-        getAddress() {
-            const urlCorreio = 'https://viacep.com.br/ws/';
-            let cep = this.signup.address.cep;
-            fetch(`${urlCorreio}${cep}/json/`).then(result => {
-                if (result.status == 200 && result.statusText == 'OK') {
-                    result.json().then(r => {
-                        this.signup.address.suburb = r.bairro;
-                        this.signup.address.rua_av = r.logradouro;
-                        this.signup.address.city = r.localidade;
-                        this.signup.address.UF = r.uf;
-                    });
-                }
-            });
+  name: 'formTeacherCreate',
+  components: {
+    ilSnapPhoto
+  },
+  data() {
+    return {
+      signup: {
+        name: '',
+        cpf: '',
+        cr: '',
+        ativo: true,
+        email: '',
+        dnasc: '',
+        picture: '',
+        address: {
+          cep: '',
+          rua_av: '',
+          nr: '',
+          complemento: 'Sem complemento',
+          suburb: '',
+          city: '',
+          UF: '',
+          fone: '',
+          clr: ''
         }
+      }
+    };
+  },
+  methods: {
+    doSignup() {
+      let vm = this;
+      accessTeacherAPI
+        .create(this.signup)
+        .then(res => {
+          if (res.error == null) {
+            vm.$emit('msg', {
+              type: 'success',
+              message: 'Professor cadastrado com sucesso!'
+            });
+          } else {
+            let msg = res.error.message;
+            vm.$emit('msg', {
+              type: msg.type,
+              message: msg.value
+            });
+          }
+        })
+        .catch(err => {
+          let msg = err.error;
+          vm.$emit('msg', {
+            type: 'danger',
+            message: err
+          });
+        });
+    },
+    setPicture(picture) {
+      this.signup.picture = picture;
+    },
+    getAddress() {
+      const urlCorreio = 'https://viacep.com.br/ws/';
+      let cep = this.signup.address.cep;
+      fetch(`${urlCorreio}${cep}/json/`).then(result => {
+        if (result.status == 200 && result.statusText == 'OK') {
+          result.json().then(r => {
+            this.signup.address.suburb = r.bairro;
+            this.signup.address.rua_av = r.logradouro;
+            this.signup.address.city = r.localidade;
+            this.signup.address.UF = r.uf;
+          });
+        }
+      });
     }
+  }
 };
 </script>

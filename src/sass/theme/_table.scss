@@ -10,18 +10,18 @@ table {
     margin: 1rem auto auto;
   }
   & thead {
-    background: #736ccc;
+    background: #9993e7;
     background: linear-gradient(
       to bottom,
-      #736ccc 0%,
-      #6060c4 66%,
+      #9993e7 0%,
+      #7676c7 66%,
       #a7a7c4 100%
     );
     //border-bottom: 3px solid #7e0a0a;
   }
   & th,
   & td {
-    border: 1px solid #062b70;
+    border: 1px solid #4f5b72;
     padding: 5px 4px;
     padding: 0.25rem 0;
     &.il-list--title {
@@ -76,14 +76,12 @@ table {
       }
     }
   }
-  /*& tbody tr:nth-child(even) td {
-    //background: #999da8; // lighten($negative, 55%);
-  }*/
+
   & tbody tr:nth-child(odd) td {
-    background: #fefeee;
+    background: #8acefc;
   }
   & tbody tr.il-inactive td {
-    background: rgb(214, 73, 73);
+    background: rgb(173, 81, 81);
     color: white;
   }
   & tbody tr.il-soma td {

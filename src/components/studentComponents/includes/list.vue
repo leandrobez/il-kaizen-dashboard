@@ -16,7 +16,7 @@
             <td>
                 <ul>
                     <li class="name">{{list.name}}</li>
-                    <li class="nasc">Dt Nas: {{formatDate(index)}}</li>
+                    <li class="nasc">Dt Nasc: {{formatDate(index)}}</li>
                     <li class="email">email: {{list.email}}</li>
                 </ul>
             </td>

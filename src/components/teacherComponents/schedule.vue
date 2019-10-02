@@ -2,92 +2,26 @@
 <div class="il-teacher">
     <h3 class="il-color--darkblue">Agenda para {{currentMonth}}</h3>
     <div class="il-calendar" v-if="calendar.length>0">
-      <div class="il-calendar--teachers">
-            <div class="il-teachers--choices">
-                <img src="/images/avatar/claudia.jpg" alt="claudia">
-                <div class="il-teacher--name">
-                    <label for="teacher1">Claudia</label>
-                    <input type="radio" v-model="teacher" value="Claudia">
-                    </div>
-            </div>
-            <div class="il-teachers--choices">
-                <img src="/images/avatar/claudia.jpg" alt="claudia">
-                <div class="il-teacher--name">
-                    <label for="teacher1">Eduardo</label>
-                    <input type="radio" v-model="teacher" value="Eduardo">
-                    </div>
-            </div>
-            <div class="il-teachers--choices">
-                <img src="/images/avatar/claudia.jpg" alt="claudia">
-                <div class="il-teacher--name">
-                    <label for="teacher1">Juliana</label>
-                    <input type="radio" v-model="teacher" value="Juliana">
-                    </div>
-            </div>
-        </div>
+        <ilTeacherList :teachers="teachers" @cronogram="getCronogram" />
         <ilDays />
         <div class="il-week--row" v-for="(row,index1) in calendar" :key="`row${index1}`">
-            <span v-for="(dia,index2) in row" :key="`d${index2}`">
-                <span :class="setClass(dia)" @click="setActiveDay(dia)" :id="`day${dia}`">{{dia}}</span>
+            <span v-for="(day,index2) in row" :key="`d${index2}`">
+                <span :class="setClass(day)" @click="setActiveDay(day)" :id="`day${day}`">{{day}}</span>
             </span>
         </div>
-        
         <div class="il-calendar--header">
-            <div class="il-calendar--teacher">
-                <p>{{teacher}}</p>
+            <div class="il-header--teacher">
+                <p class="il-teacher--active">{{splitName(teacher)}}</p>
             </div>
             <div class="il-header--details">
                 <p>{{getActiveDay}} de {{currentMonth}}</p>
             </div>
         </div>
         <div class="il-calendar--cronogram" v-if="times.length>0">
-
-            <div class="il-cronogram--body">
-                <div class="il-list--hours" v-for="(time,index) in times" :key="`t${index}`">
-                    <div class="il-hours">
-                        <span>{{time.start}}:00h</span>
-                        <span>{{time.end}}:00h</span>
-                    </div>
-                    <div class="il-cronogram--events" :id="`cronogram${activeDay}_${index}`">
-                        <ul>
-                            <li>Aula: <span>{{events[index].details.class}}</span></li>
-                            <li>Alunos: <span>{{events[index].students[0]}}, {{events[index].students[1]}}, {{events[index].students[2]}}</span></li>
-                        </ul>
-                    </div>
-                    <div class="il-events">
-                        <div class="il-events--students" :id="`event${activeDay}_${index}`">
-                            <div class="il-form--fields">
-                                <input v-model="wordSearch[index].word" @input="studentSearch(index)" required type="text" placeholder="Busque o aluno">
-                                <div class="il-checks">
-                                    <label for="">P</label>
-                                    <input type="radio" v-model="events[index].details.class" value="pilates">
-                                    <label for="">C</label>
-                                    <input type="radio" v-model="events[index].details.class" value="corealign">
-                                </div>
-                            </div>
-                            <div class="il-list--student" v-for="(student,index1) in search[index]" :key="student._id">
-                                <div class="il-list--check">
-                                    <span>{{student.name}}</span>
-                                    <button @click="choiceStudent(index,index1)">
-                                        <i class="mdi mdi-12px mdi-check"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="il-listed--students" v-if="events[index].students.length>0">
-                                <h5>Agendados</h5>
-                                <ul class="il-listed">
-                                    <li v-for="(listed,key) in events[index].students" :key="`event_${key}`"><span>{{listed}}</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <button class="il-btn il-btn--schedule" @click.prevent="addEventToSchedule(activeDay,index)">Salvar</button>
-                    </div>
-                </div>
-            </div>
+            <ilCronogram :times="times" :day="activeDay" @schedule="setSchedule" />
             <div class="il-cronogram--footer" v-if="showBtnAgenda">
-                <button class="il-btn il-btn--schedule" @click.prevent="saveConfirm()">Salvar Agenda</button>
+                <button class="il-btn il-btn--schedule" @click.prevent="confirm()">Salvar Agenda</button>
             </div>
-
         </div>
     </div>
 </div>
@@ -96,12 +30,18 @@
 <script>
 import teacherSchedule from '../../common/schedule.js';
 import accessStudentAPI from '../../common/apiStudent.js';
+import accessTeacherAPI from '../../common/apiTeacher.js';
+import accessCronogramAPI from '../../common/apiCronogram.js';
 import ilDays from './includes/days.vue';
-import { mapActions } from 'vuex';
+import ilTeacherList from './includes/teacherList.vue';
+import { mapActions, mapGetters } from 'vuex';
+import ilCronogram from './includes/cronogram.vue';
 export default {
   name: 'schedule',
   components: {
-    ilDays
+    ilDays,
+    ilTeacherList,
+    ilCronogram
   },
   data() {
     return {
@@ -112,16 +52,17 @@ export default {
       currentDay: null,
       activeDay: null,
       keySchedule: 0,
-      teacher: 'Claudia',
+      teacher: 'Claudia Mariko Muraguti Bezerra',
       cronogram: [
         {
           teacher: null,
-          contents: [
-            {
-              month: null,
-              schedule: []
-            }
-          ]
+          contents: []
+        }
+      ],
+      contents: [
+        {
+          month: null,
+          schedule: []
         }
       ],
       schedule: [
@@ -130,8 +71,8 @@ export default {
           events: []
         }
       ],
-      events: [],
       students: [],
+      teachers: [],
       search: [],
       wordSearch: []
     };
@@ -143,21 +84,14 @@ export default {
   },
   mounted() {
     this.setStudents();
+    this.setTeachers();
     this.makeStructure();
-    this.makeEvents();
+    this.getCronogramStore();
   },
   methods: {
-    studentSearch(key) {
-      let word = this.wordSearch[key].word;
-
-      if (word.length > 4) {
-        let search = this.students.filter(element => {
-          return element.name
-            .toLowerCase()
-            .includes(this.wordSearch[key].word.toLowerCase());
-        });
-        this.search[key] = search;
-      }
+    splitName(str) {
+      let name = str.split(' ');
+      return name[0];
     },
     setStudents() {
       accessStudentAPI
@@ -180,14 +114,33 @@ export default {
           }
         });
     },
-    choiceStudent(key, key1) {
-      if (this.events[key].students.length == 3) {
-        alert('Você pode agendar no máximo 3 alunos por horário');
-      } else {
-        this.events[key].students.push(this.search[key][key1].name);
-        this.wordSearch[key].word = '';
-        this.search = [];
-      }
+    setTeachers() {
+      accessTeacherAPI
+        .getTeachers()
+        .then(res => {
+          if (res.error == null) {
+            return res.teacher;
+          }
+          return [];
+        })
+        .then(value => {
+          if (value.length > 0) {
+            value.forEach(item => {
+              let picture = null;
+              if (item.picture !== 'vai a foto') {
+                picture = item.picture;
+              } else {
+                picture = 'other-avatar.svg';
+              }
+
+              this.teachers.push({
+                id: item._id,
+                name: item.name,
+                picture: picture
+              });
+            });
+          }
+        });
     },
     setClass(day) {
       this.currentDay = teacherSchedule.getToday();
@@ -227,9 +180,9 @@ export default {
       teacherSchedule.setActiveDay(d);
       this.activeDay = d;
       this.manageDOM();
+      this.getDataCronogram();
     },
     reloadStructure() {
-      this.makeEvents();
       this.manageDOM();
     },
     makeStructure() {
@@ -239,102 +192,186 @@ export default {
       this.activeDay = teacherSchedule.getActiveDay();
       this.times = teacherSchedule.getHours();
     },
-    makeEvents() {
-      this.times.forEach((time, index) => {
-        this.events.push({
-          students: [],
-          details: {
-            timeKey: index,
-            start: time.start,
-            end: time.end,
-            class: ''
-          }
-        });
-        this.wordSearch.push({
-          key: index,
-          word: ''
-        });
-      });
-    },
-    addEventToSchedule(day, key) {
-      //this.events[key].details.class = 'pilates';
-      let event = this.events[key];
-      if (event.students.length == 0) {
-        alert('Por favor informe pelo menos um aluno por horário');
-        return;
-      }
-      if (event.details.class == '') {
-        alert('Por favor informe qual o tipo de aula - pilates ou corealign');
-        return;
-      }
+    setSchedule(schedule) {
+      this.schedule = schedule;
       this.showBtnAgenda = true;
-      const checkDays = () => {
-        //need find day
-        return this.schedule.findIndex(element => {
-          return element.day == this.activeDay;
-        });
-      };
-      const addEvent = () => {
-        let schedule = this.schedule[0];
-        if (schedule.day == null) {
-          //first insertion
-          schedule.day = this.activeDay;
-          schedule.events.push(event);
-          this.schedule[0] = schedule;
-        } else {
-          //verify day whith active day
-          if (schedule.day == this.activeDay) {
-            //same day
-            schedule.events.push(event);
-            this.schedule[0] = schedule;
-          } else {
-            //other day
-            let newSchedule = {
-              day: this.activeDay,
-              events: [event]
-            };
-            this.schedule.push(newSchedule);
-          }
-        }
-      };
-      let count = this.schedule.length;
-      if (count > 1) {
-        let eventIndex = checkDays();
-        if (eventIndex && eventIndex != undefined) {
-          this.schedule[eventIndex].events.push(event);
-        } else {
-          //other day
-          let newSchedule = {
-            day: this.activeDay,
-            events: [event]
-          };
-          this.schedule.push(newSchedule);
-        }
-        //events.push(event);
-      } else {
-        addEvent();
-      }
-      //show event
-      const formEvent = document.getElementById('event' + day + '_' + key);
-      formEvent.classList.add('il-hidden');
-      const cronogram = document.getElementById('cronogram' + day + '_' + key);
-      cronogram.classList.add('il-show');
     },
-    saveConfirm() {
+    confirm() {
       let confirm = window.confirm(
         'Deseja salvar a agenda para o dia ' +
           this.activeDay +
           ' de ' +
           this.currentMonth +
-          ' para a professora Claudia?'
+          ' para a professora ' +
+          this.teacher +
+          ' ?'
       );
       if (confirm) {
-        this.saveSchedule();
+        this.saveContent();
       } else {
         return;
       }
     },
-    saveSchedule() {},
+    saveContent() {
+      //step 1 - verify teacher and contents for teacher
+      const checkMonth = () => {
+        //need find day
+        return this.contents.findIndex(element => {
+          return element.month == this.currentMonth;
+        });
+      };
+      const addNewContent = () => {
+        //other day
+        let newContents = {
+          month: this.currentMonth,
+          schedule: this.schedule
+        };
+        this.contents.push(newContents);
+        return;
+      };
+      let count = this.contents.length;
+      if (count > 1) {
+        let contentsIndex = checkMonth();
+        if (contentsIndex && contentsIndex != undefined) {
+          this.contents[contentsIndex].schedule = this.schedule;
+        } else {
+          //other month
+          addNewContent();
+        }
+      } else {
+        if (this.contents[0].month === null) {
+          //first insertion
+          this.contents[0].month = this.currentMonth;
+          this.contents[0].schedule = this.schedule;
+        } else {
+          //other month
+          addNewContent();
+        }
+      }
+      this.saveCronogram();
+    },
+    saveCronogram() {
+      //step2 - create cronogram
+      const addNewCronogram = () => {
+        let newCronogram = {
+          teacher: this.teacher,
+          contents: this.contents
+        };
+        this.cronogram.push(newCronogram);
+      };
+      if (this.cronogram.length > 1) {
+        let indexCronogram = this.cronogram.findIndex(element => {
+          return element.teacher == this.teacher;
+        });
+        if (indexCronogram) {
+          //same teacher
+          this.cronogram[indexCronogram].contents = this.contents;
+        } else {
+          //other teacher
+          addNewCronogram();
+        }
+      } else {
+        //check teacher
+        if (this.cronogram[0].teacher === null) {
+          //first insertion
+          this.cronogram[0].teacher = this.teacher;
+          this.cronogram[0].contents = this.contents;
+        } else {
+          if (this.cronogram[0].teacher !== this.teacher) {
+            addNewCronogram();
+          } else {
+            this.cronogram[0].contents = this.contents;
+          }
+        }
+      }
+      this.saveDataCronogram();
+      /**/
+    },
+    getDataCronogram() {
+      accessCronogramAPI.getCronogramTeacher(this.teacher).then(response => {
+        console.log(response);
+      });
+    },
+    saveDataCronogram() {
+      let cronogram = this.cronogram[0];
+      const finalise = () => {
+        //this.setCronogram(this.cronogram);
+        this.contents = [
+          {
+            month: null,
+            schedule: []
+          }
+        ];
+        const formEvent = document.querySelectorAll('.il-events--students'),
+          cronogram = document.querySelectorAll('.il-cronogram--events'),
+          spanDays = document.querySelectorAll('.with-border'),
+          spanDay = document.getElementById('day' + this.activeDay);
+
+        formEvent.forEach(event => {
+          event.classList.remove('il-hidden');
+        });
+        this.showBtnAgenda = false;
+        alert('Agenda salva com sucesso!');
+      };
+      accessCronogramAPI
+        .create(cronogram)
+        .then(res => {
+          if (res.error == null) {
+            finalise();
+            vm.$emit('msg', {
+              type: 'success',
+              message: 'Cronogram cadastrado com sucesso!'
+            });
+          } else {
+            let msg = res.error.message;
+            vm.$emit('msg', {
+              type: msg.type,
+              message: msg.value
+            });
+          }
+        })
+        .catch(err => {
+          let msg = err.error;
+          vm.$emit('msg', {
+            type: 'danger',
+            message: err
+          });
+        });
+    },
+    getCronogramStore() {
+      const formEvent = document.querySelectorAll('.il-events--students'),
+        cronogram = document.querySelectorAll('.il-cronogram--events');
+      let store = this.getSpecificCronogram()(
+        this.teacher,
+        this.currentMonth,
+        this.activeDay
+      );
+      if (store.lenght > 0) {
+        cronogram.forEach(cron => {
+          cron.classList.remove('il-show');
+        });
+      }
+      this.cronogram = store;
+    },
+    getCronogram(teacher) {
+      const formEvent = document.querySelectorAll('.il-events--students'),
+        cronogram = document.querySelectorAll('.il-cronogram--events');
+      this.teacher = teacher;
+      let store = this.getSpecificCronogram()(
+        teacher,
+        this.currentMonth,
+        this.activeDay
+      );
+      if (store.lenght > 0) {
+        cronogram.forEach(cron => {
+          cron.classList.remove('il-show');
+        });
+      }
+      this.cronogram = store;
+    },
+    ...mapGetters('cronogram', {
+      getSpecificCronogram: 'getSpecificCronogram'
+    }),
     ...mapActions('cronogram', {
       setCronogram: 'setCronogram'
     })

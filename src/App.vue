@@ -18,25 +18,25 @@
         <div class="il-painel--menu">
             <ul class="il-menu--list">
               <li>
-                    <router-link :to="{path: 'home'}" title="Home" class="il-nav--link">
-                        <i class="mdi mdi-account-home mdi-12px"></i>
+                    <router-link :to="{path: '/'}" title="Home" class="il-nav--link">
+                        <i class="mdi mdi-home mdi-12px"></i>
                         <span @click="closePainel">Home</span>
                     </router-link>
                 </li>
                 <li>
-                    <router-link :to="{path: 'admins'}" title="Controle dos Admins" class="il-nav--link">
+                    <router-link :to="{path: '/admins'}" title="Controle dos Admins" class="il-nav--link">
                         <i class="mdi mdi-account-star mdi-12px"></i>
                         <span @click="closePainel">Admins</span>
                     </router-link>
                 </li>
                 <li>
-                    <router-link :to="{path: 'students'}" title="Controle de Alunos" class="il-nav--link">
+                    <router-link :to="{path: '/students'}" title="Controle de Alunos" class="il-nav--link">
                         <i class="mdi mdi-comment-account-outline mdi-12px"></i>
                         <span @click="closePainel">Alunos</span>
                     </router-link>
                 </li>
                 <li>
-                    <router-link :to="{path: 'contas'}" title="Controle de Contas" class="il-nav--link">
+                    <router-link :to="{path: '/contas'}" title="Controle de Contas" class="il-nav--link">
                         <i class="mdi mdi-barcode mdi-12px"></i>
                         <span @click="closePainel">Contas</span>
                     </router-link>

@@ -13,28 +13,28 @@
 import ilAlert from '@/components/includes/alerts.vue';
 import ilTeacherFormCreate from './includes/formCreate.vue';
 export default {
-  name: 'createTeacher',
-  components: {
-    ilAlert,
-    ilTeacherFormCreate
-  },
-  data() {
-    return {
-      message: null
-    };
-  },
-  computed: {
-    checkAlert() {
-      if (this.message) {
-        return true;
-      }
-      return false;
+    name: 'createTeacher',
+    components: {
+        ilAlert,
+        ilTeacherFormCreate
+    },
+    data() {
+        return {
+            message: null
+        };
+    },
+    computed: {
+        checkAlert() {
+            if (this.message) {
+                return true;
+            }
+            return false;
+        }
+    },
+    methods: {
+        setAlert(obj) {
+            this.message = obj;
+        }
     }
-  },
-  methods: {
-    setAlert(obj) {
-      this.message = obj;
-    }
-  }
 };
 </script>

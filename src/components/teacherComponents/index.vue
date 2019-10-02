@@ -5,8 +5,9 @@
         <h3 class="il-color--darkblue">Controle de Professores</h3>
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, provident ab quis error quidem ducimus distinctio saepe dolorum deserunt delectus? Culpa nihil voluptatem ratione earum.</p>
         <div class="il-sub--menu">
-            <a href="#!" class="il-btn il-btn--submit" @click.prevent="createTeacher"><i class="mdi mdi-24px mdi-basecamp" title="Novo Professor"></i><span>Novo Professor</span></a> |
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="createTeacher"><i class="mdi mdi-24px mdi-basecamp" title="Novo Professor"></i><span>Novo Professor</span></a>
             <a href="#!" class="il-btn il-btn--submit" @click.prevent="createSchedule"><i class="mdi mdi-24px mdi-calendar-clock" title="Controlar agenda do professor"></i><span>Controlar Agenda</span></a>
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="remove"><i class="mdi mdi-24px mdi-cloud-upload il-color--darkblue" title="Popular o banco de dados"></i><span>Remover todos</span></a>
         </div>
         <ilListTeachers :teachers="teachers" v-if="hasTeachers" />
     </div>
@@ -64,9 +65,6 @@ export default {
         .then(response => {
           if (response.error === null && response.teacher.length > 0) {
             this.teachers = response.teacher;
-            this.teachers.forEach((teacher, index) => {
-              teacher.valor = this.getDesc(index);
-            });
           } else {
             if (response.error) {
               this.setAlert({
@@ -100,6 +98,27 @@ export default {
       this.$router.push({
         path: 'teachers/schedule'
       });
+    },
+    remove() {
+      let confirm = window.confirm(
+        'Realmente deseja realizar esse procedimento agora?'
+      );
+      if (!confirm) return;
+      let remove = [];
+      this.teachers.forEach(teacher => {
+        let ID = teacher._id;
+        accessTeacherAPI
+          .removeTeacher(ID)
+          .then(res => {
+            remove.push({
+              ID: res
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      });
+      console.log(remove);
     }
   }
 };

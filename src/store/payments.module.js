@@ -17,7 +17,6 @@ const actions = {
 };
 const mutations = {
   SET_PAYMENT(state, payments) {
-    //console.log(payments);
     state.payments = payments;
   }
 };
