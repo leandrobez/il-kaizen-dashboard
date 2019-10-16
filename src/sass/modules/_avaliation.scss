@@ -1,0 +1,82 @@
+.il-avaliation {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem 0;
+  height: 100%;
+  .il-avaliation--profile {
+    margin: auto;
+    h5 {
+      box-shadow: none;
+      margin: 0;
+    }
+    form {
+      display: flex;
+      justify-content: center;
+      .il-field--input {
+        margin-right: 0.25rem;
+        &.il-genre {
+          width: 220px;
+          margin-right: 0.35rem;
+          .il-field--radio {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+  .il-avaliation--ranges {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 170px));
+    justify-content: center;
+    grid-gap: 0.15rem 0.35rem;
+    .il-card--range {
+      border: 1px solid lightgray;
+      border-radius: 3px;
+      padding: 0.3rem;
+      text-align: center;
+      .il-card--header {
+        height: 1.3rem;
+        h4 {
+          font-size: 0.95rem;
+          margin: 0;
+        }
+      }
+      .il-card--footer button {
+        padding: 0;
+        text-align: center;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        &:hover {
+          transform: scale(0.9);
+          color: rgb(70, 49, 49);
+        }
+      }
+      i {
+        line-height: 24px;
+        margin: auto;
+      }
+    }
+  }
+  .il-avaliation--percent {
+    width: 300px;
+    margin: 2rem auto 1rem auto;
+    text-align: center;
+    height: 4rem;
+    .il-field--range {
+      position: relative;
+      display: flex;
+      height: 50px;
+      width: 300px;
+      display: flex;
+      justify-content: space-between;
+      label {
+        font-size: 1.2rem;
+        margin-right: 0.45rem;
+      }
+    }
+  }
+}

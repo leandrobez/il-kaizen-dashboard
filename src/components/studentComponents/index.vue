@@ -3,39 +3,19 @@
     <div class="il-student--content">
         <ilAlert :has="message ? true : false" :msg="message" />
         <h3 class="il-color--darkblue">Controle de Alunos</h3>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, provident ab quis error quidem ducimus distinctio saepe dolorum deserunt delectus? Culpa nihil voluptatem ratione earum.</p>
+        <p class="il-color--light">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, provident ab quis error quidem ducimus distinctio saepe dolorum deserunt delectus? Culpa nihil voluptatem ratione earum.</p>
         <div class="il-sub--menu">
-            <a href="#!" class="il-btn il-btn--submit" @click.prevent="createStudent"><i class="mdi mdi-12px mdi-account-multiple il-color--darkblue" title="Popular o banco de dados"></i>Novo Aluno</a>
-            <a href="#!" class="il-btn il-btn--submit" @click.prevent="printDoc" v-if="showBtnImp"><i class="mdi mdi-12px mdi-printer il-color--darkblue" title="Popular o banco de dados"></i>Imprimir lista</a>
-            <a href="#!" class="il-btn il-btn--submit" @click.prevent="populate" v-if="showBtnPop"><i class="mdi mdi-12px mdi-cloud-upload il-color--darkblue" title="Popular o banco de dados"></i>Popular Banco</a>
-            <a href="#!" class="il-btn il-btn--submit" @click.prevent="remove"><i class="mdi mdi-24px mdi-cloud-upload il-color--darkblue" title="Popular o banco de dados"></i><span>Remover todos</span></a>
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="createStudent"><i class="mdi mdi-24px mdi-account-multiple il-color--darkblue" title="Popular o banco de dados"></i>Novo</a>
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="printDoc" v-if="showBtnImp"><i class="mdi mdi-24px mdi-printer il-color--darkblue" title="Popular o banco de dados"></i>Imprimir</a>
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="populate" v-if="showBtnPop"><i class="mdi mdi-24px mdi-cloud-upload il-color--darkblue" title="Popular o banco de dados"></i>Popular Banco</a>
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="remove"><i class="mdi mdi-24px mdi-cloud-upload il-color--darkblue" title="Popular o banco de dados"></i><span>Remover</span></a>
         </div>
-        <ilListStudent :students="students" :payments="getPaymentsStudents" @delete="deleteStudent" v-if="hasStudents" />
-    </div>
-    <div class="il-student--address" v-if="hasAddress">
-        <a href="#!" class="il-close il-close--address" @click.prevent="close"><i class="mdi mdi-close medi-12px"></i></a>
-        <table>
-            <thead>
-                <tr>
-                    <th>CEP</th>
-                    <th>Rua/Av</th>
-                    <th>Bairro</th>
-                    <th>Complemento</th>
-                    <th>Cidade/UF</th>
-                    <th>Fone/Clr</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{addressCurrent.cep}}</td>
-                    <td>{{addressCurrent.rua_av}} nr {{addressCurrent.nr}}</td>
-                    <td>{{addressCurrent.suburb}}</td>
-                    <td>{{addressCurrent.complemento}}</td>
-                    <td>{{addressCurrent.city}}/{{addressCurrent.UF}}</td>
-                    <td>{{addressCurrent.fone}}/{{addressCurrent.clr}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <ilListStudent :students="students" :payments="paymentStudents" @delete="deleteStudent" @setAddress="setAddressCurrent" v-if="hasStudents" />
+    
+      <div class="il-student--address" v-if="hasAddress">
+          <a href="#!" class="il-close il-close--address" @click.prevent="close"><i class="mdi mdi-close medi-12px"></i></a>
+        <ilAddress :addressCurrent="addressCurrent"/>
+      </div>
     </div>
 </div>
 </template>
@@ -46,12 +26,14 @@ import accessStudentAPI from '../../common/apiStudent.js';
 import accessPaymentAPI from '../../common/apiPayment.js';
 import ilListStudent from './includes/list';
 import ilAlert from '@/components/includes/alerts.vue';
+import ilAddress from './includes/address.vue';
 const populateDB = require('../../db/seed');
 import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'indexStudent',
   components: {
     ilListStudent,
+    ilAddress,
     ilAlert
   },
   data() {
@@ -79,9 +61,6 @@ export default {
         return true;
       }
       return false;
-    },
-    getPaymentsStudents() {
-      return this.paymentStudents;
     },
     hasStudents() {
       if (this.students.length > 0) {
@@ -286,7 +265,7 @@ export default {
           });
       }
     },
-    address(key) {
+    setAddressCurrent(key) {
       this.addressCurrent = this.students[key].address;
       this.showAddress = true;
     },

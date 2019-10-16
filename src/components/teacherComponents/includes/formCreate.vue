@@ -4,7 +4,7 @@
     <form class="il-form il-form--signup" @submit.prevent="doSignup">
         <div class="il-signup">
             <div class="il-signup--content">
-                <h5>Dados Pessoais</h5>
+                <h5 class="il-color--light">Dados Pessoais</h5>
                 <label for="name">Nome</label>
                 <input type="text" v-model="signup.name" class="il-add--description" placeholder="nome completo" required />
                 <label for="cpf">CPF</label>
@@ -17,7 +17,7 @@
                 <input type="date" v-model="signup.dnasc" class="il-input--dn" placeholder="Data de Nascimento" id="dn" />
             </div>
             <div class="il-signup--content">
-                <h5>Endereço</h5>
+                <h5 class="il-color--light">Endereço</h5>
                 <label for="cep">CEP</label>
                 <input type="text" v-model="signup.address.cep" class="il-input--cep" placeholder="CEP" id="cep" />
                 <i class="mdi mdi-12px mdi-search-web" @click.prevent="getAddress"></i>

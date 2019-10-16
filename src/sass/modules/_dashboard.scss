@@ -1,0 +1,123 @@
+section {
+  margin: 0.45rem 0;
+}
+.il-config {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .il-config--content {
+    height: 100%;
+    h3 {
+      margin: 0.75rem 0;
+    }
+    .il-config--wrapper {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      grid-column-gap: 0.5rem 0;
+      .il-config--aside {
+        padding: 1rem 0.45rem;
+        background: linear-gradient(
+          to right,
+          rgb(200, 100, 30) 10%,
+          rgb(210, 200, 190) 104%
+        );
+        ul.il-menu li {
+          padding: 0.3rem 0;
+          position: relative;
+          cursor: pointer;
+          &:hover {
+            opacity: 0.75;
+            font-weight: 700;
+          }
+          span {
+            font-size: 0.89rem;
+            text-transform: uppercase;
+            color: black;
+          }
+
+          &.il-submenu {
+            height: 100%;
+            min-height: 140px;
+            ul {
+              //top: 0;
+              left: 0.25rem;
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              li {
+                font-size: 0.8rem;
+                height: 1rem;
+                padding: 0.15rem 0;
+              }
+            }
+          }
+        }
+      }
+      .il-config--main {
+        padding: 1rem 0.45rem;
+        background: linear-gradient(
+          to left,
+          rgb(200, 100, 30) 10%,
+          rgb(210, 200, 190) 104%
+        );
+        padding: 0;
+        h4 {
+          margin: 0.75rem 0;
+        }
+        p {
+          font-size: 0.85rem;
+        }
+        .il-statistic {
+          display: grid;
+          padding-right: 0.45rem;
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          justify-content: center;
+          .il-statistic--items {
+            flex: 1;
+
+            border: 1px solid white;
+            border-radius: 3px;
+            &:nth-child(2) {
+              margin: 0 0.35rem;
+            }
+            .il-header {
+              height: 60px;
+              display: flex;
+              .il-actives,
+              .il-inactives {
+                padding: 0.3rem;
+                flex: 1;
+                span {
+                  display: block;
+                }
+              }
+            }
+            .il-body {
+              height: 30px;
+              text-align: center;
+              background: #431210;
+            }
+          }
+        }
+      }
+      .il-cards {
+        display: flex;
+        :nth-child(2) {
+          margin: 0 0.35rem;
+        }
+        .il-card--items {
+          flex: 1;
+          height: 170px;
+          .il-card--header {
+            height: 30px;
+            background: #321887;
+            color: white;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

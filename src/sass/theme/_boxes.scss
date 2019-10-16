@@ -1,12 +1,11 @@
 ul.il-box--expenses,
 ul.il-box--home {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 110px));
-  grid-gap: 0.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 130px));
+  grid-gap: 0.15rem;
   align-content: center;
   justify-content: space-between;
   width: 100%;
-  //margin: auto;
   > li {
     padding: 0 0.15rem;
     min-height: 80px;
@@ -17,15 +16,15 @@ ul.il-box--home {
     border-radius: 3px;
     @include ease(500);
     a.il-nav--link {
-      color: rgb(80, 71, 54);
+      border: 1px solid white;
+      padding: 0.35rem 0.3rem;
       &:hover {
         @include ease(500);
-        color: rgb(10, 24, 36);
-        text-shadow: 2px 3px 5px #865650;
+        background: #231110;
+        box-shadow: 2px 3px 5px #865650;
       }
       h5 {
-        font-size: 0.89rem;
-        color: rgb(92, 25, 25);
+        font-size: 0.8rem;
       }
     }
   }

@@ -23,7 +23,6 @@ const getters = {
   },
   getSpecificCronogram: state => (teacher, month, day) => {
     if (teacher) {
-      console.log(teacher);
       let cronogram = [];
       let indexCronogram = state.cronogram.findIndex(element => {
         return element.teacher == teacher;

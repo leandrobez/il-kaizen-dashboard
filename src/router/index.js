@@ -12,6 +12,11 @@ const router = new VueRouter({
       component: () => import('@/views/Home.vue')
     },
     {
+      path: '/config',
+      name: 'config',
+      component: () => import('@/views/SystemConfig.vue')
+    },
+    {
       path: '/admins',
       name: 'admins',
       component: () => import('@/views/Admins.vue')
@@ -47,6 +52,11 @@ const router = new VueRouter({
       component: () => import('@/components/teacherComponents/edit.vue')
     },
     {
+      path: '/teachers/activities/:id',
+      name: 'teacher.activities',
+      component: () => import('@/views/Activities.vue')
+    },
+    {
       path: '/students',
       name: 'students',
       component: () => import('@/views/Students.vue')
@@ -60,6 +70,17 @@ const router = new VueRouter({
       path: '/students/edit/:id',
       name: 'student.edit',
       component: () => import('@/components/studentComponents/edit.vue')
+    },
+    {
+      path: '/students/register/:id',
+      name: 'student.register',
+      component: () => import('@/components/studentComponents/registration.vue')
+    },
+
+    {
+      path: '/students/avaliation/:id',
+      name: 'student.avaliation',
+      component: () => import('@/components/studentComponents/avaliation.vue')
     },
     {
       path: '/payments/:id/:type',

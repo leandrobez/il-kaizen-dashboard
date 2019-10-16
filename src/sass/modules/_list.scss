@@ -1,0 +1,28 @@
+.il-student,
+.il-teacher,
+.il-admin {
+  position: relative;
+  .il-student--content,
+  .il-teacher--content,
+  .il-admin--content {
+    position: relative;
+    h3 {
+      margin: 0;
+    }
+    .il-sub--menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      a {
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        span {
+          padding: 0 0.35rem;
+        }
+      }
+    }
+    @import '../theme/crud-form';
+    @import '../theme/collections';
+  
+  @import './address';
+  }
+}

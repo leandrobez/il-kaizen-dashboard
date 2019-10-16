@@ -1,6 +1,6 @@
 <template>
 <div class="il-months">
-    <div class="il-months--box il-backround--gradient-boxes" v-for="(m,index) in months" :key="m.abr" :id="`month_${index}`">
+    <div class="il-months--box " v-for="(m,index) in months" :key="m.abr" :id="`month_${index}`">
         <span @click.prevent="choiceMonth(index)">{{m.abr}}</span>
     </div>
 </div>

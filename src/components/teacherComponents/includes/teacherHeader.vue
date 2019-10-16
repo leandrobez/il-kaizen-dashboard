@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'teachersList',
+  name: 'teachersHeader',
   props: {
     teachers: Array
   },

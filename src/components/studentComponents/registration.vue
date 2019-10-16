@@ -1,25 +1,25 @@
 <template>
-<div class="il-student">
+<div class="il-student ">
     <div class="il-student--content">
         <ilAlert :has="checkAlert" :msg="message" />
-        <h3 class="il-color--darkblue">Novo Aluno</h3>
-        <p class="il-color--light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi odit distinctio doloremque ratione voluptates error.</p>
-        <ilStudentFormCreate @msg="setAlert" />
+        <h3 class="il-color--darkblue">Matricular aluno</h3>
+        <ilStudentRegistration @msg="setAlert" :id="getID" v-if="studentID" />
     </div>
 </div>
 </template>
 
 <script>
+import ilStudentRegistration from './includes/formRegistration.vue';
 import ilAlert from '@/components/includes/alerts.vue';
-import ilStudentFormCreate from './includes/formCreate.vue';
 export default {
-  name: 'createStudent',
+  name: 'registration',
   components: {
     ilAlert,
-    ilStudentFormCreate
+    ilStudentRegistration
   },
   data() {
     return {
+      studentID: null,
       message: null
     };
   },
@@ -29,7 +29,16 @@ export default {
         return true;
       }
       return false;
+    },
+    getID() {
+      if (this.studentID) {
+        return this.$route.params.id;
+      }
+      return null;
     }
+  },
+  mounted() {
+    this.studentID = this.$route.params.id;
   },
   methods: {
     setAlert(obj) {
@@ -38,3 +47,6 @@ export default {
   }
 };
 </script>
+
+<style>
+</style>

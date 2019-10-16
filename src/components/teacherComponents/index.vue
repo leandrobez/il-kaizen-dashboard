@@ -3,11 +3,11 @@
     <div class="il-teacher--content">
         <ilAlert :has="message ? true : false" :msg="message" />
         <h3 class="il-color--darkblue">Controle de Professores</h3>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, provident ab quis error quidem ducimus distinctio saepe dolorum deserunt delectus? Culpa nihil voluptatem ratione earum.</p>
+        <p class="il-color--light">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, provident ab quis error quidem ducimus distinctio saepe dolorum deserunt delectus? Culpa nihil voluptatem ratione earum.</p>
         <div class="il-sub--menu">
-            <a href="#!" class="il-btn il-btn--submit" @click.prevent="createTeacher"><i class="mdi mdi-24px mdi-basecamp" title="Novo Professor"></i><span>Novo Professor</span></a>
-            <a href="#!" class="il-btn il-btn--submit" @click.prevent="createSchedule"><i class="mdi mdi-24px mdi-calendar-clock" title="Controlar agenda do professor"></i><span>Controlar Agenda</span></a>
-            <a href="#!" class="il-btn il-btn--submit" @click.prevent="remove"><i class="mdi mdi-24px mdi-cloud-upload il-color--darkblue" title="Popular o banco de dados"></i><span>Remover todos</span></a>
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="createTeacher"><i class="mdi mdi-24px mdi-basecamp" title="Novo"></i><span>Novo</span></a>
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="createSchedule"><i class="mdi mdi-24px mdi-calendar-clock" title="Controlar agenda do professor"></i><span>Agenda</span></a>
+            <a href="#!" class="il-btn il-btn--submit" @click.prevent="remove"><i class="mdi mdi-24px mdi-cloud-upload il-color--darkblue" title="Popular o banco de dados"></i><span>Remover</span></a>
         </div>
         <ilListTeachers :teachers="teachers" v-if="hasTeachers" />
     </div>

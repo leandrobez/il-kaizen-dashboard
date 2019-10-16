@@ -1,7 +1,7 @@
 <template>
 <form class="il-form il-form--payment" @submit.prevent="setFormPost()">
     <div class="il-payment">
-        <h5>Pagamento de Alunos</h5>
+        <h5 class="il-color--light">Pagamento de Alunos</h5>
         <div class="il-form--field">
             <label class="il-label--expenses" for="dt">Data de pgmto</label>
             <input type="date" v-model="dataPayment.data" class="il-input--dn" placeholder="Data de Pagamento" id="dn" />
@@ -19,22 +19,22 @@
                 </select>
             </div>
             <div class="il-form--field">
-                <label class="il-label--expenses" for="bank">Banco</label>
+                <label class="il-label--expenses il-color--light" for="bank">Banco</label>
                 <select ref="bank" v-model="dataPayment.form.check.bank" class="il-select" id="bank">
                     <option v-for="bank in banks" :key="bank.code">{{bank.name}}</option>
                 </select>
             </div>
         </div>
         <div class="il-form--field">
-            <label class="il-label--expenses" for="valor">Valor</label>
+            <label class="il-label--expenses il-color--light" for="valor">Valor</label>
             <input type="number" v-model="dataPayment.valor" step="0.01" class="il-add--description" placeholder="Informe o valor do pagamento" id="valor" />
         </div>
         <div class="il-field--check">
             <input type="checkbox" id="checkMsg" v-model="dataPayment.sendMessage">
-            <label class="il-label--expenses" for="checkMsg">Enviar mensagem</label>
+            <label class="il-label--expenses il-color--light" for="checkMsg">Enviar mensagem</label>
 
             <input type="checkbox" id="checkRc" v-model="dataPayment.sendReceipt">
-            <label class="il-label--expenses" for="checkRc">Enviar recibo</label>
+            <label class="il-label--expenses il-color--light" for="checkRc">Enviar recibo</label>
         </div>
         <div class="il-btn--content">
             <button class="il-btn il-btn--submit il-btn--center">

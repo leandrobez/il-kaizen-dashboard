@@ -3,7 +3,7 @@
     <div class="il-teacher--content">
         <ilAlert :has="checkAlert" :msg="message" />
         <h3 class="il-color--darkblue">Novo Professor</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi odit distinctio doloremque ratione voluptates error.</p>
+        <p class="il-color--light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi odit distinctio doloremque ratione voluptates error.</p>
         <ilTeacherFormCreate @msg="setAlert" />
     </div>
 </div>

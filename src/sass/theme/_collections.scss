@@ -1,0 +1,228 @@
+.il-lists {
+  margin-bottom: 1rem;
+  .il-search--student {
+    margin-bottom: 1rem;
+    input[type='search'] {
+      width: 100%;
+      height: 40px;
+      display: block;
+      margin: 0 auto;
+      font-family: inherit;
+      font-size: 14px;
+      margin-bottom: 1.2rem;
+      padding: 0.35rem 0.45rem;
+      border: 1px solid #7a7c80;
+      border-radius: 3px;
+    }
+    a.il-link--search {
+      color: #343222;
+    }
+  }
+  ul {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    li {
+      padding: 0.5rem 0.25rem;
+      border-right: 2px solid rgb(206, 180, 180);
+      &:nth-child(1) {
+        width: 5%;
+      }
+      &:nth-child(2) {
+        width: 30%;
+      }
+      &:nth-child(3) {
+        width: 20%;
+      }
+      &:nth-child(4) {
+        width: 20%;
+      }
+      &:last-child {
+        width: 25%;
+        border-right: none;
+      }
+    }
+
+    &.il-list--header {
+      background: #d5d3f3;
+      background: linear-gradient(
+        to bottom,
+        #d5d3f3 10%,
+        #b0b0ce 66%,
+        #9595b1 100%
+      );
+      font-size: 0.7rem;
+      font-weight: 700;
+      @media (min-width: 768px) {
+        font-size: 0.8rem;
+      }
+    }
+    &.il-list--items {
+      margin: 0;
+      background: rgb(217, 223, 231);
+      border-bottom: 1px solid #4e5a5f;
+      &.il-inactive {
+        background: rgb(174, 189, 209);
+      }
+      ul {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        li {
+          width: 100%;
+        }
+        &.il-list--info li,
+        &.il-list--plan li {
+          padding: 0;
+          border-right: none;
+          font-size: 0.7rem;
+          &.name {
+            font-weight: 700;
+            text-transform: capitalize;
+          }
+          &.email {
+            font-weight: 400;
+          }
+          &.plus {
+            color: rgb(59, 8, 8);
+            font-weight: 700;
+          }
+        }
+        &.il-list--actions {
+          flex-direction: column;
+          justify-content: center;
+          @media (min-width: 768px) {
+            flex-direction: row;
+          }
+          li {
+            border-right: none;
+            text-align: center;
+            i {
+              display: block;
+              width: 22px;
+              margin: 0 auto;
+              background: white;
+              border: 1px solid #333;
+              border-radius: 3px;
+              @media (min-width: 768px) {
+                width: 24px;
+              }
+            }
+          }
+        }
+      }
+
+      /*.il-list--actions {
+        display: block;
+        li {
+          
+          width: auto;
+          //flex: 1;
+        }
+      }*/
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+    &.il-list--header__address {
+      background: #d5d3f3;
+      border-bottom: none;
+      li {
+        padding: 0.5rem 0.25rem;
+        border-right: 2px solid rgb(206, 180, 180);
+        &:nth-child(1) {
+          width: 30%;
+        }
+        &:nth-child(2) {
+          width: 35%;
+        }
+        &:last-child {
+          width: 35%;
+          border-right: none;
+        }
+      }
+    }
+    &.il-list--items__address {
+      margin-bottom: 5px;
+      background: rgb(217, 223, 231);
+      border-bottom: none;
+      li {
+        padding: 0.5rem 0.25rem;
+        border-right: 2px solid rgb(206, 180, 180);
+        &:nth-child(1) {
+          width: 30%;
+        }
+        &:nth-child(2) {
+          width: 35%;
+        }
+        &:last-child {
+          width: 35%;
+          border-right: none;
+        }
+      }
+    }
+  }
+  box-shadow: 1px 2px 5px rgba(92, 86, 86, 0.6);
+  &.no-shadow {
+    box-shadow: none;
+  }
+  &.il-list--students ul li {
+    padding: 0.3rem 0.25rem;
+    border-right: 2px solid rgb(206, 180, 180);
+    &.il-avatar {
+      padding: 0.3rem 0;
+      text-align: center;
+      width: 20%;
+      img.il-avatar--teacher {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 80px;
+        border-radius: 50%;
+      }
+    }
+    &:nth-child(1) {
+      width: 5%;
+    }
+    &:nth-child(3) {
+      width: 50%;
+      ul li {
+        width: 100%;
+      }
+    }
+    &:last-child {
+      width: 25%;
+      border-right: none;
+      ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        @media (min-width: 768px) {
+          flex-direction: row;
+        }
+        li {
+          width: 100%;
+          border-right: none;
+          text-align: center;
+          a {
+            width: 100%;
+          }
+          i {
+            display: block;
+            width: 20px;
+            margin: 0 auto;
+            @media (min-width: 768px) {
+              width: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .il-statistic {
+    width: 400px;
+    height: 80px;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+}

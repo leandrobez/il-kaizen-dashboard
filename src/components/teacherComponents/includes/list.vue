@@ -1,26 +1,42 @@
 <template>
-    <table>
-        <thead>
-            <tr>
-                <th>Nr</th>
-                <th>Foto</th>
-                <th>Nome</th>
-                <th>CR</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr  v-for="(list,index) in teachers" :key="index" :class="list.ativo ? 'il-active' : 'il-inactive'">
-                <td>{{index+1}}</td>
-                <td><img class="il-avatar" :src="`data:image/jpeg;base64,/${list.picture}`" ></td>
-                <td>{{list.name}}</td>
-                <td>{{list.cr}}</td>                
-                <td>
-                  <i class="mdi mdi-12px mdi-account-edit il-color--orange" title="Editar conta" @click="editTeacher(list._id)"></i>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="il-lists il-list--students">
+    <ul class="il-list--header">
+        <li>Nr</li>
+        <li>Foto</li>
+        <li>Nome</li>
+        <li>Ações</li>
+    </ul>
+    <ul class="il-list--items" v-for="(list,index) in teachers" :key="index" :class="list.ativo ? '' : 'il-inactive'">
+        <li>{{index+1}}</li>
+        <li class="il-avatar">
+            <img class="il-avatar--teacher" :src="`data:image/jpeg;base64,/${list.picture}`">
+        </li>
+        <li>
+            <ul class="il-list--info">
+                <li>Nome: {{list.name}}</li>
+                <li>CT: {{list.cr}}</li>
+            </ul>
+        </li>
+        <li>
+            <ul class="il-list--actions">
+                <li>
+                    <router-link :to="{name: 'teacher.activities', params: {id: list._id}}">
+                        <i class="mdi mdi-24px mdi-clock il-color--dark" title="Atividades desse professor"></i>
+                    </router-link>
+                </li>
+                <li>
+                    <i class="mdi mdi-24px mdi-delete il-color--dark" title="Eliminar esse Professor" @click="deleteTeacher(list._id,index)"></i>
+                </li>
+                <li>
+                    <i class="mdi mdi-24px mdi-account-edit il-color--dark" title="Editar conta do professor" @click="editTeacher(list._id)"></i>
+                </li>
+                <li>
+                    <i class="mdi mdi-24px mdi-account-location il-color--dark" title="Ver o Endereço do professor" @click.prevent="address(index)"></i>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
 </template>
 
 <script>
@@ -29,7 +45,26 @@ export default {
   props: {
     teachers: Array
   },
+  mounted() {
+    this.setTeachers();
+  },
   methods: {
+    setTeachers() {
+      let cronogramTeacher = [];
+      this.teachers.forEach(element => {
+        cronogramTeacher.push({
+          id: element._id,
+          name: element.name
+        });
+      });
+      localStorage.setItem(
+        'cronogramTeacher',
+        JSON.stringify(cronogramTeacher)
+      );
+    },
+    deleteTeacher(id, index) {
+      this.$emit('delete', (id, index));
+    },
     editTeacher(id) {
       this.$router.push({
         name: 'teacher.edit',
@@ -41,11 +76,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-img.il-avatar {
-  width: 100%;
-  max-width: 100px;
-  border-radius: 50%;
-}
-</style>

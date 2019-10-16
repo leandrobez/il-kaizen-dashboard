@@ -45,132 +45,130 @@
 
 <script>
 export default {
-  name: 'cronogram',
-  props: {
-    times: Array,
-    day: Number
-  },
-  data() {
-    return {
-      wordSearch: '',
-      search: [],
-      events: [],
-      wordSearch: [],
-      schedule: [
-        {
-          day: null,
-          events: []
-        }
-      ]
-    };
-  },
-  mounted() {
-    this.makeEvents();
-  },
-  methods: {
-    studentSearch(key) {
-      let word = this.wordSearch[key].word;
-      if (word.length > 4) {
-        let search = this.$parent.students.filter(element => {
-          return element.name
-            .toLowerCase()
-            .includes(this.wordSearch[key].word.toLowerCase());
-        });
-        this.search[key] = search;
-      }
+    name: 'cronogram',
+    props: {
+        times: Array,
+        day: Number
     },
-    makeEvents() {
-      this.times.forEach((time, index) => {
-        this.events.push({
-          students: [],
-          details: {
-            timeKey: index,
-            start: time.start,
-            end: time.end,
-            class: ''
-          }
-        });
-        this.wordSearch.push({
-          key: index,
-          word: ''
-        });
-      });
-    },
-    choiceStudent(key, key1) {
-      if (this.events[key].students.length == 3) {
-        alert('Você pode agendar no máximo 3 alunos por horário');
-      } else {
-        this.events[key].students.push(this.search[key][key1].name);
-        this.wordSearch[key].word = '';
-        this.search = [];
-      }
-    },
-    confirm(key) {
-      let event = this.events[key];
-      const checkForm = () => {
-        if (event.students.length == 0) {
-          alert('Por favor informe pelo menos um aluno por horário');
-          return false;
-        }
-        if (event.details.class == '') {
-          alert('Por favor informe qual o tipo de aula - pilates ou corealign');
-          return false;
-        }
-        return true;
-      };
-      //verify required inputs
-      if (!checkForm()) {
-        return;
-      }
-      const addNewSchedule = () => {
-        //other day
-        let newSchedule = {
-          day: this.day,
-          events: [event]
+    data() {
+        return {
+            wordSearch: '',
+            search: [],
+            events: [],
+            wordSearch: [],
+            schedule: [{
+                day: null,
+                events: []
+            }]
         };
-        this.schedule.push(newSchedule);
-      };
-      let count = this.schedule.length;
-      if (count == 1) {
-        if (this.schedule[0].day == null) {
-          //first insertion
-          this.schedule[0].day = this.day;
-          this.schedule[0].events.push(event);
-        } else {
-          if (this.schedule[0].day == this.day) {
-            //same day
-            this.schedule[0].events.push(event);
-          } else {
-            //other day
-            addNewSchedule();
-          }
-        }
-      } else {
-        //need find day
-        let scheduleIndex = this.schedule.findIndex(element => {
-          return element.day == this.day;
-        });
-        if (scheduleIndex && scheduleIndex != undefined) {
-          this.schedule[scheduleIndex].events.push(event);
-        } else {
-          //other day
-          addNewSchedule();
-        }
-      }
-      this.showEvent(key);
     },
-    showEvent(key) {
-      //show event
-      const formEvent = document.getElementById('event' + this.day + '_' + key);
-      formEvent.classList.add('il-hidden');
-      const cronogram = document.getElementById(
-        'cronogram' + this.day + '_' + key
-      );
-      cronogram.classList.add('il-show');
-      const btnConfirm = document.getElementById('btn-confirm' + key);
-      btnConfirm.disabled = true;
-      this.$emit('schedule',this.schedule)      
+    mounted() {
+        this.makeEvents();
+    },
+    methods: {
+        studentSearch(key) {
+            let word = this.wordSearch[key].word;
+            if (word.length > 4) {
+                let search = this.$parent.students.filter(element => {
+                    return element.name
+                        .toLowerCase()
+                        .includes(this.wordSearch[key].word.toLowerCase());
+                });
+                this.search[key] = search;
+            }
+        },
+        makeEvents() {
+            this.times.forEach((time, index) => {
+                this.events.push({
+                    students: [],
+                    details: {
+                        timeKey: index,
+                        start: time.start,
+                        end: time.end,
+                        class: ''
+                    }
+                });
+                this.wordSearch.push({
+                    key: index,
+                    word: ''
+                });
+            });
+        },
+        choiceStudent(key, key1) {
+            if (this.events[key].students.length == 3) {
+                alert('Você pode agendar no máximo 3 alunos por horário');
+            } else {
+                this.events[key].students.push(this.search[key][key1].name);
+                this.wordSearch[key].word = '';
+                this.search = [];
+            }
+        },
+        confirm(key) {
+            let event = this.events[key];
+            const checkForm = () => {
+                if (event.students.length == 0) {
+                    alert('Por favor informe pelo menos um aluno por horário');
+                    return false;
+                }
+                if (event.details.class == '') {
+                    alert('Por favor informe qual o tipo de aula - pilates ou corealign');
+                    return false;
+                }
+                return true;
+            };
+            //verify required inputs
+            if (!checkForm()) {
+                return;
+            }
+            const addNewSchedule = () => {
+                //other day
+                let newSchedule = {
+                    day: this.day,
+                    events: [event]
+                };
+                this.schedule.push(newSchedule);
+            };
+            let count = this.schedule.length;
+            if (count == 1) {
+                if (this.schedule[0].day == null) {
+                    //first insertion
+                    this.schedule[0].day = this.day;
+                    this.schedule[0].events.push(event);
+                } else {
+                    if (this.schedule[0].day == this.day) {
+                        //same day
+                        this.schedule[0].events.push(event);
+                    } else {
+                        //other day
+                        addNewSchedule();
+                    }
+                }
+            } else {
+                //need find day
+                let scheduleIndex = this.schedule.findIndex(element => {
+                    return element.day == this.day;
+                });
+                if (scheduleIndex && scheduleIndex != undefined) {
+                    this.schedule[scheduleIndex].events.push(event);
+                } else {
+                    //other day
+                    addNewSchedule();
+                }
+            }
+            this.showEvent(key);
+        },
+        showEvent(key) {
+            //show event
+            const formEvent = document.getElementById('event' + this.day + '_' + key);
+            formEvent.classList.add('il-hidden');
+            const cronogram = document.getElementById(
+                'cronogram' + this.day + '_' + key
+            );
+            cronogram.classList.add('il-show');
+            const btnConfirm = document.getElementById('btn-confirm' + key);
+            btnConfirm.disabled = true;
+            this.$emit('schedule', this.schedule)
+        }
     }
-  }
 };
 </script>

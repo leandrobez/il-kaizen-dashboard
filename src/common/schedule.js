@@ -17,6 +17,7 @@ let configToday = {
 
 const teacherSchedule = {
   makeStructure: () => {
+    //alert(configToday.firstDayMonth);
     //create structure form sho days week and month
     const getWeeksZero = () => {
       const daysTotal = 7;
@@ -30,9 +31,16 @@ const teacherSchedule = {
           weeks.push(week);
           break;
         default:
-          for (let i = configToday.firstDayMonth; i < daysTotal; i++) {
-            week.push(i + 1);
+          for (let i = 0; i < daysTotal; i++) {
+            if (i < configToday.firstDayMonth - 1) {
+              week.push('-');
+            } else {
+              week.push(i);
+            }
           }
+          /*for (let i = configToday.firstDayMonth; i < daysTotal; i++) {
+            week.push(i + 1);
+          }*/
           weeks.push(week);
           break;
       }

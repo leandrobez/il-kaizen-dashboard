@@ -2,7 +2,7 @@
 <div class="il-teacher">
     <h3 class="il-color--darkblue">Agenda para {{currentMonth}}</h3>
     <div class="il-calendar" v-if="calendar.length>0">
-        <ilTeacherList :teachers="teachers" @cronogram="getCronogram" />
+        <ilTeacherHeader :teachers="teachers" @cronogram="getCronogram" />
         <ilDays />
         <div class="il-week--row" v-for="(row,index1) in calendar" :key="`row${index1}`">
             <span v-for="(day,index2) in row" :key="`d${index2}`">
@@ -31,16 +31,15 @@
 import teacherSchedule from '../../common/schedule.js';
 import accessStudentAPI from '../../common/apiStudent.js';
 import accessTeacherAPI from '../../common/apiTeacher.js';
-import accessCronogramAPI from '../../common/apiCronogram.js';
 import ilDays from './includes/days.vue';
-import ilTeacherList from './includes/teacherList.vue';
+import ilTeacherHeader from './includes/teacherHeader.vue';
 import { mapActions, mapGetters } from 'vuex';
 import ilCronogram from './includes/cronogram.vue';
 export default {
   name: 'schedule',
   components: {
     ilDays,
-    ilTeacherList,
+    ilTeacherHeader,
     ilCronogram
   },
   data() {
@@ -180,7 +179,6 @@ export default {
       teacherSchedule.setActiveDay(d);
       this.activeDay = d;
       this.manageDOM();
-      this.getDataCronogram();
     },
     reloadStructure() {
       this.manageDOM();
@@ -286,11 +284,6 @@ export default {
       }
       this.saveDataCronogram();
       /**/
-    },
-    getDataCronogram() {
-      accessCronogramAPI.getCronogramTeacher(this.teacher).then(response => {
-        console.log(response);
-      });
     },
     saveDataCronogram() {
       let cronogram = this.cronogram[0];

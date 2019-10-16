@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
   base_url = 'http://localhost:3000';
 }
 const endPoints = {
-  urlAPI: '/kaizen/api/cronogram',
+  urlAPI: '/kaizen/api/register',
   baseURL: base_url,
   points: [
     {
@@ -31,10 +31,6 @@ const endPoints = {
     {
       name: 'remove',
       path: '/remove'
-    },
-    {
-      name: 'cronogram-teacher',
-      path: '/cronogram/teacher'
     }
   ]
 };
@@ -60,8 +56,8 @@ const setURL = point => {
   return baseURL + urlAPI + url;
 };
 
-const accessCronogramAPI = {
-  /** @cronogram  */
+const accessRegisterAPI = {
+  /** @register  */
   create: data => {
     let url = setURL('create');
     return axios
@@ -73,7 +69,7 @@ const accessCronogramAPI = {
         return Promise.reject(err.message);
       });
   },
-  searchCronogram: id => {
+  searchRegister: id => {
     let url = setURL('show');
     return axios
       .get(url + '/' + id, bearerToken())
@@ -83,7 +79,7 @@ const accessCronogramAPI = {
       })
       .catch(err => Promise.reject(err.message));
   },
-  getCronogram: () => {
+  getRegisters: () => {
     let url = setURL('alls');
     return axios
       .get(url, bearerToken())
@@ -93,17 +89,7 @@ const accessCronogramAPI = {
       })
       .catch(err => Promise.reject(err.message));
   },
-  getCronogramTeacher: teacher => {
-    let url = setURL('cronogram-teacher');
-    return axios
-      .get(url + '/' + teacher, bearerToken())
-      .then(response => {
-        const value = response.data;
-        return value;
-      })
-      .catch(err => Promise.reject(err.message));
-  },
-  updateCronogram: (id, data) => {
+  updateRegister: (id, data) => {
     let url = setURL('update');
     return axios
       .put(url + '/' + id, data, bearerToken())
@@ -113,7 +99,7 @@ const accessCronogramAPI = {
       })
       .catch(err => Promise.reject(err.message));
   },
-  removeCronogram: id => {
+  removeRegister: id => {
     let url = setURL('remove');
     return axios
       .delete(url + '/' + id, bearerToken())
@@ -126,4 +112,4 @@ const accessCronogramAPI = {
   }
 };
 
-export default accessCronogramAPI;
+export default accessRegisterAPI;
