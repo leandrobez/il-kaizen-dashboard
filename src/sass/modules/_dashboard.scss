@@ -13,14 +13,9 @@ section {
     .il-config--wrapper {
       display: grid;
       grid-template-columns: 200px 1fr;
-      grid-column-gap: 0.5rem 0;
       .il-config--aside {
         padding: 1rem 0.45rem;
-        background: linear-gradient(
-          to right,
-          rgb(200, 100, 30) 10%,
-          rgb(210, 200, 190) 104%
-        );
+        background: #637b8f;
         ul.il-menu li {
           padding: 0.3rem 0;
           position: relative;
@@ -50,18 +45,18 @@ section {
                 font-size: 0.8rem;
                 height: 1rem;
                 padding: 0.15rem 0;
+                a {
+                  color: rgb(230, 230, 191);
+                  font-size: 0.67rem;
+                }
               }
             }
           }
         }
       }
       .il-config--main {
-        padding: 1rem 0.45rem;
-        background: linear-gradient(
-          to left,
-          rgb(200, 100, 30) 10%,
-          rgb(210, 200, 190) 104%
-        );
+        padding: 1rem 0.75rem;
+        background: #4e6274;
         padding: 0;
         h4 {
           margin: 0.75rem 0;
@@ -71,12 +66,10 @@ section {
         }
         .il-statistic {
           display: grid;
-          padding-right: 0.45rem;
           grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
           justify-content: center;
           .il-statistic--items {
             flex: 1;
-
             border: 1px solid white;
             border-radius: 3px;
             &:nth-child(2) {
@@ -101,20 +94,84 @@ section {
             }
           }
         }
+        .il-dashboard--home,
+        .il-dashboard--schedule,
+        .il-dashboard--kaizen,
+        .il-dashboard--admim,
+        .il-dashboard--student,
+        .il-dashboard--teacher {
+          padding: 1rem 0.65rem;
+        }
+        table.il-lists {
+          margin-top: 0.5rem;
+        }
+        input[type='search'] {
+          padding: 0.3rem;
+          border: 1px solid #7a7c80;
+          border-radius: 3px;
+          outline: none;
+          width: 100%;
+        }
+        select {
+          width: 100%;
+          height: 40px;
+          display: block;
+          margin: 0 auto;
+          font-size: 14px;
+          padding: 0.3rem;
+          border: 1px solid #7a7c80;
+          border-radius: 3px;
+        }
+        .il-cards--kaizen {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          grid-gap: 0.25rem;
+          justify-content: center;
+          align-content: center;
+          .il-card--item {
+            min-height: 120px;
+            border: 1px solid lightgrey;
+            padding: 0.35rem;
+            p {
+              font-size: 0.7rem;
+              margin: 0;
+            }
+            img {
+              width: 100%;
+              max-width: 110px;
+              margin: auto;
+            }
+          }
+        }
       }
       .il-cards {
         display: flex;
+        height: 100%;
         :nth-child(2) {
           margin: 0 0.35rem;
         }
         .il-card--items {
           flex: 1;
-          height: 170px;
+          min-height: 170px;
           .il-card--header {
             height: 30px;
             background: #321887;
             color: white;
             text-align: center;
+          }
+          .il-card--body table {
+            width: 100%;
+            margin-top: 0.4rem;
+            thead th {
+              border: none;
+              background: rgb(40, 47, 68);
+              color: #91cbf1;
+              font-size: 85%;
+            }
+            tbody td {
+              padding: 0.25rem 0;
+              font-size: 85%;
+            }
           }
         }
       }

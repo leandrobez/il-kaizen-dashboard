@@ -25,7 +25,7 @@
                         </router-link>
                     </li>
                     <li>
-                        <router-link :to="{name: 'admins'}" title="Controle dos Admins" class="il-nav--link">
+                        <router-link :to="{name: 'admin.list'}" title="Controle dos Admins" class="il-nav--link">
                             <i class="mdi mdi-account-star mdi-24px"></i>
                             <span @click="closePainel">Admins</span>
                         </router-link>
@@ -49,7 +49,13 @@
                         </router-link>
                     </li>
                     <li>
-                        <router-link :to="{path: '/config'}" title="Configurar Sistema" class="il-nav--link">
+                        <router-link :to="{name: 'experimental'}" title="Agendamento de aulas experimentais" class="il-nav--link">
+                            <i class="mdi mdi-timetable mdi-24px"></i>
+                            <span @click="closePainel">Experimental</span>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{path: '/config/home'}" title="Configurar Sistema" class="il-nav--link">
                             <i class="mdi mdi-settings mdi-24px"></i>
                             <span @click="closePainel">Configurações</span>
                         </router-link>
@@ -77,83 +83,40 @@
 
 <script>
 export default {
-    name: 'App',
-    data() {
-        return {
-            showMenu: false,
-            title: 'KAIZEN',
-            subTitle: 'ADMINISTRAÇÃO GERAL',
-            by: 'InternetLojas.com'
-        };
-    },
-    computed: {
-        checkRouter() {
-            if (this.$route.name == 'home') {
-                return false;
-            }
-            return true;
-        }
-    },
-    methods: {
-        getLogo() {
-            return '/images/theme/logo.png';
-        },
-        getBackground() {
-            let path = this.$route.name;
-            let back = '';
-            switch (path) {
-                case 'home':
-                    back = "background-image: url('../images/back-home.jpg')";
-                    break;
-                case 'students.list':
-                    back = 'il-background--students';
-                    break;
-                case 'entradas.cheques':
-                    back = 'il-background--ligth-red';
-                    break;
-                case 'expenses':
-                    back = "background-image: url('../images/back-home.jpg')";
-                    break;
-                case 'contas.fixed':
-                    back = "background-image: url('../images/back-home.jpg')";
-                    break;
-                case 'contas.extras':
-                    back = "background-image: url('../images/back-home.jpg')";
-                    break;
-                case 'contas.variables':
-                    back = "background-image: url('../images/back-home.jpg')";
-                    break;
-                case 'contas.show':
-                    back = "background-image: url('../images/back-home.jpg')";
-                    break;
-                case 'summary':
-                    back = 'il-background--summary';
-                    break;
-                case 'entradas.especies':
-                    back = 'il-background--orange';
-                    break;
-                case 'students.signup':
-                    back = 'il-background--signup';
-                    break;
-                default:
-                    back = 'il-background--light-sky';
-                    break;
-            }
-            return back;
-        },
-        manageMenu() {
-            const painel = document.querySelector('.il-painel--menu');
-            this.showMenu = !this.showMenu;
-            if (this.showMenu) {
-                painel.classList.add('il-open');
-            } else {
-                painel.classList.remove('il-open');
-            }
-        },
-        closePainel() {
-            this.manageMenu();
-        }
+  name: 'App',
+  data() {
+    return {
+      showMenu: false,
+      title: 'KAIZEN',
+      subTitle: 'ADMINISTRAÇÃO GERAL',
+      by: 'InternetLojas.com'
+    };
+  },
+  computed: {
+    checkRouter() {
+      if (this.$route.name == 'home') {
+        return false;
+      }
+      return true;
     }
+  },
+  methods: {
+    getLogo() {
+      return '/images/theme/logo.png';
+    },
+    manageMenu() {
+      const painel = document.querySelector('.il-painel--menu');
+      this.showMenu = !this.showMenu;
+      if (this.showMenu) {
+        painel.classList.add('il-open');
+      } else {
+        painel.classList.remove('il-open');
+      }
+    },
+    closePainel() {
+      this.manageMenu();
+    }
+  }
 };
 </script>
 

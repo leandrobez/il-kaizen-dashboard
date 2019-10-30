@@ -31,51 +31,253 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 170px));
     justify-content: center;
-    grid-gap: 0.15rem 0.35rem;
+    align-items: flex-start;
+    grid-gap: 0 0.35rem;
     .il-card--range {
-      border: 1px solid lightgray;
+      border: 1px solid rgb(124, 119, 119);
       border-radius: 3px;
-      padding: 0.3rem;
       text-align: center;
-      .il-card--header {
-        height: 1.3rem;
+      box-shadow: 2px 6px 12px rgb(59, 54, 54);
+      .il-range--header {
+        height: 1.8rem;
+        background: white;
+        border-bottom: 1px solid rgb(98, 108, 114);
         h4 {
-          font-size: 0.95rem;
+          font-size: 0.8rem;
           margin: 0;
+          padding: 0.3rem 0;
+          color: #3d3b27;
         }
       }
-      .il-card--footer button {
+      .il-range--body {
         padding: 0;
-        text-align: center;
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
-        &:hover {
-          transform: scale(0.9);
-          color: rgb(70, 49, 49);
+        background: rgb(248, 246, 246);
+        p {
+          font-size: 0.75rem;
+          line-height: 0.9rem;
+          text-align: left;
+          margin: 0;
+          padding: 0.25rem;
         }
-      }
-      i {
-        line-height: 24px;
-        margin: auto;
+        .il-field--range {
+          display: flex;
+          position: relative;
+          width: 100%;
+          input[type='number'].il-range--values {
+            width: 35%;
+            height: 36px;
+            padding: 0px 0px 0px 5px;
+            font-size: 0.89rem;
+            z-index: 1;
+            border: none;
+            outline: none;
+            background: #3d3b27;
+            color: white;
+          }
+          .il-spin--range {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            .spinner-button {
+              display: block;
+              position: absolute;
+              cursor: pointer;
+              z-index: 55;
+              background-color: #34424b;
+              width: 25px;
+              height: 18px;
+              text-align: center;
+              margin: 0;
+              line-height: 18px;
+              //pointer-events: none;
+              left: calc(35% - 25px);
+              top: 0;
+              color: white;
+              &:first-child {
+                top: 18px;
+                border-top: 1px solid #515158;
+              }
+            }
+          }
+          .il-button--range {
+            width: 65%;
+            height: 36px;
+            text-align: center;
+            .il-btn--perc {
+              position: relative;
+              padding: 0;
+              width: 100%;
+              height: 36px;
+              outline: none;
+              margin: 0 auto;
+              background: #3d3b27;
+              color: white;
+              text-align: center;
+              cursor: pointer;
+              transition: 450ms ease-in;
+              &:hover {
+                background: white;
+                color: rgb(70, 49, 49);
+              }
+            }
+          }
+        }
       }
     }
   }
-  .il-avaliation--percent {
-    width: 300px;
-    margin: 2rem auto 1rem auto;
-    text-align: center;
-    height: 4rem;
-    .il-field--range {
-      position: relative;
-      display: flex;
-      height: 50px;
-      width: 300px;
-      display: flex;
-      justify-content: space-between;
-      label {
-        font-size: 1.2rem;
-        margin-right: 0.45rem;
+
+  .il-avaliation-anthropometric {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    .il-antropometric--content {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-top: 0.5rem;
+      justify-content: center;
+      .il-metrics {
+        padding: 0.5rem 0;
+      }
+      h4,
+      h5 {
+        margin: 0;
+      }
+      h5 {
+        text-align: center;
+      }
+      .il-metrics {
+        background: lightgray;
+        position: relative;
+        .il-perimeters ul li,
+        .il-skins ul li {
+          padding: 0.2rem 0.3rem;
+          font-size: 0.78rem;
+          border-bottom: 1px solid #dadada;
+          &:first-child {
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 500;
+            border-top: 1px solid #dadada;
+            color: #451211;
+          }
+        }
+        .il-perimeters {
+          margin-top: 66px;
+        }
+        span.il-sum-skins,
+        span.il-polack {
+          display: block;
+          text-align: center;
+          font-weight: 600;
+          border-bottom: 1px solid #dadada;
+          font-size: 0.8rem;
+          height: 30px;
+        }
+        .il-results {
+          margin-top: 0.3rem;
+          ul li {
+            padding: 0.2rem 0.3rem;
+            font-size: 0.78rem;
+            border-bottom: 1px solid #dadada;
+            &:first-child {
+              padding: 0.27rem 0.3rem;
+              text-align: center;
+              text-transform: uppercase;
+              font-weight: 500;
+              color: #451211;
+            }
+          }
+        }
+      }
+
+      .il-dates {
+        background: rgb(199, 191, 191);
+        .il-date--items {
+          padding: 0;
+          .il-perfil--values {
+            margin: 0;
+            height: 140px;
+            background: white;
+            input[type='date'] {
+              margin-top: 1rem;
+              margin-left: 0.25rem;
+              border: none;
+              outline: none;
+              border-bottom: 1px solid #433331;
+            }
+            label {
+              padding: 0.15rem 0;
+              margin-left: 0.25rem;
+              color: rgb(12, 11, 11);
+              font-size: 0.78rem;
+            }
+            span {
+              padding: 0.15rem 0;
+              margin-left: 0.25rem;
+              display: block;
+              color: rgb(12, 11, 11);
+              font-size: 0.78rem;
+            }
+          }
+
+          .il-skins--values ul {
+            margin-top: 1.65rem;
+          }
+          .il-perimeters--values ul li,
+          .il-skins--values ul li {
+            padding: 0.2rem 0.3rem;
+            font-size: 0.78rem;
+            border-bottom: 1px solid #dadada;
+            &:first-child {
+              border-top: 1px solid #dadada;
+            }
+            input[type='text'] {
+              background: #839699;
+              border: none;
+              outline: none;
+              color: white;
+            }
+          }
+          span.il-sum-skins--values,
+          span.il-polack--values,
+          span.il-title--result {
+            display: block;
+            font-weight: 600;
+            border-bottom: 1px solid #dadada;
+            font-size: 0.8rem;
+            height: 30px;
+            padding-left: 0.35rem;
+          }
+          span.il-title--result {
+            font-size: 0.8rem;
+            height: 2rem;
+            text-align: center;
+            border-bottom: none;
+            text-transform: uppercase;
+            line-height: 2rem;
+            padding: 0.27rem 0.3rem;
+            font-weight: 500;
+            color: #451211;
+          }
+          a.il-btn--submit {
+            margin-bottom: 0;
+            background: #434343;
+            color: white;
+          }
+          .il-results--values {
+            margin-top: 0;
+            ul li {
+              padding: 0.2rem 0.3rem;
+              font-size: 0.78rem;
+              border-bottom: 1px solid #dadada;
+              &:first-child {
+                border-top: 1px solid #dadada;
+              }
+            }
+          }
+        }
       }
     }
   }

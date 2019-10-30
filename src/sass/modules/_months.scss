@@ -2,51 +2,33 @@
   display: grid;
   width: 100%;
   grid-template-columns: repeat(auto-fit, minmax(50px, 80px));
-  margin: 0.75rem 0 1.5rem 0;
   justify-content: center;
-  & .il-months--box {
+  margin-bottom: 1rem;
+  .il-months--box {
     margin: 0.15rem;
-    border: 1px solid white;
+    border: 1px solid rgb(124, 130, 136);
+    border-radius: 3px;
     &:hover {
       background: #0d0d0f;
     }
-    & span {
+    span {
       display: block;
       text-align: center;
       font-weight: bold;
       cursor: pointer;
       color: white;
-      padding: 0 0.15rem;
-      cursor: pointer;
-      font-weight: bold;
+      padding: 0.25rem;
       text-transform: uppercase;
-      /*&:hover {
-        color: #d6fefe;
-      }
-      &.actived {
-        border: none;
-        background: #0c4eb1 !important;
-        border: 1px solid #b6e0f8;
-        & span {
-          color: #96d1f3;
-          &:hover {
-            color: #ecf02c;
-            font-weight: bolder;
-            text-transform: uppercase;
-          }
-        }
-      }*/
+      font-size: 80%;
     }
     &.is-active,
     &.actived {
-      border: 1px solid yellow;
-      //background: #bcd1da !important;
+      border: 1px solid rgb(245, 245, 241);
       & span {
-        color: #f3ec2e;
+        color: #242304;
         &:hover {
-          color: #af908f;
-          //font-weight: bolder;
-          //text-transform: uppercase;
+          color: #2e2222;
+          color: white;
         }
       }
     }

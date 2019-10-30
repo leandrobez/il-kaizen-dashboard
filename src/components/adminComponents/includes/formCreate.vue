@@ -1,19 +1,19 @@
 <template>
 <form class="il-form il-form--login" @submit.prevent="doRegister">
     <div class="il-form--field">
-        <label for="name">Nome Completo</label>
+        <label class="il-color--light" for="name">Nome Completo</label>
         <input type="text" v-model="register.name" class="il-add--description" placeholder="Informe seu nome" id="name" />
     </div>
     <div class="il-form--field">
-        <label for="email-r">Email</label>
+        <label class="il-color--light" for="email-r">Email</label>
         <input type="email" v-model="register.email" class="il-add--description" placeholder="Informe seu email" id="email-r" />
     </div>
     <div class="il-form--field">
-        <label for="password-r">Senha</label>
+        <label class="il-color--light" for="password-r">Senha</label>
         <input type="password" v-model="register.password" class="il-add--description" placeholder="Informe a senha" id="password-r" autocomplete="off" />
     </div>
     <div class="il-form--field">
-        <label for="confirmpwd">Repita senha</label>
+        <label class="il-color--light" for="confirmpwd">Repita senha</label>
         <input type="password" v-model="register.confirmpwd" class="il-add--description" placeholder="Repita a senha" id="confirmpwd" autocomplete="off" />
     </div>
     <div class="il-input--info il-center">

@@ -1,4 +1,4 @@
-import moment from '../../../server/node_modules/moment';
+import moment from 'moment';
 
 const timeIsMoney = moment();
 const hours = [7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19];

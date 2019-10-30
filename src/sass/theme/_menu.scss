@@ -1,7 +1,7 @@
 .il-menu {
   width: 80px;
   height: 80px;
-  & .il-menu--icon {
+  .il-menu--icon {
     margin-top: 25px;
     width: 30px;
     height: 30px;
@@ -45,11 +45,11 @@
   position: absolute;
   left: -150%;
   top: 83px;
-  width: 210px;
+  width: 225px;
   z-index: 30;
   transition: 650ms ease-in-out;
   background: #314257;
-  box-shadow: 2px 1px 8px rgba(153, 141, 141, 0.5);
+  box-shadow: 2px 1px 8px rgba(94, 84, 84, 0.575);
   &.il-open {
     transition: 650ms ease-in-out;
     left: 0;

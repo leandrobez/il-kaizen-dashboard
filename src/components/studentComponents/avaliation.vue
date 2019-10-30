@@ -3,24 +3,29 @@
     <div class="il-student--content">
         <ilAlert :has="checkAlert" :msg="message" />
         <h3 class="il-color--darkblue">Nova avaliação </h3>
-        <ilStudentParams @msg="setAlert" :id="getID" v-if="studentID" />
+        <ilStudentParams @msg="setAlert" @next="calculate" :id="getID" v-if="showParams" />
+        <ilAnthropometric v-if="showAnthropometric" />
     </div>
 </div>
 </template>
 
 <script>
-import ilStudentParams from './includes/avaliation/params.vue';
 import ilAlert from '@/components/includes/alerts.vue';
+import ilStudentParams from './includes/avaliation/params.vue';
+import ilAnthropometric from './includes/avaliation/anthropometric.vue';
 export default {
-    name: 'editStudent',
+    name: 'avaliationStudent',
     components: {
         ilStudentParams,
+        ilAnthropometric,
         ilAlert
     },
     data() {
         return {
             studentID: null,
-            message: null
+            message: null,
+            showParams: true,
+            showAnthropometric: false
         };
     },
     computed: {
@@ -43,6 +48,10 @@ export default {
     methods: {
         setAlert(obj) {
             this.message = obj;
+        },
+        calculate() {
+            this.showAnthropometric = true;
+            this.showParams = false;
         }
     }
 };

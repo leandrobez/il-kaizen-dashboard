@@ -19,107 +19,106 @@ import ilAlert from '@/components/includes/alerts.vue';
 import accessTeacherAPI from '../../common/apiTeacher.js';
 import ilListTeachers from './includes/list';
 export default {
-  name: 'indexTeacher',
-  components: {
-    ilAlert,
-    ilListTeachers
-  },
-  data() {
-    return {
-      teachers: [],
-      message: null,
-      showAddress: false
-    };
-  },
-  computed: {
-    hasTeachers() {
-      if (this.teachers.length > 0) {
-        return true;
-      }
-      return false;
+    name: 'indexTeacher',
+    components: {
+        ilAlert,
+        ilListTeachers
     },
-    checkAlert() {
-      if (this.alert.message) {
-        this.clearAlert();
-        return true;
-      }
-      return false;
+    data() {
+        return {
+            teachers: [],
+            message: null,
+            showAddress: false
+        };
     },
-    hasAddress() {
-      if (this.showAddress) {
-        return true;
-      }
-      return false;
-    }
-  },
-  mounted() {
-    this.setTeachers();
-  },
-  methods: {
-    setAlert(obj) {
-      this.message = obj;
-    },
-    setTeachers() {
-      accessTeacherAPI
-        .getTeachers()
-        .then(response => {
-          if (response.error === null && response.teacher.length > 0) {
-            this.teachers = response.teacher;
-          } else {
-            if (response.error) {
-              this.setAlert({
-                type: 'warning',
-                message: response.message.value
-              });
+    computed: {
+        hasTeachers() {
+            if (this.teachers.length > 0) {
+                return true;
             }
-          }
-        })
-        .catch(err => {
-          this.setAlert({
-            type: 'danger',
-            message:
-              'Você não tem permisssão para acessar essa página! ' +
-              err +
-              ' Você será redirecionado para página de login em 4 seg'
-          });
-          setTimeout(() => {
+            return false;
+        },
+        checkAlert() {
+            if (this.alert.message) {
+                this.clearAlert();
+                return true;
+            }
+            return false;
+        },
+        hasAddress() {
+            if (this.showAddress) {
+                return true;
+            }
+            return false;
+        }
+    },
+    mounted() {
+        this.setTeachers();
+    },
+    methods: {
+        setAlert(obj) {
+            this.message = obj;
+        },
+        setTeachers() {
+            accessTeacherAPI
+                .getTeachers()
+                .then(response => {
+                    if (response.error === null && response.teacher.length > 0) {
+                        this.teachers = response.teacher;
+                    } else {
+                        if (response.error) {
+                            this.setAlert({
+                                type: 'warning',
+                                message: response.message.value
+                            });
+                        }
+                    }
+                })
+                .catch(err => {
+                    this.setAlert({
+                        type: 'danger',
+                        message: 'Você não tem permisssão para acessar essa página! ' +
+                            err +
+                            ' Você será redirecionado para página de login em 4 seg'
+                    });
+                    setTimeout(() => {
+                        this.$router.push({
+                            name: 'home'
+                        });
+                    }, 3000);
+                });
+        },
+        createTeacher() {
             this.$router.push({
-              name: 'home'
+                path: 'teachers/create'
             });
-          }, 3000);
-        });
-    },
-    createTeacher() {
-      this.$router.push({
-        path: 'teachers/create'
-      });
-    },
-    createSchedule() {
-      this.$router.push({
-        path: 'teachers/schedule'
-      });
-    },
-    remove() {
-      let confirm = window.confirm(
-        'Realmente deseja realizar esse procedimento agora?'
-      );
-      if (!confirm) return;
-      let remove = [];
-      this.teachers.forEach(teacher => {
-        let ID = teacher._id;
-        accessTeacherAPI
-          .removeTeacher(ID)
-          .then(res => {
-            remove.push({
-              ID: res
+        },
+        createSchedule() {
+            this.$router.push({
+                path: 'teachers/schedule'
             });
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      });
-      console.log(remove);
+        },
+        remove() {
+            let confirm = window.confirm(
+                'Realmente deseja realizar esse procedimento agora?'
+            );
+            if (!confirm) return;
+            let remove = [];
+            this.teachers.forEach(teacher => {
+                let ID = teacher._id;
+                accessTeacherAPI
+                    .removeTeacher(ID)
+                    .then(res => {
+                        remove.push({
+                            ID: res
+                        });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            });
+            console.log(remove);
+        }
     }
-  }
 };
 </script>

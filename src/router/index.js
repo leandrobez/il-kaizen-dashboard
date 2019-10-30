@@ -12,24 +12,31 @@ const router = new VueRouter({
       component: () => import('@/views/Home.vue')
     },
     {
-      path: '/config',
-      name: 'config',
-      component: () => import('@/views/SystemConfig.vue')
+      path: '/experimental',
+      name: 'experimental',
+      component: () => import('@/views/ExperimentalClass.vue')
     },
     {
       path: '/admins',
-      name: 'admins',
-      component: () => import('@/views/Admins.vue')
-    },
-    {
-      path: '/admins/create',
-      name: 'admin.create',
-      component: () => import('@/components/adminComponents/create.vue')
-    },
-    {
-      path: '/admins/edit/:id',
-      name: 'admin.edit',
-      component: () => import('@/components/adminComponents/edit.vue')
+      component: () => import('@/views/Admins.vue'),
+      children: [
+        {
+          path: '/',
+          name: 'admin.list',
+          component: () => import('@/components/adminComponents/list.vue')
+        },
+        {
+          path: '/create',
+          name: 'admin.create',
+          component: () => import('@/components/adminComponents/create.vue')
+        },
+        {
+          path: '/edit/:id',
+          name: 'admin.edit',
+          component: () => import('@/components/adminComponents/edit.vue')
+        },
+        { path: '*', redirect: '/' }
+      ]
     },
     {
       path: '/teachers',
@@ -83,6 +90,12 @@ const router = new VueRouter({
       component: () => import('@/components/studentComponents/avaliation.vue')
     },
     {
+      path: '/students/avaliation/params',
+      name: 'student.avaliation.params',
+      component: () =>
+        import('@/components/studentComponents/avaliationResult.vue')
+    },
+    {
       path: '/payments/:id/:type',
       name: 'payment',
       component: () => import('@/views/Payments.vue')
@@ -117,7 +130,69 @@ const router = new VueRouter({
         }
       ]
     },
-
+    {
+      path: '/config',
+      name: 'config',
+      component: () => import('@/views/SystemConfig.vue'),
+      children: [
+        {
+          path: '/home',
+          name: 'config.home',
+          component: () =>
+            import('@/components/configComponents/includes/home.vue')
+        },
+        {
+          path: '/schedule',
+          name: 'config.schedule',
+          component: () =>
+            import('@/components/configComponents/includes/schedule.vue')
+        },
+        {
+          path: '/experimental',
+          name: 'config.experimental',
+          component: () =>
+            import('@/components/configComponents/includes/experimental.vue')
+        },
+        {
+          path: '/kaizen',
+          name: 'config.kaizen',
+          component: () =>
+            import('@/components/configComponents/includes/kaizen.vue')
+        },
+        {
+          path: '/teacher',
+          name: 'config.teacher',
+          component: () =>
+            import('@/components/configComponents/includes/teachers.vue')
+        },
+        {
+          path: '/comission',
+          name: 'config.comission',
+          component: () =>
+            import('@/components/configComponents/includes/comission.vue')
+        },
+        {
+          path: '/student',
+          name: 'config.student',
+          component: () =>
+            import('@/components/configComponents/includes/students.vue')
+        },
+        {
+          path: '/admims',
+          name: 'config.admims',
+          component: () =>
+            import('@/components/configComponents/includes/admims.vue')
+        },
+        {
+          path: '',
+          redirect: '/home'
+        },
+        {
+          path: '*',
+          redirect: '/home'
+        }
+      ]
+    },
     /*
     {
       path: '/relatorios',

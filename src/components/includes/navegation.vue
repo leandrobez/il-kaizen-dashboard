@@ -3,7 +3,7 @@
     <div class="il-container--wrapper">
         <ul class="il-nav--slice">
             <li>
-                <router-link :to="{path: '/admins'}" title="Controle dos Admins" class="il-nav--link" :class="checkActive('home')">
+                <router-link :to="{name: 'admin.list'}" title="Controle dos Admins" class="il-nav--link" :class="checkActive('home')">
                     <i class="mdi mdi-account-star mdi-12px"></i>
                     <span>Admins</span>
                 </router-link>
@@ -33,31 +33,31 @@
 <script>
 import accessAdminAPI from '../../common/apiAdmin.js';
 export default {
-    name: 'navegation',
-    data() {
-        return {
-            admin: ''
-        };
+  name: 'navegation',
+  data() {
+    return {
+      admin: ''
+    };
+  },
+  mounted() {
+    this.admin = window.localStorage.getItem('admin') || '';
+  },
+  methods: {
+    checkActive(link) {
+      let path = this.$route.name;
+      if (link == path) {
+        return 'il-active';
+      }
+      return '';
     },
-    mounted() {
-        this.admin = window.localStorage.getItem('admin') || '';
-    },
-    methods: {
-        checkActive(link) {
-            let path = this.$route.name;
-            if (link == path) {
-                return 'il-active';
-            }
-            return '';
-        },
-        logout() {
-            accessAdminAPI.logout().then(res => {
-                //destroy token localStorage
-                window.localStorage.removeItem('_token');
-                window.localStorage.removeItem('admin');
-                location.reload();
-            });
-        }
+    logout() {
+      accessAdminAPI.logout().then(res => {
+        //destroy token localStorage
+        window.localStorage.removeItem('_token');
+        window.localStorage.removeItem('admin');
+        location.reload();
+      });
     }
+  }
 };
 </script>

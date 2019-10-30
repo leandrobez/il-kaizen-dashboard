@@ -1060,11 +1060,11 @@ const students = [
     VEZES: 2,
     VALOR: 460,
     DATA: '',
-    EMAIL: '',
-    DNASC: '',
+    EMAIL: 'user34@user.com',
+    DNASC: '10/10/1987',
     ATIVO: true,
-    OBS: '',
-    ORIGEM: '',
+    OBS: 'sem observação',
+    ORIGEM: 'motriz',
     DESC: {
       perc: 0,
       abs: 0
@@ -1072,13 +1072,13 @@ const students = [
     'PAGO COM': '',
     ADDRESS: [
       {
-        FONE: '',
-        CEL: '',
-        CEP: '',
-        LOGRADOURO: '',
-        NR: '',
-        BAIRRO: '',
-        COMPL: '',
+        FONE: '545433212',
+        CEL: '676767677',
+        CEP: '90000000',
+        LOGRADOURO: 'Rua que sobe e desce',
+        NR: '10000',
+        BAIRRO: 'via lactea',
+        COMPL: 'próximo do céu',
         CIDADE: 'Porto Alegre',
         UF: 'RS'
       }
@@ -1157,7 +1157,7 @@ const students = [
     VALOR: 460,
     DATA: '',
     EMAIL: 'silvanels@terra.com.br',
-    DNASC: '',
+    DNASC: '06/01/1966',
     ATIVO: true,
     OBS: '',
     ORIGEM: '',
@@ -1171,10 +1171,10 @@ const students = [
         FONE: '',
         CEL: '984866666',
         CEP: '90470140',
-        LOGRADOURO: '',
-        NR: '',
-        BAIRRO: '',
-        COMPL: '',
+        LOGRADOURO: 'AV ITAJAÍ',
+        NR: '230',
+        BAIRRO: 'PETRÓPOLIS',
+        COMPL: 'APTO 801',
         CIDADE: 'Porto Alegre',
         UF: 'RS'
       }
@@ -1220,8 +1220,8 @@ const students = [
     VEZES: 1,
     VALOR: 245,
     DATA: '',
-    EMAIL: '',
-    DNASC: '',
+    EMAIL: 'email39@user.com',
+    DNASC: '10/10/1987',
     ATIVO: true,
     OBS: '',
     ORIGEM: '',
@@ -1349,7 +1349,7 @@ const students = [
     VALOR: 245,
     DATA: '',
     EMAIL: 'roseesteticaglamour@hotmail.com',
-    DNASC: '19/06/1964',
+    DNASC: '10/06/1964',
     ATIVO: false,
     OBS: '',
     ORIGEM: '',
@@ -1600,12 +1600,12 @@ const students = [
     NR: 51,
     NOME: 'MARCIA VALIENTE FERREIRA',
     SEXO: 'FEM',
-    CPF: '39192348122',
+    CPF: '44920547072',
     VEZES: 2,
     VALOR: 460,
     DATA: '',
-    EMAIL: '',
-    DNASC: '',
+    EMAIL: 'CDFISIO@HOTMAIL.COM',
+    DNASC: '15/09/1964',
     ATIVO: true,
     OBS: '',
     ORIGEM: 'MOTRIZ',
@@ -1617,12 +1617,12 @@ const students = [
     ADDRESS: [
       {
         FONE: '',
-        CEL: '',
+        CEL: '999796422',
         CEP: '',
-        LOGRADOURO: '',
-        NR: '',
-        BAIRRO: '',
-        COMPL: '',
+        LOGRADOURO: 'RUA PIRAPO',
+        NR: '157',
+        BAIRRO: 'PETRÓPOLIS',
+        COMPL: 'APTO 401',
         CIDADE: 'Porto Alegre',
         UF: 'RS'
       }
@@ -1719,6 +1719,38 @@ const students = [
         NR: '',
         BAIRRO: '',
         COMPL: '',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 55,
+    NOME: 'ANUAR SHUNNAQ',
+    SEXO: 'MASC',
+    CPF: '80174787049',
+    VEZES: 1,
+    VALOR: 245,
+    DATA: '',
+    EMAIL: 'LUARELUAR@gmYAHOO.COM.BR',
+    DNASC: '29/06/1975',
+    ATIVO: true,
+    OBS: '',
+    ORIGEM: 'INDICAÇÃO DE PROFISSIONAIS',
+    DESC: {
+      perc: 0,
+      abs: 0
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '33671169',
+        CEL: '991074379',
+        CEP: '91320000',
+        LOGRADOURO: 'AV SATURNINO DE BRITO',
+        NR: '345',
+        BAIRRO: 'VILA JARDIM',
+        COMPL: 'APTO 201',
         CIDADE: 'Porto Alegre',
         UF: 'RS'
       }
@@ -1839,4 +1871,14 @@ const populateStudent = () => {
   };
 };
 
-export { populateStudent };
+const search = name => {
+  const isEqual = n => {
+    return n.NOME.toLowerCase().includes(name.toLowerCase());
+  };
+  return students.findIndex(isEqual);
+};
+const getStudent = key => {
+  return students[key];
+};
+
+export { populateStudent, search, getStudent };

@@ -1,7 +1,5 @@
 table {
-  margin-top: 1rem;
   width: 100%;
-  border: 2px solid #6f7283;
   border-collapse: collapse;
   margin-bottom: 1rem;
   box-shadow: 2px 3px 7px 0px #2b6181;
@@ -9,41 +7,86 @@ table {
     width: 80%;
     margin: 1rem auto auto;
   }
-  & thead {
+  thead {
     background: #9993e7;
     background: linear-gradient(
       to bottom,
-      #9993e7 0%,
-      #7676c7 66%,
-      #a7a7c4 100%
+      #8fb0cf 0%,
+      #7e7ee0 66%,
+      #7e7e8f 100%
     );
-    //border-bottom: 3px solid #7e0a0a;
   }
-  & th,
-  & td {
-    border: 1px solid #4f5b72;
-    padding: 5px 4px;
-    padding: 0.25rem 0;
+  th,
+  td {
+    border: 1px solid #3c4557;
+    padding: 0;
+    color: white;
     &.il-list--title {
       text-transform: uppercase;
       font-size: 1.15rem;
       font-weight: 400;
-      & span {
+      span {
         font-size: 0.88rem;
       }
     }
+    &.il-lists--avatar {
+      padding: 0.3rem;
+      img {
+        width: 100%;
+        max-width: 70px;
+        border-radius: 50%;
+        margin: 0 auto;
+      }
+    }
+    ul {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      li {
+        padding: 0 0.15rem;
+      }
+      &.il-list--info {
+        padding: 0;
+        border-right: none;
+        font-size: 0.7rem;
+        &.name {
+          font-weight: 700;
+          text-transform: capitalize;
+        }
+        &.email {
+          font-weight: 400;
+        }
+        &.plus {
+          color: rgb(59, 8, 8);
+          font-weight: 700;
+        }
+      }
+      &.il-list--plan,
+      &.il-list--actions {
+        flex-direction: column;
+        justify-content: center;
+        @media (min-width: 768px) {
+          flex-direction: row;
+          //justify-content: flex-start;
+        }
+      }
+      &.il-list--actions li a {
+        color: white !important;
+      }
+    }
   }
-  & td {
-    border: 1px solid #fcd3d3;
+  td {
+    border: 1px solid #6b5c5c;
   }
-  & th {
+  th {
     font-size: 15px;
     font-weight: bold;
     color: #d6eefc;
     text-align: center;
     text-transform: uppercase;
   }
-  & tbody tr > td {
+  tbody tr > td {
     text-align: center;
     padding: 0 0.25rem;
     &.il-td--success {
@@ -57,7 +100,7 @@ table {
     }
     &.il-td--month {
       background: #d4e9fa !important;
-      & span {
+      span {
         color: $dark;
         text-transform: uppercase;
         font-weight: bold;
@@ -66,7 +109,7 @@ table {
     i {
       cursor: pointer;
     }
-    ul li {
+    /*ul li {
       text-align: left;
       &.name {
         font-weight: 600;
@@ -74,17 +117,20 @@ table {
       &.nasc {
         color: rgb(167, 15, 15);
       }
-    }
+    }*/
   }
-
-  & tbody tr:nth-child(odd) td {
-    background: #8acefc;
+  tbody tr td {
+    background: #6b7e8b;
+    padding: 0.3rem 0;
   }
-  & tbody tr.il-inactive td {
+  tbody tr:nth-child(odd) td {
+    background: #89a2b3;
+  }
+  tbody tr.il-inactive td {
     background: rgb(173, 81, 81);
     color: white;
   }
-  & tbody tr.il-soma td {
+  tbody tr.il-soma td {
     background: lighten($positive, 5%);
     font-weight: 400;
     &:first-child {

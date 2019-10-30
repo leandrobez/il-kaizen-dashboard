@@ -1,9 +1,15 @@
 <template>
 <div>
-    <span v-if="getAdmin" class="il-color--orange">Olá {{admin}}! </span>
+   
     <ul class="il-box--home">
+      <li v-if="getAdmin">
+        <a href="#!" class="il-nav--link">
+          <img src="/images/avatar/claudia-avatar.svg" class="il-boxes--avatar" :alt="admin" >
+          <span class="il-color--light">{{admin}}</span>
+        </a>
+      </li>
         <li class="">
-            <router-link :to="{path: '/admins'}" title="Controle dos Admins" class="il-nav--link">
+            <router-link :to="{name: 'admin.list'}" title="Controle dos Admins" class="il-nav--link">
                 <i class="mdi mdi-account-star mdi-36px il-color--light il-color--light"></i>
                 <h5 class="il-color--light">Admins</h5>
             </router-link>
@@ -72,5 +78,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+img.il-boxes--avatar {
+  width: 100%;
+  max-width: 72px;
+  margin: 0 auto;
+}
+a.il-nav--link span {
+  display: block;
+  font-size: 0.8rem !important;
+}
 </style>

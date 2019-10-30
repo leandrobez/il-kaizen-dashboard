@@ -104,8 +104,6 @@ const accessRegisterAPI = {
     return axios
       .delete(url + '/' + id, bearerToken())
       .then(response => {
-        //console.log(response);
-        //const value = response.data;
         return response;
       })
       .catch(err => Promise.reject(err.message));

@@ -13,6 +13,10 @@ const endPoints = {
   baseURL: base_url,
   points: [
     {
+      name: 'register',
+      path: '/create'
+    },
+    {
       name: 'multiple',
       path: '/create/multiple'
     },
@@ -73,6 +77,19 @@ const accessStudentAPI = {
         return Promise.reject(err.message);
       });
   },
+
+  register: async data => {
+    let url = setURL('register');
+    return axios
+      .post(url, data, bearerToken())
+      .then(response => {
+        return response;
+      })
+      .catch(err => {
+        return Promise.reject(err.message);
+      });
+  },
+
   create: data => {
     let url = setURL('create');
     return axios

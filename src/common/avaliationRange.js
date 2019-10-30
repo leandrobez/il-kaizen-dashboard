@@ -257,7 +257,7 @@ const allAges = (age, genre) => {
   for (let i = min; i <= max; i++) {
     ages.push(i);
   }
-  return { ages: age, key: key };
+  return { ages: ages, key: key };
 };
 
 const allMales = () => {

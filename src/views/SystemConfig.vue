@@ -7,9 +7,9 @@
 <script>
 import ilConfig from '@/components/configComponents/index.vue';
 export default {
-  name: 'config',
-  components: {
-    ilConfig
-  }
+    name: 'config',
+    components: {
+        ilConfig
+    }
 };
 </script>
