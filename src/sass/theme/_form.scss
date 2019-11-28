@@ -115,4 +115,19 @@ form.il-form {
       }
     }
   }
+  &.il-form--param {
+    display: flex;
+    .il-field--input {
+      padding: 0.35rem;
+      &.il-genre {
+        width: 220px;
+        .il-field--radio {
+          text-align: center;
+        }
+      }
+    }
+  }
+  .il-field--button {
+    display: flex;
+  }
 }

@@ -83,17 +83,20 @@ const router = new VueRouter({
       name: 'student.register',
       component: () => import('@/components/studentComponents/registration.vue')
     },
-
     {
-      path: '/students/avaliation/:id',
-      name: 'student.avaliation',
-      component: () => import('@/components/studentComponents/avaliation.vue')
-    },
-    {
-      path: '/students/avaliation/params',
-      name: 'student.avaliation.params',
-      component: () =>
-        import('@/components/studentComponents/avaliationResult.vue')
+      path: '/evaliation/:id',
+      name: 'evaliation',
+      component: () => import('@/views/Evaliations.vue'),
+      children: [
+        {
+          path: '/evaliation/anthropometric/:id',
+          name: 'evaliation.anthropometric',
+          component: () =>
+            import(
+              '@/components/evaliationComponents/includes/anthropometric.vue'
+            )
+        }
+      ]
     },
     {
       path: '/payments/:id/:type',
@@ -131,57 +134,69 @@ const router = new VueRouter({
       ]
     },
     {
-      path: '/config',
-      name: 'config',
-      component: () => import('@/views/SystemConfig.vue'),
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('@/views/Dashboard.vue'),
       children: [
         {
           path: '/home',
-          name: 'config.home',
+          name: 'dashboard.home',
           component: () =>
-            import('@/components/configComponents/includes/home.vue')
+            import('@/components/dashboardComponents/includes/home.vue')
         },
         {
           path: '/schedule',
-          name: 'config.schedule',
+          name: 'dashboard.schedule',
           component: () =>
-            import('@/components/configComponents/includes/schedule.vue')
+            import('@/components/dashboardComponents/includes/schedule.vue')
         },
         {
           path: '/experimental',
-          name: 'config.experimental',
+          name: 'dashboard.experimental',
           component: () =>
-            import('@/components/configComponents/includes/experimental.vue')
+            import('@/components/dashboardComponents/includes/experimental.vue')
         },
         {
           path: '/kaizen',
-          name: 'config.kaizen',
+          name: 'dashboard.kaizen',
           component: () =>
-            import('@/components/configComponents/includes/kaizen.vue')
+            import('@/components/dashboardComponents/includes/kaizen.vue')
         },
         {
           path: '/teacher',
-          name: 'config.teacher',
+          name: 'dashboard.teacher',
           component: () =>
-            import('@/components/configComponents/includes/teachers.vue')
+            import('@/components/dashboardComponents/includes/teachers.vue')
         },
         {
           path: '/comission',
-          name: 'config.comission',
+          name: 'dashboard.comission',
           component: () =>
-            import('@/components/configComponents/includes/comission.vue')
+            import('@/components/dashboardComponents/includes/comission.vue')
         },
         {
           path: '/student',
-          name: 'config.student',
+          name: 'dashboard.student',
           component: () =>
-            import('@/components/configComponents/includes/students.vue')
+            import('@/components/dashboardComponents/includes/students.vue')
+        },
+        {
+          path: '/register',
+          name: 'dashboard.register',
+          component: () =>
+            import('@/components/dashboardComponents/includes/register.vue')
+        },
+        {
+          path: '/budgets',
+          name: 'dashboard.budgets',
+          component: () =>
+            import('@/components/dashboardComponents/includes/budgets.vue')
         },
         {
           path: '/admims',
-          name: 'config.admims',
+          name: 'dashboard.admims',
           component: () =>
-            import('@/components/configComponents/includes/admims.vue')
+            import('@/components/dashboardComponents/includes/admims.vue')
         },
         {
           path: '',
@@ -205,7 +220,7 @@ const router = new VueRouter({
       component: () => import('@/views/Contabil.vue')
     },*/
     {
-      path: '*',
+      path: '/*',
       redirect: '/'
     }
   ]

@@ -23,6 +23,11 @@
                 <button class="il-btn il-btn--schedule" @click.prevent="confirm()">Salvar Agenda</button>
             </div>
         </div>
+        <div class="il-field--button">
+            <button class="il-btn il-btn--return il-btn--center" @click="$router.back()">
+                Retornar
+            </button>
+        </div>
     </div>
 </div>
 </template>

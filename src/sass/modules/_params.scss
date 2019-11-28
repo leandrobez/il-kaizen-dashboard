@@ -1,0 +1,99 @@
+.il-evaliation--ranges {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  justify-content: center;
+  justify-items: flex-start;
+  grid-gap: 0 0.35rem;
+  .il-card--range {
+    border: 1px solid rgb(124, 119, 119);
+    border-radius: 3px;
+    text-align: center;
+    box-shadow: 2px 6px 12px rgb(59, 54, 54);
+    .il-range--header {
+      height: 1.8rem;
+      background: white;
+      border-bottom: 1px solid rgb(98, 108, 114);
+      h4 {
+        font-size: 0.8rem;
+        margin: 0;
+        padding: 0.3rem 0;
+        color: #3d3b27;
+      }
+    }
+    .il-range--body {
+      padding: 0;
+      background: rgb(248, 246, 246);
+      p {
+        font-size: 0.75rem;
+        line-height: 0.9rem;
+        text-align: left;
+        margin: 0;
+        padding: 0.25rem;
+      }
+      .il-field--range {
+        display: flex;
+        position: relative;
+        width: 100%;
+        input[type='number'].il-range--values {
+          width: 35%;
+          height: 36px;
+          padding: 0px 0px 0px 5px;
+          font-size: 0.89rem;
+          z-index: 1;
+          border: none;
+          outline: none;
+          background: #3d3b27;
+          color: white;
+        }
+        .il-spin--range {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          .spinner-button {
+            display: block;
+            position: absolute;
+            cursor: pointer;
+            z-index: 55;
+            background-color: #34424b;
+            width: 25px;
+            height: 18px;
+            text-align: center;
+            margin: 0;
+            line-height: 18px;
+            //pointer-events: none;
+            left: calc(35% - 25px);
+            top: 0;
+            color: white;
+            &:first-child {
+              top: 18px;
+              border-top: 1px solid #515158;
+            }
+          }
+        }
+        .il-button--range {
+          width: 65%;
+          height: 36px;
+          text-align: center;
+          .il-btn--perc {
+            position: relative;
+            padding: 0;
+            width: 100%;
+            height: 36px;
+            outline: none;
+            margin: 0 auto;
+            background: #3d3b27;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: 450ms ease-in;
+            &:hover {
+              background: white;
+              color: rgb(70, 49, 49);
+            }
+          }
+        }
+      }
+    }
+  }
+}

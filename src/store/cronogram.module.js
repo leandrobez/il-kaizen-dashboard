@@ -11,26 +11,12 @@ const state = {
         }
       ]
     }
-  ],
-  comission: [
-    {
-      teacher: null,
-      contents: [
-        {
-          month: null,
-          schedule: []
-        }
-      ]
-    }
   ]
 };
 
 const getters = {
   getCronogram: state => {
     return state.cronogram;
-  },
-  getComission: state => {
-    return state.comission;
   },
   getSchedule: state => {
     return state.cronogram.schedule;
@@ -105,43 +91,9 @@ const getters = {
 const actions = {
   setCronogram({ commit }, cronogram) {
     commit('SET_CRONOGRAM', cronogram);
-  },
-  setComission({ commit }, comission) {
-    commit('SET_COMISSION', comission);
   }
 };
 const mutations = {
-  SET_COMISSION(state, comission) {
-    if (state.comission.length == 1) {
-      if (state.comission[0].teacher === null) {
-        //first insertion
-        state.comission[0] = comission[0];
-      } else {
-        //check teacher
-        if (state.comission[0].teacher == comission[0].teacher) {
-          //same teacher
-          state.comission[0].contents = comission[0].contents;
-        } else {
-          //other teacher
-          let newComission = comission[0];
-          state.comission.push(newComission);
-        }
-      }
-    } else {
-      //search teacher
-      let indexComission = state.comission.findIndex(element => {
-        return element.teacher == comission[0].teacher;
-      });
-      if (indexComission) {
-        //same teacher
-        state.comission[indexComission].contents = comission[0].contents;
-      } else {
-        //other teacher
-        let newComission = comission[0];
-        state.comission.push(newComission);
-      }
-    }
-  },
   SET_CRONOGRAM(state, cronogram) {
     if (state.cronogram.length == 1) {
       if (state.cronogram[0].teacher === null) {

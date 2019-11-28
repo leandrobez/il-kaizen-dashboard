@@ -4,7 +4,7 @@
         <img :src="`data:image/jpeg;base64,/${registration.picture}`" alt="">
     </div>
     <div class="il-registration--data">
-        <form class="il-form il-form--registration" @submit.prevent="register">
+        <form class="il-form il-form--registration" >
             <div class="il-registration--content">
                 <label for="name">Nome</label>
                 <input type="text" v-model="registration.name" class="il-add--description" placeholder="nome completo" id="name" disabled />
@@ -62,113 +62,31 @@
                 <label for="">Avisar sobre vencimento</label>
                 <div class="il-field--radio">
                     <label for="yes">Sim</label>
-                    <input type="radio" v-model="sendmsg" id="yes" value="y">
+                    <input type="radio" v-model="registration.sendmsg" id="yes" value="true">
                     <label for="no">Não</label>
-                    <input type="radio" v-model="sendmsg" id="no" value="n" checked>
+                    <input type="radio" v-model="registration.sendmsg" id="no" value="false" checked>
                 </div>
             </div>
         </form>
     </div>
-    <h4 class="il-color--light">Dias de aulas</h4>
-    <div class="il-registration--card" v-if="schedule.length > 0">
-        <div class="il-registration--day">
-            <div class="il-registration--box">
-                <div class="il-field--checkboxes">
-                    <input type="checkbox" id="seg" value="Segunda" v-model="registration.schedule">
-                    <label for="seg">Segunda</label>
-                </div>
-                <div class="il-clock--start">
-                    <i class="mdi mdi-24px mdi-clock"></i>
-                    <select v-model="schedule[0].start">
-                        <option value="">Início</option>
-                        <option v-for="(op,index1) in hours" :key="index1">{{op}}:00</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="il-registration--day">
-            <div class="il-registration--box">
-                <div class="il-field--checkboxes">
-                    <input type="checkbox" id="ter" value="Terça" v-model="registration.schedule">
-                    <label for="ter">Terça</label>
-                </div>
-                <div class="il-clock--start">
-                    <i class="mdi mdi-24px mdi-clock"></i>
-                    <select v-model="schedule[1].start">
-                        <option value="">Início</option>
-                        <option v-for="(op,index1) in hours" :key="index1">{{op}}:00</option>
-                    </select>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="il-registration--day">
-            <div class="il-registration--box">
-                <div class="il-field--checkboxes">
-                    <input type="checkbox" id="qua" value="Quarta" v-model="registration.schedule">
-                    <label for="qua">Quarta</label>
-                </div>
-                <div class="il-clock--start">
-                    <i class="mdi mdi-24px mdi-clock"></i>
-                    <select v-model="schedule[2].start">
-                        <option value="">Início</option>
-                        <option v-for="(op,index1) in hours" :key="index1">{{op}}:00</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="il-registration--day">
-            <div class="il-registration--box">
-                <div class="il-field--checkboxes">
-                    <input type="checkbox" id="qui" value="Quinta" v-model="registration.schedule">
-                    <label for="qui">Quinta</label>
-                </div>
-                <div class="il-clock--start">
-                    <i class="mdi mdi-24px mdi-clock"></i>
-                    <select v-model="schedule[3].start">
-                        <option value="">Início</option>
-                        <option v-for="(op,index1) in hours" :key="index1">{{op}}:00</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="il-registration--day">
-            <div class="il-registration--box">
-                <div class="il-field--checkboxes">
-                    <input type="checkbox" id="sex" value="Sexta" v-model="registration.schedule">
-                    <label for="sex">Sexta</label>
-                </div>
-                <div class="il-clock--start">
-                    <i class="mdi mdi-24px mdi-clock"></i>
-                    <select v-model="schedule[4].start">
-                        <option value="">Início</option>
-                        <option v-for="(op,index1) in hours" :key="index1">{{op}}:00</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="il-registration--button">
-        <button class="il-btn ">
-            <i class="mdi mdi-24px mdi-check"></i>
-            <span>Salvar</span>
-        </button>
-    </div>
+    <ilSquareHours :day-week="registration.vezes" @register="submit" />
 </div>
 </template>
 
 <script>
 import accessRegisterAPI from '../../../common/apiRegister.js';
 import accessStudentAPI from '../../../common/apiStudent.js';
+import ilSquareHours from './registers/squareHours.vue';
 export default {
   name: 'formRegister',
   props: {
     id: String
   },
+  components: {
+    ilSquareHours
+  },
   data() {
     return {
-      sendmsg: 'n',
       showSnapShot: false,
       vezes: [1, 2, 3],
       valors: [245, 460, 595],
@@ -176,6 +94,7 @@ export default {
       showPerc: false,
       showAbs: false,
       registration: {
+        student: '',
         name: '',
         vezes: 1,
         valor: '',
@@ -184,6 +103,7 @@ export default {
         obs: 'Sem observação',
         email: '',
         picture: '',
+        sendmsg: false,
         desc: {
           perc: 0,
           abs: 0
@@ -191,27 +111,13 @@ export default {
         schedule: []
       },
       schedule: [],
-      dayWeeks: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'],
-      hours: [7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19]
+      dayWeeks: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta']
     };
   },
   mounted() {
-    this.scheduleStructure();
     this.getStudent();
   },
-  computed: {},
   methods: {
-    scheduleStructure() {
-      let days = [];
-      this.dayWeeks.forEach(element => {
-        days.push({
-          day: element,
-          start: '',
-          end: ''
-        });
-      });
-      this.schedule = days;
-    },
     getStudent() {
       let vm = this;
       if (this.id) {
@@ -219,20 +125,13 @@ export default {
           .searchStudent(this.id)
           .then(res => {
             if (res.error == null) {
-              /*const formatData = () => {
-                              let dnasc = res.student.dnasc; //2019-07-09T00:00:00.000Z
-                              const [dt, schema] = dnasc.split('T');
-                              const [y, m, d] = dt.split('-');
-                              return `${y}-${m}-${d}`;
-                            };*/
+              this.registration.student = this.id;
               this.registration.name = res.student.name;
               this.registration.obs = res.student.obs;
               this.registration.email = res.student.email;
               this.registration.valor = res.student.valor;
               this.registration.vezes = res.student.vezes;
-              this.registration.picture = ''; //this.registration.desc.abs = res.student.desc.abs;
               this.registration.desc.perc = res.student.desc.perc;
-
               if (this.registration.picture == '') {
                 this.showSnapShot = true;
               }
@@ -253,10 +152,16 @@ export default {
           });
       }
     },
+    submit(choices) {
+      // const formRegister = document.querySelector('.il-form--registration')
+      this.registration.studentID = this.id;
+      this.registration.schedule = choices;
+      this.register();
+    },
     register() {
       let vm = this;
       accessRegisterAPI
-        .create(this.id, this.registration)
+        .create(this.registration)
         .then(res => {
           if (res.data.error == '') {
             vm.$emit('msg', {

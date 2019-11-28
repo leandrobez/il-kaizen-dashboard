@@ -8,12 +8,12 @@
 @import 'config/tipography';
 @import 'config/mixins';
 
+//layout
 @import 'layout/geral';
 @import 'grid/main';
 
 /**modules*/
 @import 'modules/header';
-//@import 'modules/navegation';
 @import 'modules/home';
 @import 'modules/expenses';
 @import 'modules/payment';
@@ -22,7 +22,7 @@
 @import 'modules/admin';
 @import 'modules/list';
 @import 'modules/calendar';
-@import 'modules/avaliation';
+@import 'modules/evaliation';
 @import 'modules/registration';
 @import 'modules/dashboard';
 

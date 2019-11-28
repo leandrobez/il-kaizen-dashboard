@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h4>Contas variaveis</h4>
+    <h4 class="il-color--light">Contas variaveis</h4>
     <form class="il-form" @submit.prevent="doPayment">
         <div class="il-form--field">
             <label class="il-label--expenses" for="dt">Data de pgmto</label>
@@ -17,8 +17,8 @@
             <label class="il-label--expenses" for="valor">Valor</label>
             <input type="number" v-model="variable.valor" class="il-add--description" placeholder="Informe o valor a pagar" id="valor" />
             <div class="il-btn--content">
-                <button class="il-btn il-btn--submit" type="submit">Criar conta</button>
-                <button class="il-btn il-btn--entrance" @click="listContas">Listar Contas</button>
+                <button class="il-btn il-btn--entrance" type="submit">Criar conta</button>
+                <button class="il-btn il-btn--entrance" @click="listBills">Listar Contas</button>
             </div>
         </div>
     </form>
@@ -167,7 +167,7 @@ export default {
       const dt = this.variable.data.split('-');
       return new Date(dt[0], dt[1], dt[2]).toISOString().substr(0, 10);
     },
-    listContas() {
+    listBills() {
       this.$router.push({
         name: 'contas.show'
       });

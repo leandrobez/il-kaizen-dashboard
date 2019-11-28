@@ -1,146 +1,26 @@
 section.il-section.il-section--home {
-  padding: 2rem 0;
+  padding: 0;
   .il-home {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     width: 100%;
-    margin: 0 auto;
+    height: 100%;
     @media screen and(min-width: 680px) {
       max-width: 640px;
     }
     @media screen and(min-width: 768px) {
       max-width: 720px;
     }
-    .il-home--content div {
+    .il-home--content {
+      width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      width: 100%;
       span {
         text-align: center;
         font-size: 24px;
         font-weight: bolder;
         margin-bottom: 0.5rem;
       }
-    }
-    .il-home--access {
-      margin-top: 1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      .il-access--header {
-        text-align: center;
-        height: 1.5rem;
-        width: 100%;
-        opacity: 0;
-        animation: _hidden 8000ms;
-        & span {
-          color: #0e213a;
-          text-align: center;
-          line-height: 1.5rem;
-        }
-      }
-      .il-access--content {
-        margin: 0 auto;
-        width: 100%;
-        @media screen and(min-width: 680px) {
-          max-width: 640px;
-        }
-        @media screen and(min-width: 768px) {
-          max-width: 720px;
-        }
-        ul.il-aba {
-          display: flex;
-          width: 100%;
-          & li {
-            flex: 1;
-            text-align: center;
-            background: #7487a8;
-            height: 2rem;
-            @include ease(650);
-            &:nth-child(2) {
-              background: darken(#7487a8, 10%);
-            }
-            &:hover {
-              @include ease(650);
-              background: lighten(#7487a8, 5%);
-            }
-            &:hover:nth-child(2) {
-              @include ease(650);
-              background: darken(#7487a8, 20%);
-            }
-            & span {
-              text-transform: uppercase;
-              display: block;
-              padding: 0.3rem;
-              width: 100%;
-              height: 100%;
-              text-decoration: none;
-              color: #d4e1e7;
-              opacity: 0.3;
-              transition: 450ms ease-in;
-              cursor: pointer;
-              &.il-aba--active {
-                @include ease(500);
-                opacity: 1;
-                color: darken(#0d1e27, 15%);
-                letter-spacing: 3px;
-                font-weight: bolder;
-              }
-            }
-            &:nth-child(1) {
-              border-right: 1px solid #6d7791;
-            }
-          }
-        }
-        nav.il-nav--tabs {
-          width: 100%;
-          .il-tab--contents {
-            position: relative;
-            width: 100%;
-            padding: 0 5px;
-            .il-tab--login,
-            .il-tab--register {
-              position: absolute;
-              box-shadow: 2px 3px 5px #865650;
-              padding: 1rem;
-              width: 100%;
-              @media screen and(min-width: 680px) {
-                max-width: 640px;
-              }
-              @media screen and(min-width: 768px) {
-                max-width: 720px;
-              }
-              left: -150%;
-              transition: 450ms ease-in;
-              border-radius: 0 0 3px 3px;
-              background: lighten(#7487a8, 10%);
-              z-index: -1;
-              opacity: 0;
-              @include ease(450);
-              &.il-tab--active {
-                @include ease(450);
-                z-index: 0;
-                opacity: 1;
-                left: 0;
-              }
-              & h3 {
-                font-size: 0.85rem;
-                color: #060b31;
-                padding: 0;
-                text-align: center;
-                font-weight: 400;
-              }
-            }
-            .il-tab--register {
-              background: darken(#96a7c0, 4%);
-            }
-          }
-        }
-      }
+      @import '../theme//login';
     }
   }
 }

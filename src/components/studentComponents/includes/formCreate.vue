@@ -1,5 +1,5 @@
 <template>
-<div class="il-createt">
+<div class="il-create">
     <ilSnapPhoto @avatar="setPicture" />
     <div class="il-student--data">
         <form class="il-form il-form--signup il-color--light" @submit.prevent="doSignup">
@@ -82,10 +82,14 @@
                     <input type="text" v-model="signup.address.clr" class="il-add--description" placeholder="Celular" id="cel">
                 </div>
             </div>
-            <div class="il-input--info il-center">
-                <button class="il-btn il-btn--add">
-                    <i class="mdi mdi-24px mdi-check"></i>
+            <div class="il-field--button">
+                <button class="il-btn il-btn--submit il-btn--center">
+                    Cadastrar
                 </button>
+                <button class="il-btn il-btn--return il-btn--center" @click="$router.back()">
+                    Retornar
+                </button>
+               
             </div>
         </form>
     </div>
@@ -96,133 +100,131 @@
 import accessStudentAPI from '../../../common/apiStudent.js';
 import ilSnapPhoto from '@/components/includes/snapShot.vue';
 export default {
-    name: 'formStudentCreate',
-    components: {
-        ilSnapPhoto
-    },
-    data() {
-        return {
-            vezes: [1, 2, 3],
-            valors: [245, 460, 595],
-            desc: 0,
-            showPerc: false,
-            showAbs: false,
-            signup: {
-                name: '',
-                genre: 'fem',
-                cpf: '',
-                vezes: 1,
-                valor: '',
-                obs: 'Sem observação',
-                origem: 'Orginário da Motriz',
-                ativo: true,
-                email: '',
-                dnasc: '',
-                picture: 'vai a foto',
-                desc: {
-                    perc: 0,
-                    abs: 0
-                },
-                address: {
-                    cep: '',
-                    rua_av: '',
-                    nr: '',
-                    complemento: 'Sem complemento',
-                    suburb: '',
-                    city: '',
-                    UF: '',
-                    fone: '',
-                    clr: ''
-                }
-            }
-        };
-    },
-    mounted() {
-        let vz = this.signup.vezes;
-        this.signup.valor = this.valors[vz - 1];
-    },
-    computed: {
-
-    },
-    methods: {
-        doSignup() {
-            let vm = this;
-            accessStudentAPI
-                .create(this.signup)
-                .then(res => {
-                    if (res.error == null) {
-                        vm.$emit('msg', {
-                            type: 'success',
-                            message: 'Cliente cadastrado com sucesso!'
-                        });
-                    } else {
-                        let msg = res.error.message;
-                        vm.$emit('msg', {
-                            type: msg.type,
-                            message: msg.value
-                        });
-                    }
-                })
-                .catch(err => {
-                    let msg = err.error;
-                    vm.$emit('msg', {
-                        type: 'danger',
-                        message: msg
-                    });
-                });
+  name: 'formStudentCreate',
+  components: {
+    ilSnapPhoto
+  },
+  data() {
+    return {
+      vezes: [1, 2, 3],
+      valors: [245, 460, 595],
+      desc: 0,
+      showPerc: false,
+      showAbs: false,
+      signup: {
+        name: '',
+        genre: 'fem',
+        cpf: '',
+        vezes: 1,
+        valor: '',
+        obs: 'Sem observação',
+        origem: 'Orginário da Motriz',
+        ativo: true,
+        email: '',
+        dnasc: '',
+        picture: 'vai a foto',
+        desc: {
+          perc: 0,
+          abs: 0
         },
-        setGenre(genre) {
-            if (genre == 'm') {
-                this.signup.genre = 'masc';
-            } else {
-                this.signup.genre = 'fem';
-            }
-        },
-        setPicture(picture) {
-            this.signup.picture = picture;
-        },
-        showDesc(whoo) {
-            if (whoo == 'perc') {
-                this.showAbs = false;
-                this.showPerc = true;
-            } else {
-                if (whoo == 'abs') {
-                    this.showAbs = true;
-                    this.showPerc = false;
-                } else {
-                    this.showAbs = false;
-                    this.showPerc = false;
-                }
-            }
-        },
-        setValor() {
-            let vz = this.signup.vezes;
-            let valor = this.valors[vz - 1];
-            this.signup.valor = valor;
-            if (this.signup.desc.abs) {
-                this.signup.valor = valor - this.signup.desc.abs;
-            } else {
-                if (this.signup.desc.perc) {
-                    let desc = this.signup.desc.perc / 100 * valor;
-                    this.signup.valor = valor - desc;
-                }
-            }
-            this.valors[vz - 1] = this.signup.valor;
-        },
-        getAddress() {
-            const urlCorreio = 'https://viacep.com.br/ws/';
-            let cep = this.signup.address.cep;
-            fetch(`${urlCorreio}${cep}/json/`).then(result => {
-                if (result.status == 200 && result.statusText == 'OK') {
-                    result.json().then(r => {
-                        this.signup.address.suburb = r.bairro;
-                        this.signup.address.rua_av = r.logradouro;
-                        this.signup.address.city = r.localidade;
-                        this.signup.address.UF = r.uf;
-                    });
-                }
-            });
+        address: {
+          cep: '',
+          rua_av: '',
+          nr: '',
+          complemento: 'Sem complemento',
+          suburb: '',
+          city: '',
+          UF: '',
+          fone: '',
+          clr: ''
         }
+      }
+    };
+  },
+  mounted() {
+    let vz = this.signup.vezes;
+    this.signup.valor = this.valors[vz - 1];
+  },
+  computed: {},
+  methods: {
+    doSignup() {
+      let vm = this;
+      accessStudentAPI
+        .create(this.signup)
+        .then(res => {
+          if (res.error == null) {
+            vm.$emit('msg', {
+              type: 'success',
+              message: 'Cliente cadastrado com sucesso!'
+            });
+          } else {
+            let msg = res.error.message;
+            vm.$emit('msg', {
+              type: msg.type,
+              message: msg.value
+            });
+          }
+        })
+        .catch(err => {
+          let msg = err.error;
+          vm.$emit('msg', {
+            type: 'danger',
+            message: msg
+          });
+        });
+    },
+    setGenre(genre) {
+      if (genre == 'm') {
+        this.signup.genre = 'masc';
+      } else {
+        this.signup.genre = 'fem';
+      }
+    },
+    setPicture(picture) {
+      this.signup.picture = picture;
+    },
+    showDesc(whoo) {
+      if (whoo == 'perc') {
+        this.showAbs = false;
+        this.showPerc = true;
+      } else {
+        if (whoo == 'abs') {
+          this.showAbs = true;
+          this.showPerc = false;
+        } else {
+          this.showAbs = false;
+          this.showPerc = false;
+        }
+      }
+    },
+    setValor() {
+      let vz = this.signup.vezes;
+      let valor = this.valors[vz - 1];
+      this.signup.valor = valor;
+      if (this.signup.desc.abs) {
+        this.signup.valor = valor - this.signup.desc.abs;
+      } else {
+        if (this.signup.desc.perc) {
+          let desc = this.signup.desc.perc / 100 * valor;
+          this.signup.valor = valor - desc;
+        }
+      }
+      this.valors[vz - 1] = this.signup.valor;
+    },
+    getAddress() {
+      const urlCorreio = 'https://viacep.com.br/ws/';
+      let cep = this.signup.address.cep;
+      fetch(`${urlCorreio}${cep}/json/`).then(result => {
+        if (result.status == 200 && result.statusText == 'OK') {
+          result.json().then(r => {
+            this.signup.address.suburb = r.bairro;
+            this.signup.address.rua_av = r.logradouro;
+            this.signup.address.city = r.localidade;
+            this.signup.address.UF = r.uf;
+          });
+        }
+      });
     }
+  }
 };
 </script>

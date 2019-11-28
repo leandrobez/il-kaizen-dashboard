@@ -1,0 +1,42 @@
+.il-evaliation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 0;
+  height: 100%;
+  section.il-evaliation--section {
+    margin: 0;
+    .il-evaliation--content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      h5 {
+        margin: 0;
+        position: relative;
+        color: rgb(201, 159, 159) !important;
+        &:after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          top: 30px;
+          left: 0;
+          height: 1px;
+          background: rgb(66, 58, 58);
+        }
+      }
+      @import './params';
+      @import './anthropometric';
+    }
+  }
+  span#amount {
+    color: rgb(61, 75, 202);
+    text-align: left;
+    margin-right: 0.4rem;
+    text-transform: uppercase;
+  }
+  button.il-btn--confirm {
+    margin-top: 1rem;
+    background: #454441;
+    color: black;
+  }
+}

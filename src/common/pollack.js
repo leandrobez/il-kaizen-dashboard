@@ -40,7 +40,6 @@ const getThreeSkinsFolds = genre => {
     };
   }
 };
-
 const limitMale = [
   {
     ranking: 'Excelente',
@@ -401,7 +400,6 @@ const evaliationFemale = {
   },
   residual: 0.241
 };
-
 //evaliation male
 const evaliationMale = {
   getSkins: () => {

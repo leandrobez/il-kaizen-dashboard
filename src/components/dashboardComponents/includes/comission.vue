@@ -87,6 +87,7 @@
             </tr>
         </tbody>
     </table>
+    <button class="il-btn" v-if="showBtn" @click="saveComission">Calcular Comissão</button>
 </div>
 </template>
 
@@ -101,6 +102,11 @@ export default {
   },
   data() {
     return {
+      message: null,
+      key: 0,
+      word: '',
+      showBtn: false,
+      currentMonth: null,
       hours: [
         '07:00',
         '08:00',
@@ -128,9 +134,7 @@ export default {
         'nov',
         'dez'
       ],
-      message: null,
-      key: 0,
-      word: '',
+
       students: [],
       searchs: [],
       cronogram: [
@@ -176,17 +180,59 @@ export default {
     this.setMonth();
   },
   methods: {
-    ...mapActions('cronogram', {
-      set_comission: 'set_comission'
+    ...mapActions('comission', {
+      setComission: 'setComission'
     }),
+    saveComission() {
+      let confirm = window.confirm(
+        'Deseja fechar a comissão do mês',
+        'ok',
+        'cancelar'
+      );
+      if (!confirm) {
+        return;
+      }
 
+      let schedule = [];
+      this.cronogram.forEach(element => {
+        if (element.valor != 0) {
+          schedule.push({
+            student: element.student,
+            day: element.day,
+            class: element.class,
+            substitution: element.substitution,
+            presence: element.presence,
+            hour: element.hour,
+            vezes: element.vezes,
+            valor: element.valor
+          });
+        }
+      });
+      let contents = [
+        {
+          month: this.currentMonth,
+          schedule: schedule
+        }
+      ];
+      let newComission = [
+        {
+          teacher: 'Juliana',
+          contents: contents
+        }
+      ];
+      this.setComission(newComission);
+      alert('Comissão salva com êxito');
+      this.showBtn = false;
+    },
     setAlert(obj) {
       this.message = obj;
     },
     setMonth() {
       let today = new Date();
       let month = today.getMonth();
-      this.cronogram[this.cronogram.length - 1].mes = this.months[month];
+      this.cronogram[
+        this.cronogram.length - 1
+      ].mes = this.currentMonth = this.months[month];
     },
     studentSearch() {
       let word = this.word;
@@ -196,7 +242,6 @@ export default {
         });
         if (search.length > 0) {
           this.searchs = search;
-          //console.log(this.searchs);
         }
       } else {
         this.searchs = [];
@@ -265,7 +310,8 @@ export default {
       let today = new Date();
       let month = today.getMonth();
       let mes = this.months[month];
-      this.cronogram.push({
+
+      let cronogram = {
         student: '',
         mes: mes,
         day: '',
@@ -275,9 +321,12 @@ export default {
         valor: 0,
         substitution: '',
         presence: ''
-      });
+      };
+
+      this.cronogram.push(cronogram);
       this.word = '';
       this.searchs = [];
+      this.showBtn = true;
     }
   }
 };

@@ -33,14 +33,14 @@ const students = [
   },
   {
     NR: 2,
-    NOME: 'ALETEIA SELONK',
+    NOME: 'ALETEIA A. SELONK',
     SEXO: 'FEM',
-    CPF: '12262827680',
+    CPF: '87864568904',
     VEZES: 2,
     VALOR: 460,
     DATA: '',
     EMAIL: 'aleteia@okna.com',
-    DNASC: '26/07/1968',
+    DNASC: '7/26/1975',
     ATIVO: true,
     OBS: '',
     ORIGEM: '',
@@ -53,13 +53,13 @@ const students = [
       {
         FONE: '37377533',
         CEL: '991248582',
-        CEP: '',
-        LOGRADOURO: '',
-        NR: '',
-        BAIRRO: '',
-        COMPL: '',
-        CIDADE: '',
-        UF: ''
+        CEP: '90810120',
+        LOGRADOURO: 'AV CAI',
+        NR: '255',
+        BAIRRO: 'CRISTAL',
+        COMPL: 'apto 113',
+        CIDADE: 'PORTO ALEGRE',
+        UF: 'RS'
       }
     ]
   },
@@ -131,7 +131,7 @@ const students = [
     NR: 5,
     NOME: 'CLAUDIA TREVISAN',
     SEXO: 'FEM',
-    CPF: '38643236063',
+    CPF: '42371023000',
     VEZES: 1,
     VALOR: 245,
     DATA: '',
@@ -149,13 +149,13 @@ const students = [
       {
         FONE: '',
         CEL: '998780330',
-        CEP: '',
-        LOGRADOURO: '',
-        NR: '',
-        BAIRRO: '',
-        COMPL: '',
-        CIDADE: '',
-        UF: ''
+        CEP: '90570005',
+        LOGRADOURO: 'RUA DINARTE RIBEIRO',
+        NR: '212',
+        BAIRRO: 'MOINHOS DE VENTO',
+        COMPL: 'AP 72',
+        CIDADE: 'PORTO ALEGRE',
+        UF: 'RS'
       }
     ]
   },
@@ -359,7 +359,7 @@ const students = [
     VEZES: 2,
     VALOR: 460,
     DATA: '',
-    EMAIL: 'cruze.email@gmail.com',
+    EMAIL: 'j.kruze.email@gmail.com',
     DNASC: '03/05/1955',
     ATIVO: true,
     OBS: '',
@@ -373,7 +373,7 @@ const students = [
       {
         FONE: '33305112',
         CEL: '992080857',
-        CEP: '',
+        CEP: '90440010',
         LOGRADOURO: 'Lucas de Oliveira',
         NR: '1510',
         BAIRRO: 'Petrópolis',
@@ -391,7 +391,7 @@ const students = [
     VEZES: 2,
     VALOR: 460,
     DATA: '',
-    EMAIL: 'janice@andrademaia.com.br',
+    EMAIL: 'janicefkruse@gmail.com',
     DNASC: '03/05/1955',
     ATIVO: true,
     OBS: '',
@@ -1751,6 +1751,134 @@ const students = [
         NR: '345',
         BAIRRO: 'VILA JARDIM',
         COMPL: 'APTO 201',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 56,
+    NOME: 'MIGUEL JORGE',
+    SEXO: 'MASC',
+    CPF: '',
+    VEZES: 1,
+    VALOR: 245,
+    DATA: '',
+    EMAIL: '',
+    DNASC: '',
+    ATIVO: true,
+    OBS: '',
+    ORIGEM: '',
+    DESC: {
+      perc: 0,
+      abs: 0
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '',
+        CEL: '',
+        CEP: '',
+        LOGRADOURO: '',
+        NR: '',
+        BAIRRO: '',
+        COMPL: '',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 57,
+    NOME: 'FABIOLA',
+    SEXO: 'FEM',
+    CPF: '',
+    VEZES: 2,
+    VALOR: 460,
+    DATA: '',
+    EMAIL: '',
+    DNASC: '',
+    ATIVO: true,
+    OBS: '',
+    ORIGEM: '',
+    DESC: {
+      perc: 0,
+      abs: 0
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '',
+        CEL: '',
+        CEP: '',
+        LOGRADOURO: '',
+        NR: '',
+        BAIRRO: '',
+        COMPL: '',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 58,
+    NOME: 'NOVA ALUN AQUE ESQUECI O NOME',
+    SEXO: 'FEM',
+    CPF: '',
+    VEZES: 2,
+    VALOR: 460,
+    DATA: '',
+    EMAIL: '',
+    DNASC: '',
+    ATIVO: true,
+    OBS: '',
+    ORIGEM: '',
+    DESC: {
+      perc: 0,
+      abs: 0
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '',
+        CEL: '',
+        CEP: '',
+        LOGRADOURO: '',
+        NR: '',
+        BAIRRO: '',
+        COMPL: '',
+        CIDADE: 'Porto Alegre',
+        UF: 'RS'
+      }
+    ]
+  },
+  {
+    NR: 59,
+    NOME: 'ADRIANA CARDOSO',
+    SEXO: 'FEM',
+    CPF: '43805906072',
+    VEZES: 1,
+    VALOR: 245,
+    DATA: '',
+    EMAIL: 'adibem@terra.com.br',
+    DNASC: '26/07/1960',
+    ATIVO: false,
+    OBS: '',
+    ORIGEM: '',
+    DESC: {
+      perc: 0,
+      abs: 47.5
+    },
+    'PAGO COM': '',
+    ADDRESS: [
+      {
+        FONE: '32351802',
+        CEL: '993903084',
+        CEP: '',
+        LOGRADOURO: 'Saldanha Marinho',
+        NR: '',
+        BAIRRO: 'Menino Deus',
+        COMPL: '',
         CIDADE: 'Porto Alegre',
         UF: 'RS'
       }

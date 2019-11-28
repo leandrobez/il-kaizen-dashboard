@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto 1fr 80px;
-  height: 100%;  
+  height: 100%;
   overflow: hidden;
   .il-top {
     position: absolute;
@@ -16,6 +16,7 @@
   }
   .il-container--wrapper {
     max-width: $max-width;
+    height: 100%;
     @media screen and (max-width: 360px) {
       width: 100%;
       margin: 0;

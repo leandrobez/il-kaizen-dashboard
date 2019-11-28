@@ -43,14 +43,16 @@
                 <label for="dn">Data Nasc</label>
                 <input type="date" v-model="student.dnasc" class="il-input--dn" placeholder="Data de Nascimento" id="dn" />
                 <div class="il-field--select">
-                    <label for="vezes">Vezes</label>
-                    <select ref="vezes" v-model="student.vezes" :change="setValor()" class="il-select" id="vezes">
-                        <option v-for="(vez,index) in vezes" :key="index">{{vez}}</option>
-                    </select>
-                    <label for="valor">Valor</label>
-                    <select ref="valor" v-model="student.valor" class="il-select" id="valor">
-                        <option v-for="(valor,index) in valors" :key="index">{{valor}}</option>
-                    </select>
+                    <div>
+                        <label for="vezes">Vezes</label>
+                        <select ref="vezes" v-model="student.vezes" :change="setValue()" class="il-select" id="vezes">
+                            <option v-for="(vez,index) in vezes" :key="index">{{vez}}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="valor">Valor</label>
+                        <input type="text" v-model="student.valor" class="il-input--value" id="valor" />
+                    </div>
                 </div>
             </div>
             <div class="il-signup--content">
@@ -77,10 +79,14 @@
                 <input type="text" v-model="student.address.clr" class="il-add--description" placeholder="Celular" id="cel">
             </div>
         </div>
-        <div class="il-input--info il-center">
-            <button class="il-btn il-btn--add">
-                <i class="mdi mdi-24px mdi-check"></i>
+        <div class="il-field--button">
+            <button class="il-btn il-btn--submit il-btn--center">
+                Cadastrar
             </button>
+            <button class="il-btn il-btn--return il-btn--center" @click="$router.back()">
+                Retornar
+            </button>
+
         </div>
     </form>
 </div>
@@ -90,204 +96,180 @@
 import accessStudentAPI from '../../../common/apiStudent.js';
 import ilSnapPhoto from '@/components/includes/snapShot.vue';
 export default {
-  name: 'formStudentEdit',
-  props: {
-    id: String
-  },
-  components: {
-    ilSnapPhoto
-  },
-  data() {
-    return {
-      showSnapShot: false,
-      vezes: [1, 2, 3],
-      valors: [245, 460, 595],
-      desc: 0,
-      showPerc: false,
-      showAbs: false,
-      student: {
-        name: '',
-        genre: 'fem',
-        cpf: '',
-        vezes: 1,
-        valor: '',
-        obs: 'Sem observação',
-        origem: 'Orginário da Motriz',
-        ativo: true,
-        email: '',
-        dnasc: '',
-        picture: '',
-        desc: {
-          perc: 0,
-          abs: 0
-        },
-        address: {
-          cep: '',
-          rua_av: '',
-          nr: '',
-          complemento: 'Sem complemento',
-          suburb: '',
-          city: '',
-          UF: '',
-          fone: '',
-          clr: ''
-        }
-      }
-    };
-  },
-  mounted() {
-    this.getStudent();
-  },
-  computed: {
-    checkedM() {
-      if (this.student.genre == 'masc' || this.student.genre == 'MASC') {
-        return 'masc';
-      } else {
-        return '';
-      }
+    name: 'formStudentEdit',
+    props: {
+        id: String
     },
-    checkedF() {
-      if (this.student.genre == 'fem' || this.student.genre == 'FEM') {
-        return 'fem';
-      } else {
-        return '';
-      }
-    }
-  },
-  methods: {
-    getStudent() {
-      let vm = this;
-      if (this.id) {
-        accessStudentAPI
-          .searchStudent(this.id)
-          .then(res => {
-            if (res.error == null) {
-              const formatData = () => {
-                let dnasc = res.student.dnasc; //2019-07-09T00:00:00.000Z
-                const [dt, schema] = dnasc.split('T');
-                const [y, m, d] = dt.split('-');
-                return `${y}-${m}-${d}`;
-              };
-              this.student.name = res.student.name;
-              this.student.obs = res.student.obs;
-              this.student.cpf = res.student.cpf;
-              this.student.email = res.student.email;
-              this.student.genre = res.student.genre;
-              this.student.valor = res.student.valor;
-              this.student.vezes = res.student.vezes;
-              this.student.picture = ''; //res.student.picture;
-              this.student.dnasc = formatData();
-              this.student.origem = res.student.origem;
-              this.student.ativo = res.student.ativo;
-              this.student.desc.abs = res.student.desc.abs;
-              this.student.desc.perc = res.student.desc.perc;
-              this.student.address.cep = res.student.address.cep;
-              this.student.address.city = res.student.address.city;
-              this.student.address.clr = res.student.address.clr;
-              this.student.address.fone = res.student.address.fone;
-              this.student.address.complemento =
-                res.student.address.complemento;
-              this.student.address.cep = res.student.address.cep;
-              this.student.address.nr = res.student.address.nr;
-              this.student.address.rua_av = res.student.address.rua_av;
-              this.student.address.suburb = res.student.address.suburb;
-              this.student.address.UF = res.student.address.UF;
-
-              if (this.student.picture == '') {
-                this.showSnapShot = true;
-              }
-            } else {
-              let msg = res.error.message;
-              vm.$emit('msg', {
-                type: msg.type,
-                message: msg.value
-              });
+    components: {
+        ilSnapPhoto
+    },
+    data() {
+        return {
+            showSnapShot: false,
+            vezes: [1, 2, 3],
+            valors: [245, 460, 595],
+            desc: 0,
+            showPerc: false,
+            showAbs: false,
+            student: {
+                name: '',
+                genre: 'fem',
+                cpf: '',
+                vezes: 1,
+                valor: '',
+                obs: 'Sem observação',
+                origem: 'Orginário da Motriz',
+                ativo: true,
+                email: '',
+                dnasc: '',
+                picture: '',
+                desc: {
+                    perc: 0,
+                    abs: 0
+                },
+                address: {
+                    cep: '',
+                    rua_av: '',
+                    nr: '',
+                    complemento: 'Sem complemento',
+                    suburb: '',
+                    city: '',
+                    UF: '',
+                    fone: '',
+                    clr: ''
+                }
             }
-          })
-          .catch(err => {
-            let msg = err.error;
-            vm.$emit('msg', {
-              type: 'danger',
-              message: err
-            });
-          });
-      }
+        };
     },
-    doUpdate() {
-      let vm = this;
-      accessStudentAPI
-        .updateStudent(this.id, this.student)
-        .then(res => {
-          if (res.data.error == '') {
-            vm.$emit('msg', {
-              type: 'success',
-              message: 'O aluno/s teve sua conta modificada com sucesso!'
-            });
-            setTimeout(() => {
-              vm.$router.push({
-                name: 'students'
-              });
-            }, 2500);
-          } else {
-            const value = res.data.error;
-            vm.$emit('msg', {
-              type: 'warning',
-              message: value
-            });
-          }
-        })
-        .catch(err => {
-          vm.$emit('msg', {
-            type: 'danger',
-            message: err
-          });
-        });
+    mounted() {
+        this.getStudent();
     },
-    showDesc(whoo) {
-      if (whoo == 'perc') {
-        this.showAbs = false;
-        this.showPerc = true;
-      } else {
-        if (whoo == 'abs') {
-          this.showAbs = true;
-          this.showPerc = false;
-        } else {
-          this.showAbs = false;
-          this.showPerc = false;
+    computed: {
+        checkedM() {
+            if (this.student.genre == 'masc' || this.student.genre == 'MASC') {
+                return 'masc';
+            } else {
+                return '';
+            }
+        },
+        checkedF() {
+            if (this.student.genre == 'fem' || this.student.genre == 'FEM') {
+                return 'fem';
+            } else {
+                return '';
+            }
         }
-      }
     },
-    setValor() {
-      let vz = this.student.vezes;
-      let valor = this.valors[vz - 1];
-      this.student.valor = valor;
-      if (this.student.desc.abs) {
-        this.student.valor = valor - this.student.desc.abs;
-      } else {
-        if (this.student.desc.perc) {
-          let desc = this.student.desc.perc / 100 * valor;
-          this.student.valor = valor - desc;
+    methods: {
+        getStudent() {
+            let vm = this;
+            if (this.id) {
+                accessStudentAPI
+                    .searchStudent(this.id)
+                    .then(res => {
+                        console.log(res);
+                        if (res.error == null) {
+                            const formatData = () => {
+                                let dnasc = res.student.dnasc; //2019-07-09T00:00:00.000Z
+                                const [dt, schema] = dnasc.split('T');
+                                const [y, m, d] = dt.split('-');
+                                return `${y}-${m}-${d}`;
+                            };
+                            this.student = res.student;
+                            this.student.dnasc = formatData();
+                            if (this.student.picture == '') {
+                                this.showSnapShot = true;
+                            }
+                        } else {
+                            let msg = res.error.message;
+                            vm.$emit('msg', {
+                                type: msg.type,
+                                message: msg.value
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        let msg = err.error;
+                        vm.$emit('msg', {
+                            type: 'danger',
+                            message: err
+                        });
+                    });
+            }
+        },
+        doUpdate() {
+            let vm = this;
+            accessStudentAPI
+                .updateStudent(this.id, this.student)
+                .then(res => {
+                    if (res.data.error == '') {
+                        vm.$emit('msg', {
+                            type: 'success',
+                            message: 'O aluno/s teve sua conta modificada com sucesso!'
+                        });
+                        setTimeout(() => {
+                            vm.$router.push({
+                                name: 'students'
+                            });
+                        }, 2500);
+                    } else {
+                        const value = res.data.error;
+                        vm.$emit('msg', {
+                            type: 'warning',
+                            message: value
+                        });
+                    }
+                })
+                .catch(err => {
+                    vm.$emit('msg', {
+                        type: 'danger',
+                        message: err
+                    });
+                });
+        },
+        showDesc(whoo) {
+            if (whoo == 'perc') {
+                this.showAbs = false;
+                this.showPerc = true;
+            } else {
+                if (whoo == 'abs') {
+                    this.showAbs = true;
+                    this.showPerc = false;
+                } else {
+                    this.showAbs = false;
+                    this.showPerc = false;
+                }
+            }
+        },
+        setValue() {
+            if (this.student.desc.abs) {
+                this.student.valor = +this.valors[this.student.vezes - 1] - this.student.desc.abs;
+            } else {
+                if (this.student.desc.perc > 0) {
+                    let desc = +this.student.desc.perc /
+                        100 *
+                        +this.valors[this.student.vezes - 1];
+                    this.student.valor = this.student.valor - desc;
+                }
+            }
+        },
+        getAddress() {
+            const urlCorreio = 'https://viacep.com.br/ws/';
+            let cep = this.student.address.cep;
+            fetch(`${urlCorreio}${cep}/json/`).then(result => {
+                if (result.status == 200 && result.statusText == 'OK') {
+                    result.json().then(r => {
+                        this.student.address.suburb = r.bairro;
+                        this.student.address.rua_av = r.logradouro;
+                        this.student.address.city = r.localidade;
+                        this.student.address.UF = r.uf;
+                    });
+                }
+            });
+        },
+        setPicture(picture) {
+            this.student.picture = picture;
         }
-      }
-      this.valors[vz - 1] = this.student.valor;
-    },
-    getAddress() {
-      const urlCorreio = 'https://viacep.com.br/ws/';
-      let cep = this.student.address.cep;
-      fetch(`${urlCorreio}${cep}/json/`).then(result => {
-        if (result.status == 200 && result.statusText == 'OK') {
-          result.json().then(r => {
-            this.student.address.suburb = r.bairro;
-            this.student.address.rua_av = r.logradouro;
-            this.student.address.city = r.localidade;
-            this.student.address.UF = r.uf;
-          });
-        }
-      });
-    },
-    setPicture(picture) {
-      this.student.picture = picture;
     }
-  }
 };
 </script>

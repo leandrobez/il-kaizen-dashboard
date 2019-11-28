@@ -10,42 +10,65 @@
       color: white;
     }
   }
-  .il-registration--card {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 140px));
-    justify-content: center;
-    align-content: center;
-    grid-gap: 0.25rem 0.35rem;
-    .il-registration--day {
-      border: 1px solid white;
-      border-radius: 3px 3px 0 0;
-      background: #431212;
-      padding: 0.35rem;
-      .il-registration--box {
-        height: 80px;
-        .il-field--checkboxes {
-          height: 40px;
-          display: flex;
-          justify-content: flex-start;
-          input[type='checkbox'] {
-            margin-right: 5px;
-            width: 20px;
-            height: 20px;
+  .il-registration--hours {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    h4 {
+      font-size: 0.85rem;
+    }
+    .il-registration--card {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 140px));
+      justify-content: center;
+      align-content: center;
+      grid-gap: 0.25rem 0.35rem;
+      .il-registration--day {
+        border: 1px solid white;
+        border-radius: 3px 3px 0 0;
+        background: #383e42;
+        padding: 0.35rem;
+        .il-registration--box {
+          height: 80px;
+          .il-field--checkboxes {
+            height: 40px;
+            display: flex;
+            justify-content: flex-start;
+            input[type='checkbox'] {
+              margin-right: 5px;
+              width: 20px;
+              height: 20px;
+            }
+            label {
+              width: 100%;
+              font-size: 0.85rem;
+              line-height: 0.85rem;
+              text-align: center;
+              color: rgb(174, 189, 196);
+            }
           }
-          label {
-            font-size: 1rem;
-            line-height: 1rem;
-            font-weight: 600;
-            text-align: center;
+          .il-clock--start {
+            display: flex;
+            select {
+              width: calc(100% - 24px);
+            }
           }
-        }
-        .il-clock--start {
         }
       }
     }
-  }
-  .il-registration--button {
-    margin: 1rem auto;
-    text-align: center;
+    .il-registration--button {
+      margin: 1rem auto;
+      text-align: center;
+      button.il-btn--register {
+        padding: 0.3rem 0.45rem;
+        width: 180px;
+        background: #45414e;
+        color: white;
+        &:hover {
+          background: white;
+          color: #45414e;
+        }
+      }
+    }
   }
 }

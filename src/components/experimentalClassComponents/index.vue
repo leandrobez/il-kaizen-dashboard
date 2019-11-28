@@ -24,10 +24,14 @@
                     <input type="text" v-model="experimental.indicated" class="il-add--description" placeholder="Como chegou até nós" id="indicated" />
                 </div>
             </div>
-            <div class="il-input--info il-center">
-                <button class="il-btn il-btn--add">
-                    <i class="mdi mdi-24px mdi-check"></i>
+            <div class="il-field--button">
+                <button class="il-btn il-btn--submit il-btn--center">
+                    Cadastrar
                 </button>
+                <button class="il-btn il-btn--return il-btn--center" @click="$router.push({name: 'home'})">
+                    Retornar
+                </button>
+               
             </div>
         </form>
     </div>
@@ -36,21 +40,21 @@
 
 <script>
 export default {
-    name: 'experimentalIndex',
-    data() {
-        return {
-            experimental: {
-                name: '',
-                phone: '',
-                obs: '',
-                dtcontact: '',
-                email: '',
-                time: '',
-                day: '',
-                class: '',
-                indicated: ''
-            }
-        }
-    }
-}
+  name: 'experimentalIndex',
+  data() {
+    return {
+      experimental: {
+        name: '',
+        phone: '',
+        obs: '',
+        dtcontact: '',
+        email: '',
+        time: '',
+        day: '',
+        class: '',
+        indicated: ''
+      }
+    };
+  }
+};
 </script>

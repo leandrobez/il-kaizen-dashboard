@@ -10,7 +10,7 @@
             </tr>
             <tr v-for="(list,index) in teachers" :key="index" :class="list.ativo ? '' : 'il-inactive'">
                 <td>{{index+1}}</td>
-                <td class="il-lists--avatar"><img class="il-avatar--teacher" :src="`data:image/jpeg;base64,/${list.picture}`"></td>
+                <td class="il-lists--avatar"><img class="il-avatar--teacher" :src="getAvatar(list.picture)"></td>
                 <td>
                     <ul class="il-list--info">
                         <li class="name">{{list.name}}</li>
@@ -63,6 +63,13 @@ export default {
         'cronogramTeacher',
         JSON.stringify(cronogramTeacher)
       );
+    },
+    getAvatar(photo) {
+      if (photo != 'vai a foto') {
+        return `data:image/jpeg;base64,/${photo}`;
+      } else {
+        return 'images/avatar/other-avatar.svg';
+      }
     },
     deleteTeacher(id, index) {
       this.$emit('delete', (id, index));

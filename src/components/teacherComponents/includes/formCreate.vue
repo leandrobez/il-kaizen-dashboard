@@ -1,6 +1,7 @@
 <template>
-<div class="il-teacher--edit">
-    <ilSnapPhoto @avatar="setPicture" />    
+<div class="il-create">
+    <ilSnapPhoto @avatar="setPicture" />   
+     <div class="il-student--data"> 
     <form class="il-form il-form--signup" @submit.prevent="doSignup">
         <div class="il-signup">
             <div class="il-signup--content">
@@ -38,12 +39,17 @@
                 <input type="text" v-model="signup.address.clr" class="il-add--description" placeholder="Celular" id="cel">
             </div>
         </div>
-        <div class="il-input--info il-center">
-            <button class="il-btn il-btn--add">
-                <i class="mdi mdi-24px mdi-check"></i>
-            </button>
-        </div>
+         <div class="il-field--button">
+                <button class="il-btn il-btn--submit il-btn--center">
+                    Cadastrar
+                </button>
+                <button class="il-btn il-btn--return il-btn--center" @click="$router.back()">
+                    Retornar
+                </button>
+               
+            </div>
     </form>
+     </div>
 </div>
 </template>
 

@@ -7,6 +7,7 @@ import { admin } from './admin.module';
 import { student } from './student.module';
 import { payment } from './payments.module';
 import { cronogram } from './cronogram.module';
+import { comission } from './comission.module';
 import { evaliation } from './evaliation.module';
 
 const store = new Vuex.Store({
@@ -16,6 +17,7 @@ const store = new Vuex.Store({
     student,
     payment,
     cronogram,
+    comission,
     evaliation
   }
 });

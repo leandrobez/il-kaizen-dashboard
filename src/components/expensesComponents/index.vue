@@ -7,33 +7,7 @@
         <ilMonths :months="months" @choice="choiceMonth" />
     </div>
     <div class="il-expenses--content">
-        <ul class="il-box--expenses">
-            <li>
-                <router-link :to="{name: 'contas.fixed'}" title="Contas fixas" class="il-nav--link">
-                    <i class="mdi mdi-account-star mdi-36px"></i>
-                    <h5>Fixas</h5>
-                </router-link>
-            </li>
-            <li>
-                <router-link :to="{name: 'contas.variables'}" title="Conas variaveis" class="il-nav--link">
-                    <i class="mdi mdi-clipboard-account mdi-36px"></i>
-                    <h5>Variáveis</h5>
-                </router-link>
-            </li>
-            <li>
-                <router-link :to="{name: 'contas.extras'}" title="Contas extras" class="il-nav--link">
-                    <i class="mdi mdi-clipboard-account mdi-36px"></i>
-                    <h5>Extras</h5>
-                </router-link>
-            </li>
-            <li>
-                <router-link :to="{name: 'contas.show'}" title="Listar Contas" class="il-nav--link">
-                    <i class="mdi mdi-clipboard-account mdi-36px"></i>
-                    <h5>Listar</h5>
-                </router-link>
-            </li>
-        </ul>
-
+        <ilMenu />
         <RouterView @alert="setAlert" />
     </div>
 </div>
@@ -42,42 +16,44 @@
 <script>
 import ilMonths from '@/components/includes/months.vue';
 import ilAlert from '@/components/includes/alerts.vue';
+import ilMenu from './partials/menu.vue';
 import allMonths from '../../common/months.js';
 export default {
-  name: 'expensesIndex',
-  components: {
-    ilMonths,
-    ilAlert
-  },
-  data() {
-    return {
-      months: [],
-      month: null,
-      message: null
-    };
-  },
-  computed: {
-    checkAlert() {
-      if (this.message) {
-        return true;
-      }
-      return false;
-    }
-  },
-  mounted() {
-    this.months = allMonths;
-    this.month = this.months[0].label;
-  },
-  methods: {
-    choiceMonth(key) {
-      this.month = this.months[key].abr;
+    name: 'expensesIndex',
+    components: {
+        ilMenu,
+        ilMonths,
+        ilAlert
     },
-    setAlert(obj) {
-      this.message = {
-        type: obj.status,
-        message: obj.value
-      };
+    data() {
+        return {
+            months: [],
+            month: null,
+            message: null
+        };
+    },
+    computed: {
+        checkAlert() {
+            if (this.message) {
+                return true;
+            }
+            return false;
+        }
+    },
+    mounted() {
+        this.months = allMonths;
+        this.month = this.months[0].label;
+    },
+    methods: {
+        choiceMonth(key) {
+            this.month = this.months[key].abr;
+        },
+        setAlert(obj) {
+            this.message = {
+                type: obj.status,
+                message: obj.value
+            };
+        }
     }
-  }
 };
 </script>
