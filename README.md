@@ -28,6 +28,10 @@ $ npm run dev
 
 Manages various topics to handle the pilates studio's administrative issues.
 
+### Before install
+
+Replace params.example.js file [src/common/] with yours owner datas
+
 ### Author
 
 ## Leandro Bezerra

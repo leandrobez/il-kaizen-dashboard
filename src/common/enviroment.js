@@ -1,17 +1,22 @@
 const dotenv = require('dotenv');
-
-//initialize dotenv
 dotenv.config();
-let ambient = 'production';
-let port = process.env.PORT;
+const params = require('./params');
+let port_server, host;
+let ambient = process.env.NODE_ENV;
+
 const enviroment = () => {
   let base_url = '';
   let api_url = '/kaizen/api';
-  //if (process.env.NODE_ENV !== 'production') {
   if (ambient !== 'production') {
-    base_url = 'http://localhost:' + port;
+    //port = params.dev.port;
+    port_server = params.dev.port_server;
+    host = params.dev.host;
+    base_url = 'http://' + host + ':' + port_server;
   } else {
-    base_url = 'http://138.68.56.227:3000';
+    //port = params.prod.port;
+    port_server = params.prod.port_server;
+    host = params.prod.host;
+    base_url = 'http://' + host + ':' + port_server;
   }
   return { base_url, api_url };
 };

@@ -48,6 +48,7 @@ const bearerToken = () => {
 };
 
 const setURL = point => {
+  console.log(enviroment)
   let baseURL = endPoints.baseURL;
   let urlAPI = enviroment.api_url + endPoints.urlAPI;
   let url = null;
@@ -67,7 +68,7 @@ const accessAdminAPI = {
   /** @admins */
   login: async data => {
     let url = setURL('login');
-    console.log(url);
+
     return axios
       .post(url, data)
       .then(response => {
