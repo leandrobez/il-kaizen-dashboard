@@ -1,29 +1,43 @@
-# client
+# KAIZEN DASHBOARD
 
-## Project setup
-```
-npm install
-```
+Client Kaizen dashboard
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Version
 
-### Compiles and minifies for production
-```
-npm run build
-```
+1.0.0
 
-### Run your tests
-```
-npm run test
+## Usage
+
+### Installation
+
+Install the dependencies
+
+```sh
+$ npm install
 ```
 
-### Lints and fixes files
-```
-npm run lint
+### Serve
+
+To serve in the browser
+
+```sh
+$ npm run dev
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## App Info
+
+Manages various topics to handle the pilates studio's administrative issues.
+
+### Author
+
+## Leandro Bezerra
+
+[InternetLojas](http://www.internetlojas.com)
+
+### Version
+
+1.0.0
+
+### License
+
+This project is licensed under the MIT License

@@ -1,16 +1,12 @@
 'use strict';
 
 import axios from 'axios';
-const dotenv = require('dotenv');
 
-dotenv.config();
-let base_url = '';
-if (process.env.NODE_ENV !== 'production') {
-  base_url = 'http://localhost:3000';
-}
+import enviroment from './enviroment';
+
 const endPoints = {
-  urlAPI: '/kaizen/api/admin',
-  baseURL: base_url,
+  urlAPI: '/admin',
+  baseURL: enviroment.base_url,
   points: [
     {
       name: 'login',
@@ -53,7 +49,7 @@ const bearerToken = () => {
 
 const setURL = point => {
   let baseURL = endPoints.baseURL;
-  let urlAPI = endPoints.urlAPI;
+  let urlAPI = enviroment.api_url + endPoints.urlAPI;
   let url = null;
   for (let i = 0; i < endPoints.points.length; i++) {
     if (endPoints.points[i].name == point) {
@@ -61,12 +57,17 @@ const setURL = point => {
       break;
     }
   }
+  if (point == 'login' || point == 'logout') {
+    return baseURL + '/kaizen/api' + url;
+  }
   return baseURL + urlAPI + url;
 };
+
 const accessAdminAPI = {
   /** @admins */
   login: async data => {
-    let url = 'http://localhost:3000/kaizen/api/authenticate/login';
+    let url = setURL('login');
+    console.log(url);
     return axios
       .post(url, data)
       .then(response => {
@@ -77,7 +78,7 @@ const accessAdminAPI = {
       });
   },
   logout: async () => {
-    let url = 'http://localhost:3000/kaizen/api/authenticate/logout';
+    let url = setURL('logout');
     return axios
       .get(url)
       .then(response => {

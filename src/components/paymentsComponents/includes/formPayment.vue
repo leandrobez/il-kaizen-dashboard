@@ -29,6 +29,10 @@
             <label class="il-label--expenses il-color--light" for="valor">Valor</label>
             <input type="number" v-model="dataPayment.valor" step="0.01" class="il-add--description" placeholder="Informe o valor do pagamento" id="valor" />
         </div>
+        <div class="il-form--field">
+          <textArea v-model="dataPayment.obs" cols="78" rows="3">Alguma Observação?</textArea>
+            
+        </div>
         <div class="il-field--check">
             <input type="checkbox" id="checkMsg" v-model="dataPayment.sendMessage">
             <label class="il-label--expenses il-color--light" for="checkMsg">Enviar mensagem</label>
@@ -73,6 +77,7 @@ export default {
         data: '',
         name: '',
         valor: '',
+        obs: '',
         sendMessage: false,
         sendReceipt: false,
         form: {
@@ -153,6 +158,7 @@ export default {
             datePayment: this.dataPayment.data,
             amountPayment: this.dataPayment.valor,
             formPayment: this.type,
+            obs: this.dataPayment.obs,
             sendMessage: this.dataPayment.sendMessage,
             sendReceipt: this.dataPayment.sendReceipt
           }
@@ -165,7 +171,7 @@ export default {
       accessPaymentAPI
         .updateMultiplePayment(this.dataPaymentID, this.dataOldPayment)
         .then(res => {
-          if (res.error === false) {
+          if (!res.error) {
             this.$emit('message', res.message);
             setTimeout(() => {
               this.$router.push({
@@ -183,8 +189,8 @@ export default {
       accessPaymentAPI
         .create(data)
         .then(res => {
-          if (res.data.error == null) {
-            alert(res.data.message);
+          if (res.error) {
+            this.$emit('message',res.message)
           } else {
             data = res.data.payment;
             this.updatePayment(data);

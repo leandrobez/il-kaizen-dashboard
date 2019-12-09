@@ -1,16 +1,11 @@
 'use strict';
 
 import axios from 'axios';
-const dotenv = require('dotenv');
+import enviroment from './enviroment';
 
-dotenv.config();
-let base_url = '';
-if (process.env.NODE_ENV !== 'production') {
-  base_url = 'http://localhost:3000';
-}
 const endPoints = {
-  urlAPI: '/kaizen/api/cronogram',
-  baseURL: base_url,
+  urlAPI: '/cronogram',
+  baseURL: enviroment.base_url,
   points: [
     {
       name: 'create',
@@ -49,13 +44,16 @@ const bearerToken = () => {
 
 const setURL = point => {
   let baseURL = endPoints.baseURL;
-  let urlAPI = endPoints.urlAPI;
+  let urlAPI = enviroment.api_url + endPoints.urlAPI;
   let url = null;
   for (let i = 0; i < endPoints.points.length; i++) {
     if (endPoints.points[i].name == point) {
       url = endPoints.points[i].path;
       break;
     }
+  }
+  if (point == 'login' || point == 'logout') {
+    return baseURL + '/kaizen/api' + url;
   }
   return baseURL + urlAPI + url;
 };

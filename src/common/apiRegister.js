@@ -1,16 +1,12 @@
 'use strict';
 
 import axios from 'axios';
-const dotenv = require('dotenv');
 
-dotenv.config();
-let base_url = '';
-if (process.env.NODE_ENV !== 'production') {
-  base_url = 'http://localhost:3000';
-}
+import enviroment from './enviroment';
+
 const endPoints = {
-  urlAPI: '/kaizen/api/register',
-  baseURL: base_url,
+  urlAPI: '/register',
+  baseURL: enviroment.base_url,
   points: [
     {
       name: 'create',
@@ -45,7 +41,7 @@ const bearerToken = () => {
 
 const setURL = point => {
   let baseURL = endPoints.baseURL;
-  let urlAPI = endPoints.urlAPI;
+  let urlAPI = enviroment.api_url + endPoints.urlAPI;
   let url = null;
   for (let i = 0; i < endPoints.points.length; i++) {
     if (endPoints.points[i].name == point) {

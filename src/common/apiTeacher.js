@@ -1,16 +1,12 @@
 'use strict';
 
 import axios from 'axios';
-const dotenv = require('dotenv');
 
-dotenv.config();
-let base_url = '';
-if (process.env.NODE_ENV !== 'production') {
-  base_url = 'http://localhost:3000';
-}
+import enviroment from './enviroment';
+
 const endPoints = {
-  urlAPI: '/kaizen/api/teacher',
-  baseURL: base_url,
+  urlAPI: '/teacher',
+  baseURL: enviroment.base_url,
   points: [
     {
       name: 'multiple',
@@ -49,7 +45,7 @@ const bearerToken = () => {
 
 const setURL = point => {
   let baseURL = endPoints.baseURL;
-  let urlAPI = endPoints.urlAPI;
+  let urlAPI = enviroment.api_url + endPoints.urlAPI;
   let url = null;
   for (let i = 0; i < endPoints.points.length; i++) {
     if (endPoints.points[i].name == point) {
@@ -57,9 +53,11 @@ const setURL = point => {
       break;
     }
   }
+  if (point == 'login' || point == 'logout') {
+    return baseURL + '/kaizen/api' + url;
+  }
   return baseURL + urlAPI + url;
 };
-
 const accessTeacherAPI = {
   /** @Teachers  */
   createMultiple: async data => {
@@ -78,7 +76,7 @@ const accessTeacherAPI = {
     return axios
       .post(url, data, bearerToken())
       .then(response => {
-        return response
+        return response;
       })
       .catch(err => {
         return Promise.reject(err.message);

@@ -81,12 +81,11 @@
         </div>
         <div class="il-field--button">
             <button class="il-btn il-btn--submit il-btn--center">
-                Cadastrar
+                Atualizar
             </button>
             <button class="il-btn il-btn--return il-btn--center" @click="$router.back()">
                 Retornar
             </button>
-
         </div>
     </form>
 </div>
@@ -96,180 +95,183 @@
 import accessStudentAPI from '../../../common/apiStudent.js';
 import ilSnapPhoto from '@/components/includes/snapShot.vue';
 export default {
-    name: 'formStudentEdit',
-    props: {
-        id: String
-    },
-    components: {
-        ilSnapPhoto
-    },
-    data() {
-        return {
-            showSnapShot: false,
-            vezes: [1, 2, 3],
-            valors: [245, 460, 595],
-            desc: 0,
-            showPerc: false,
-            showAbs: false,
-            student: {
-                name: '',
-                genre: 'fem',
-                cpf: '',
-                vezes: 1,
-                valor: '',
-                obs: 'Sem observação',
-                origem: 'Orginário da Motriz',
-                ativo: true,
-                email: '',
-                dnasc: '',
-                picture: '',
-                desc: {
-                    perc: 0,
-                    abs: 0
-                },
-                address: {
-                    cep: '',
-                    rua_av: '',
-                    nr: '',
-                    complemento: 'Sem complemento',
-                    suburb: '',
-                    city: '',
-                    UF: '',
-                    fone: '',
-                    clr: ''
-                }
-            }
-        };
-    },
-    mounted() {
-        this.getStudent();
-    },
-    computed: {
-        checkedM() {
-            if (this.student.genre == 'masc' || this.student.genre == 'MASC') {
-                return 'masc';
-            } else {
-                return '';
-            }
+  name: 'formStudentEdit',
+  props: {
+    id: String
+  },
+  components: {
+    ilSnapPhoto
+  },
+  data() {
+    return {
+      showSnapShot: false,
+      vezes: [1, 2, 3],
+      valors: [245, 460, 595],
+      desc: 0,
+      showPerc: false,
+      showAbs: false,
+      student: {
+        name: '',
+        genre: 'fem',
+        cpf: '',
+        vezes: 1,
+        valor: '',
+        obs: 'Sem observação',
+        origem: 'Orginário da Motriz',
+        ativo: true,
+        email: '',
+        dnasc: '',
+        picture: '',
+        desc: {
+          perc: 0,
+          abs: 0
         },
-        checkedF() {
-            if (this.student.genre == 'fem' || this.student.genre == 'FEM') {
-                return 'fem';
-            } else {
-                return '';
-            }
+        address: {
+          cep: '',
+          rua_av: '',
+          nr: '',
+          complemento: 'Sem complemento',
+          suburb: '',
+          city: '',
+          UF: '',
+          fone: '',
+          clr: ''
         }
+      }
+    };
+  },
+  mounted() {
+    this.getStudent();
+  },
+  computed: {
+    checkedM() {
+      if (this.student.genre == 'masc' || this.student.genre == 'MASC') {
+        return 'masc';
+      } else {
+        return '';
+      }
     },
-    methods: {
-        getStudent() {
-            let vm = this;
-            if (this.id) {
-                accessStudentAPI
-                    .searchStudent(this.id)
-                    .then(res => {
-                        console.log(res);
-                        if (res.error == null) {
-                            const formatData = () => {
-                                let dnasc = res.student.dnasc; //2019-07-09T00:00:00.000Z
-                                const [dt, schema] = dnasc.split('T');
-                                const [y, m, d] = dt.split('-');
-                                return `${y}-${m}-${d}`;
-                            };
-                            this.student = res.student;
-                            this.student.dnasc = formatData();
-                            if (this.student.picture == '') {
-                                this.showSnapShot = true;
-                            }
-                        } else {
-                            let msg = res.error.message;
-                            vm.$emit('msg', {
-                                type: msg.type,
-                                message: msg.value
-                            });
-                        }
-                    })
-                    .catch(err => {
-                        let msg = err.error;
-                        vm.$emit('msg', {
-                            type: 'danger',
-                            message: err
-                        });
-                    });
-            }
-        },
-        doUpdate() {
-            let vm = this;
-            accessStudentAPI
-                .updateStudent(this.id, this.student)
-                .then(res => {
-                    if (res.data.error == '') {
-                        vm.$emit('msg', {
-                            type: 'success',
-                            message: 'O aluno/s teve sua conta modificada com sucesso!'
-                        });
-                        setTimeout(() => {
-                            vm.$router.push({
-                                name: 'students'
-                            });
-                        }, 2500);
-                    } else {
-                        const value = res.data.error;
-                        vm.$emit('msg', {
-                            type: 'warning',
-                            message: value
-                        });
-                    }
-                })
-                .catch(err => {
-                    vm.$emit('msg', {
-                        type: 'danger',
-                        message: err
-                    });
-                });
-        },
-        showDesc(whoo) {
-            if (whoo == 'perc') {
-                this.showAbs = false;
-                this.showPerc = true;
-            } else {
-                if (whoo == 'abs') {
-                    this.showAbs = true;
-                    this.showPerc = false;
-                } else {
-                    this.showAbs = false;
-                    this.showPerc = false;
-                }
-            }
-        },
-        setValue() {
-            if (this.student.desc.abs) {
-                this.student.valor = +this.valors[this.student.vezes - 1] - this.student.desc.abs;
-            } else {
-                if (this.student.desc.perc > 0) {
-                    let desc = +this.student.desc.perc /
-                        100 *
-                        +this.valors[this.student.vezes - 1];
-                    this.student.valor = this.student.valor - desc;
-                }
-            }
-        },
-        getAddress() {
-            const urlCorreio = 'https://viacep.com.br/ws/';
-            let cep = this.student.address.cep;
-            fetch(`${urlCorreio}${cep}/json/`).then(result => {
-                if (result.status == 200 && result.statusText == 'OK') {
-                    result.json().then(r => {
-                        this.student.address.suburb = r.bairro;
-                        this.student.address.rua_av = r.logradouro;
-                        this.student.address.city = r.localidade;
-                        this.student.address.UF = r.uf;
-                    });
-                }
-            });
-        },
-        setPicture(picture) {
-            this.student.picture = picture;
-        }
+    checkedF() {
+      if (this.student.genre == 'fem' || this.student.genre == 'FEM') {
+        return 'fem';
+      } else {
+        return '';
+      }
     }
+  },
+  methods: {
+    getStudent() {
+      let vm = this;
+      if (this.id) {
+        accessStudentAPI
+          .searchStudent(this.id)
+          .then(res => {
+            console.log(res);
+            if (res.error == null) {
+              const formatData = () => {
+                let dnasc = res.student.dnasc; //2019-07-09T00:00:00.000Z
+                const [dt, schema] = dnasc.split('T');
+                const [y, m, d] = dt.split('-');
+                return `${y}-${m}-${d}`;
+              };
+              this.student = res.student;
+              this.student.dnasc = formatData();
+              if (this.student.picture == '') {
+                this.showSnapShot = true;
+              }
+            } else {
+              let msg = res.message;
+              vm.$emit('msg', {
+                type: msg.type,
+                message: msg.value
+              });
+            }
+          })
+          .catch(err => {
+            let msg = err.error;
+            vm.$emit('msg', {
+              type: 'danger',
+              message: err
+            });
+          });
+      }
+    },
+    doUpdate() {
+      let vm = this;
+      accessStudentAPI
+        .updateStudent(this.id, this.student)
+        .then(res => {
+          console.log(res);
+          if (!res.error && res.error != null) {
+            vm.$emit('msg', {
+              type: 'success',
+              message: 'O aluno/s teve sua conta modificada com sucesso!'
+            });
+            setTimeout(() => {
+              vm.$router.push({
+                name: 'students'
+              });
+            }, 2500);
+          } else {
+            const value = res.message;
+            vm.$emit('msg', {
+              type: 'warning',
+              message: value
+            });
+          }
+        })
+        .catch(err => {
+          vm.$emit('msg', {
+            type: 'danger',
+            message: err
+          });
+        });
+    },
+    showDesc(whoo) {
+      if (whoo == 'perc') {
+        this.showAbs = false;
+        this.showPerc = true;
+      } else {
+        if (whoo == 'abs') {
+          this.showAbs = true;
+          this.showPerc = false;
+        } else {
+          this.showAbs = false;
+          this.showPerc = false;
+        }
+      }
+    },
+    setValue() {
+      if (this.student.desc.abs) {
+        this.student.valor =
+          +this.valors[this.student.vezes - 1] - this.student.desc.abs;
+      } else {
+        if (this.student.desc.perc > 0) {
+          let desc =
+            +this.student.desc.perc /
+            100 *
+            +this.valors[this.student.vezes - 1];
+          this.student.valor = this.student.valor - desc;
+        }
+      }
+    },
+    getAddress() {
+      const urlCorreio = 'https://viacep.com.br/ws/';
+      let cep = this.student.address.cep;
+      fetch(`${urlCorreio}${cep}/json/`).then(result => {
+        if (result.status == 200 && result.statusText == 'OK') {
+          result.json().then(r => {
+            this.student.address.suburb = r.bairro;
+            this.student.address.rua_av = r.logradouro;
+            this.student.address.city = r.localidade;
+            this.student.address.UF = r.uf;
+          });
+        }
+      });
+    },
+    setPicture(picture) {
+      this.student.picture = picture;
+    }
+  }
 };
 </script>

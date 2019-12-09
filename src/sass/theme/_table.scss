@@ -5,16 +5,24 @@ table {
   box-shadow: 2px 3px 7px 0px #2b6181;
   &.il-table--student {
     width: 80%;
-    margin: 1rem auto auto;
+    margin: auto;
   }
   thead {
-    background: #9993e7;
+    background: #344047;
+    padding: 0.3rem 0;
+    /*
     background: linear-gradient(
       to bottom,
       #8fb0cf 0%,
       #7e7ee0 66%,
       #7e7e8f 100%
-    );
+    );*/
+    tr {
+      height: 32px;
+      th {
+        border: 1px solid #d4d5d6;
+      }
+    }
   }
   th,
   td {
@@ -39,7 +47,7 @@ table {
       }
     }
     ul {
-      width: 100%;
+      //width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -62,7 +70,7 @@ table {
           font-weight: 700;
         }
       }
-      &.il-list--plan,
+
       &.il-list--actions {
         flex-direction: column;
         justify-content: center;
@@ -109,15 +117,6 @@ table {
     i {
       cursor: pointer;
     }
-    /*ul li {
-      text-align: left;
-      &.name {
-        font-weight: 600;
-      }
-      &.nasc {
-        color: rgb(167, 15, 15);
-      }
-    }*/
   }
   tbody tr td {
     background: #6b7e8b;

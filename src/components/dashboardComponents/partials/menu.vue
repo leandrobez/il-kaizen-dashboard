@@ -48,7 +48,7 @@
                 <li>
                     <router-link :to="{name: 'dashboard.kaizen'}">kaizen</router-link>
                 </li>
-                <li>Personalizações</li>
+                <li><router-link :to="{name: 'dashboard.home'}">Home</router-link></li>
             </ul>
         </li>
     </ul>

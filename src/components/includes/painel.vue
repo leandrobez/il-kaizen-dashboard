@@ -38,9 +38,9 @@
             </router-link>
         </li>
         <li>
-            <router-link :to="{path: '/config/home'}" title="Configurar Sistema" class="il-nav--link">
+            <router-link :to="{name: 'dashboard'}" title="Configurar Sistema" class="il-nav--link">
                 <i class="mdi mdi-settings mdi-24px"></i>
-                <span @click="closePainel">Configurações</span>
+                <span @click="closePainel">Dashboard</span>
             </router-link>
         </li>
     </ul>

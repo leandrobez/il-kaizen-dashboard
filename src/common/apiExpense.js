@@ -1,17 +1,12 @@
 'use strict';
 
 import axios from 'axios';
-const dotenv = require('dotenv');
 
-dotenv.config();
-let base_url = '';
-if (process.env.NODE_ENV !== 'production') {
-  base_url = 'http://localhost:3000';
-}
+import enviroment from './enviroment';
 
 const endPoints = {
-  urlAPI: '/kaizen/api/expenses',
-  baseURL: base_url
+  urlAPI: '/expenses',
+  baseURL: enviroment.base_url
 };
 
 const bearerToken = () => {
@@ -24,7 +19,7 @@ const bearerToken = () => {
 
 const setURL = (point, type) => {
   let baseURL = endPoints.baseURL;
-  let urlAPI = endPoints.urlAPI;
+  let urlAPI = enviroment.api_url + endPoints.urlAPI;
   let url = `/${type}/${point}`;
   return baseURL + urlAPI + url;
 };
@@ -76,7 +71,7 @@ const accessExpensesFixedAPI = {
       });
   },
   updateFixed: (id, data) => {
-    let url = setURL('update','fixed');
+    let url = setURL('update', 'fixed');
     return axios
       .put(url + '/' + id, data, bearerToken())
       .then(response => {
@@ -84,7 +79,7 @@ const accessExpensesFixedAPI = {
         return value;
       })
       .catch(err => Promise.reject(err.message));
-  },
+  }
 };
 
 const accessExpensesVariableAPI = {
@@ -134,7 +129,7 @@ const accessExpensesVariableAPI = {
       });
   },
   updateVariable: (id, data) => {
-    let url = setURL('update','variable');
+    let url = setURL('update', 'variable');
     return axios
       .put(url + '/' + id, data, bearerToken())
       .then(response => {
@@ -142,7 +137,7 @@ const accessExpensesVariableAPI = {
         return value;
       })
       .catch(err => Promise.reject(err.message));
-  },
+  }
 };
 
 const accessExpensesExtraAPI = {
@@ -192,7 +187,7 @@ const accessExpensesExtraAPI = {
       });
   },
   updateExtra: (id, data) => {
-    let url = setURL('update','extra');
+    let url = setURL('update', 'extra');
     return axios
       .put(url + '/' + id, data, bearerToken())
       .then(response => {
@@ -200,7 +195,7 @@ const accessExpensesExtraAPI = {
         return value;
       })
       .catch(err => Promise.reject(err.message));
-  },
+  }
 };
 
 const apiExpense = {

@@ -137,9 +137,16 @@ const router = new VueRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('@/views/Dashboard.vue'),
+      beforeEnter: (to, from, next) => {
+        let token = window.localStorage.getItem('_token');
+        if (!token) {
+          alert('Sem permissão');
+          next('/');
+        } else next();
+      },
       children: [
         {
-          path: '/home',
+          path: '/',
           name: 'dashboard.home',
           component: () =>
             import('@/components/dashboardComponents/includes/home.vue')
@@ -199,10 +206,6 @@ const router = new VueRouter({
             import('@/components/dashboardComponents/includes/admims.vue')
         },
         {
-          path: '',
-          redirect: '/home'
-        },
-        {
           path: '*',
           redirect: '/home'
         }
@@ -220,7 +223,7 @@ const router = new VueRouter({
       component: () => import('@/views/Contabil.vue')
     },*/
     {
-      path: '/*',
+      path: '*',
       redirect: '/'
     }
   ]

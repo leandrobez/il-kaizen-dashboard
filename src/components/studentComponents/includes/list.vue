@@ -1,92 +1,149 @@
 <template>
-<div class="il-lists">
+  <div class="il-lists">
     <div class="il-search--student">
-        <input v-model="word" @input="studentSearch()" required type="search" placeholder="Digite o nome do aluno">
-        <div class="il-search--result" v-if="searchs.length>0">
-          <table>
-            <tbody>
-              <tr>
-                <td>Nr</td>
-                <td>Nome</td>
-                <td>Ações</td>
-              </tr>
-              <tr v-for="(list,index) in searchs" :key="index" :class="list.ativo ? '' : 'il-inactive'">
-                <td>{{index+1}}</td>
-                <td>{{list.name}}</td>
-                <td>
-                  <a :href="`#student${list._id}`" title="Mais sobre esse aluno" class="il-link--search">Ver</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-    </div>
-    <table class="il-form--lists">
-        <tbody>
+      <input
+        v-model="word"
+        @input="studentSearch()"
+        required
+        type="search"
+        placeholder="Digite o nome do aluno"
+      />
+      <div class="il-search--result" v-if="searchs.length > 0">
+        <table>
+          <tbody>
             <tr>
-                <td>Nr</td>
-                <td>Nome</td>
-                <td>Plano</td>
-                <td>Pagamentos</td>
-                <td>Ações</td>
+              <td>Nr</td>
+              <td>Nome</td>
+              <td>Ações</td>
             </tr>
-            <tr v-for="(list,index) in students" :key="index" :class="list.ativo ? '' : 'il-inactive'" :id="`student${list._id}`">
-                <td>{{index+1}}</td>
-                <td>
-                    <ul class="il-list--info">
-                        <li class="name">{{list.name}}</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class="il-list--plan">
-                        <li class="plus">Vezes: {{list.vezes}}</li>
-                        <li class="value">Valor: {{list.valor}}</li>
-                    </ul>
-                </td>
-                <td>{{checkStatusPayment(list._id)}}</td>
-                <td>
-                    <ul class="il-list--actions">
-                        <li>
-                            <a href="!#" @click.prevent="deleteStudent(list._id,index)">
-                                <i class="mdi mdi-12px mdi-delete" title="Eliminar cliente"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="!#" @click.prevent="editStudent(list._id)">
-                                <i class="mdi mdi-12px mdi-account-edit" title="Editar conta"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <router-link :to="{name:'student.register',params: {id: list._id}}">
-                                <i class="mdi mdi-12px mdi-receipt" title=" Matricular o aluno"></i>
-                            </router-link>
-                        </li>
-                        <li>
-                            <a href="!#" @click.prevent="makePayment(index,list._id,'check')">
-                                <i v-if="!getStatusPayment(list._id)" class="mdi mdi-12px mdi-script" title="Receber pagamento do cliente com cheque"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="!#" @click.prevent="makePayment(index,list._id,'money')">
-                                <i v-if="!getStatusPayment(list._id)" class="mdi mdi-12px mdi-square-inc-cash" title="Receber pagamento do cliente com dinheiro"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <router-link :to="{name:'evaliation', params: {
-                              id:list._id
-                            }}"><i class="mdi mdi-12px mdi-chart-line" title="Criar avaliação"></i></router-link>
-                        </li>
-                        <li>
-                            <a href="!#" @click.prevent="getAddress(index)">
-                                <i class="mdi mdi-12px mdi-account-location" title="Ver o Endereço"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </td>
+            <tr
+              v-for="(list, index) in searchs"
+              :key="index"
+              :class="list.ativo ? '' : 'il-inactive'"
+            >
+              <td>{{ index + 1 }}</td>
+              <td>{{ list.name }}</td>
+              <td>
+                <a
+                  :href="`#student${list._id}`"
+                  title="Mais sobre esse aluno"
+                  class="il-link--search"
+                  >Ver</a
+                >
+              </td>
             </tr>
-        </tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <table>
+      <thead>
+          <tr>
+          <th>Nr</th>
+          <th>Nome</th>
+          <th>Pagamentos</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr
+          v-for="(list, index) in students"
+          :key="index"
+          :class="list.ativo ? '' : 'il-inactive'"
+          :id="`student${list._id}`"
+        >
+          <td>{{ index + 1 }}</td>
+          <td>
+            <ul class="il-list--info">
+              <li class="name">{{ list.name }}</li>
+            </ul>
+            <ul class="il-list--plan">
+              <li class="plus">Vezes: {{ list.vezes }}</li>
+              <li class="value">Valor: {{ list.valor }}</li>
+            </ul>
+          </td>
+          <td>{{ checkStatusPayment(list._id) }}</td>
+          <td>
+            <ul class="il-list--actions">
+              <li>
+                <a href="!#" @click.prevent="deleteStudent(list._id, index)">
+                  <i
+                    class="mdi mdi-12px mdi-delete"
+                    title="Eliminar cliente"
+                  ></i>
+                </a>
+              </li>
+              <li>
+                <a href="!#" @click.prevent="editStudent(list._id)">
+                  <i
+                    class="mdi mdi-12px mdi-account-edit"
+                    title="Editar conta"
+                  ></i>
+                </a>
+              </li>
+              <li>
+                <router-link
+                  :to="{ name: 'student.register', params: { id: list._id } }"
+                >
+                  <i
+                    class="mdi mdi-12px mdi-receipt"
+                    title=" Matricular o aluno"
+                  ></i>
+                </router-link>
+              </li>
+              <li>
+                <a
+                  href="!#"
+                  @click.prevent="makePayment(index, list._id, 'check')"
+                >
+                  <i
+                    v-if="!getStatusPayment(list._id)"
+                    class="mdi mdi-12px mdi-script"
+                    title="Receber pagamento do cliente com cheque"
+                  ></i>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="!#"
+                  @click.prevent="makePayment(index, list._id, 'money')"
+                >
+                  <i
+                    v-if="!getStatusPayment(list._id)"
+                    class="mdi mdi-12px mdi-square-inc-cash"
+                    title="Receber pagamento do cliente com dinheiro"
+                  ></i>
+                </a>
+              </li>
+              <li>
+                <router-link
+                  :to="{
+                    name: 'evaliation',
+                    params: {
+                      id: list._id
+                    }
+                  }"
+                  ><i
+                    class="mdi mdi-12px mdi-chart-line"
+                    title="Criar avaliação"
+                  ></i
+                ></router-link>
+              </li>
+              <li>
+                <a href="!#" @click.prevent="getAddress(index)">
+                  <i
+                    class="mdi mdi-12px mdi-account-location"
+                    title="Ver o Endereço"
+                  ></i>
+                </a>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
     </table>
-</div>
+  </div>
 </template>
 
 <script>
